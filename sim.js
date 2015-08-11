@@ -80,7 +80,8 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 	var self = this;
 	this.name = assignName;
 	this.balance = assignStartBal;
-	this.portfolio =  { 'GOOGL': [100, 50] };
+	this.portfolio =  { 'GOOGL': 100 };
+	this.history = { "buy":[], "sell":[] };
 	this.character = assignTradeChar;
 	//ability to trade
 	this.lookingForTrade = false;
@@ -93,7 +94,6 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 		this.offerPrice = offer;
 	};
 	this.track = function (oldPrice, newPrice) {
-		//setup trader behavior when twitterTrend change
 		console.log("tracking stock..." + oldPrice + ":old price" + newPrice + ":new price");
 		//basic trade logic, only buy when trend is higher than last time
 		if (assignTradeChar == 'pump') {		
@@ -104,9 +104,8 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 		    }else{
 		    	console.log("I don't want to buy.");
 			};
-		//basic seller logic
+		//basic seller logic willing to sell if trend is less or equal to 80
 		}else if (assignTradeChar == 'dump') {
-		    //willing to sell if trend is less or equal to 80
 		    if ( newPrice > 1 ) {
 		    	console.log("I want to sell!")
 		    	var ask = (stockListing.market[0].GOOGL);
@@ -117,7 +116,6 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 		};
 	};
 };
-// var bot1 = new Trader('R2D2', 3000, 'pump'); var bot2 = new Trader('C3PO' ,1000, 'dump');
 
 // |MarketMaker| Constructor
 var MarketMaker = function (traders) {
@@ -132,17 +130,65 @@ var MarketMaker = function (traders) {
 			this.traderList[i].track(oldp, newp);
 		};
 	};
-	//listen to see any changes happend on twitterTrend
-	this.listen = function () {
-		//obj.watch works only on one obj at a time.
+	//stages trade between bots
+	this.stage = function () {
+		var buyer = "";
+		var seller = "";
+		var pair = [];
+		for (var i = 0; i < this.traderList.length; i++) {
+			//run though each trader to see if they want to trade
+			if (this.traderList[i].lookingForTrade == true && this.traderList[i].orderType == "Buy") {
+				buyer = this.traderList[i]
+			}else if (this.traderList[i].lookingForTrade == true && this.traderList[i].orderType == "Sell") {
+				seller = this.traderList[i]
+			};
+		};
+		pair = [buyer, seller];
+		return pair;
+	};
+	//settle trades between bots
+	this.settle = function (pairedUpTraders) {
+		console.log("We are in business!");
+		console.log(pairedUpTraders[0].name + " is buying");
+		console.log(pairedUpTraders[1].name + " is selling");
+		var d = new Date();
+		console.log("time of trade: " + d);
+	};
+	this.service = function () {
+		//listen to see any changes happend on twitterTrend
 		twitterTrend.watch("GOOGL", function (id, oldval, newval) {
+			//obj.watch works only on one obj at a time.
 			console.log( "twitter trend has changed." );
 			self.discover(oldval, newval);
+			//stage a trade
+			var pairedTraders = self.stage();
+			console.log(pairedTraders);
+			//settle a trade btw 2 traders
+			self.settle(pairedTraders);
 		});
 	};
 };
 
-// var marketMakerBot = new MarketMaker([bot1, bot2]); marketMakerBot.listen();
+// var bot1 = new Trader('R2D2', 3000, 'pump'); var bot2 = new Trader('C3PO' ,1000, 'dump');
+// var marketMakerBot = new MarketMaker([bot1, bot2]); marketMakerBot.service();
 // twitterTrend.GOOGL = 111;
+
+var simGo = function () {
+	//set test variable enviroment
+	var bot1 = new Trader('R2D2', 3000, 'pump'); 
+	var bot2 = new Trader('C3PO' ,1000, 'dump');
+    var marketMakerBot = new MarketMaker([bot1, bot2]); 
+    marketMakerBot.service();
+
+    setInterval( function() { 
+    	console.log("API returning data..."); 
+    	function getRandomArbitrary(min, max) {
+		    return Math.random() * (max - min) + min;
+		}
+    	twitterTrend.GOOGL = getRandomArbitrary(1, 300);
+    	console.log('GOOGL current price:' + twitterTrend.GOOGL)
+    }, 5000);
+}
+simGo();
 
 
