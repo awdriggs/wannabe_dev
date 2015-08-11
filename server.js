@@ -25,6 +25,12 @@ app.use(methodOverride(function(req, res) {
  };
 }));
 
+app.use(session({
+	secret: 'secret',
+	saveUninitialized: false,
+	resave: false
+}));
+
 
 // ROUTES
 
@@ -33,8 +39,18 @@ app.get('/', function (req, res){
 	res.sendfile('./public/index.html');
 });
 
+// Session
+app.get('/session', function (req, res) {
+	res.send(req.session);
+})
 
-// api index
+app.post('/setuser', function (req, res) {
+	req.session.name = req.body.name;
+	res.send('Session set for ' + req.session.name);
+})
+
+
+// API Index
 app.get('/api/index', function (req, res) {
 	var data = {
 		teamName: "Wannabe",
@@ -56,7 +72,7 @@ app.get('/api/stocks/index', function (req, res) {
 });
 
 
-// api save
+// API Save
 
 app.post('/api/bots/create', function (req, res) {
 	res.send('bots create');
@@ -67,7 +83,7 @@ app.post('/api/users/create', function (req, res) {
 });
 
 
-// api delete
+// api Delete
 
 app.delete ('/api/bots/delete', function (req, res) {
 	res.send('bots delete');
