@@ -1,11 +1,12 @@
 <html>
 <head>
 	<title>StockBot</title>
+	<link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 <body>
 	<h1>Test Express + Backbone</h1>
 
-	Express + Backbone test
+	<p>Express + Backbone test</p>
 
 	<div id="login">
 		<form action="/setuser" method="POST">
@@ -21,8 +22,10 @@
 	<!-- TEMPLATES FOR BACKBONE -->
 	<template id="testTemplate">
 		<p> Test template -> data from dummy API: </p>
-		<p> Team: {{teamName}} </p>
-		<p> Project: {{projectName}} </p>
+		<div class="test">
+			<p> Team: {{teamName}} </p>
+			<p> Project: {{projectName}} </p>
+		</div>
 	</template>
 
 	<!-- BACKBONE DEPENDENCIES -->

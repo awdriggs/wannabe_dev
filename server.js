@@ -39,9 +39,14 @@ app.get('/', function (req, res){
 	res.sendfile('./public/index.html');
 });
 
+
 // Session
 app.get('/session', function (req, res) {
-	res.send(req.session);
+	if (req.session.name) {
+		res.send(req.session)
+	} else {
+		res.send('no session')
+	}
 })
 
 app.post('/setuser', function (req, res) {
