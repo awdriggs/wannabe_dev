@@ -1,7 +1,7 @@
 # wannabe_dev
 testing repo
 
-var data: {
+var data = {
 	team: 'wannabe',
 	app: 'stockbotter'
 }
