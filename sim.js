@@ -18,9 +18,7 @@ if (!Object.prototype.watch) {
 					oldval = newval;
 				}
 				else { return false }
-			}
-			;
-			
+			};
 			if (delete this[prop]) { // can't watch constants
 				Object.defineProperty(this, prop, {
 					  get: getter
@@ -77,9 +75,10 @@ var twitterTrend = {
 };
 
 // |Trader| Constructor
-var Trader = function (assignStartBal, assignTradeChar) {
+var Trader = function (assignName, assignStartBal, assignTradeChar) {
 	//starts with some sum of money, and stocks 
 	var self = this;
+	this.name = assignName;
 	this.balance = assignStartBal;
 	this.portfolio =  { 'GOOGL': [100, 50] };
 	this.character = assignTradeChar;
@@ -93,43 +92,57 @@ var Trader = function (assignStartBal, assignTradeChar) {
 		this.orderType = tradeType;
 		this.offerPrice = offer;
 	};
-	this.track = function () {
+	this.track = function (oldPrice, newPrice) {
 		//setup trader behavior when twitterTrend change
+		console.log("tracking stock..." + oldPrice + ":old price" + newPrice + ":new price");
+		//basic trade logic, only buy when trend is higher than last time
 		if (assignTradeChar == 'pump') {		
-			twitterTrend.watch("GOOGL", function (id, oldval, newval) {
-			    console.log( "twitter trend has changed." );
-			    if ( newval >= (oldval*2) ) {
-			    	console.log("I want to buy!")
-			    	var bid = (stockListing.market[0].GOOGL + 1);
-			    	self.trade('Buy', bid);
-			    };
-			});
-		}else if (true) {
-			twitterTrend.watch("GOOGL", function (id, oldval, newval) {
-			    console.log( "twitter trend has changed." );
-			    if ( newval < oldval ) {
-			    	console.log("I want to sell!")
-			    	var ask = (stockListing.market[0].GOOGL);
-			    	self.trade('Sell', ask);
-			    };
-			});
+		    if ( newPrice > oldPrice ) {
+		    	console.log("I want to buy!");
+		    	var bid = (stockListing.market[0].GOOGL);
+		    	self.trade('Buy', bid);
+		    }else{
+		    	console.log("I don't want to buy.");
+			};
+		//basic seller logic
+		}else if (assignTradeChar == 'dump') {
+		    //willing to sell if trend is less or equal to 80
+		    if ( newPrice > 1 ) {
+		    	console.log("I want to sell!")
+		    	var ask = (stockListing.market[0].GOOGL);
+		    	self.trade('Sell', ask);
+		    }else{
+		    	console.log("I don't want to sell.")
+		    };
 		};
 	};
 };
-// var bot1 = new Trader(3000, 'pump'); bot1.track();
-// var bot2 = new Trader(1000, 'dump'); bot2.track();
-// var autoTraders = [bot1, bot2]
-
-// twitterTrend.GOOGL = 111;
+// var bot1 = new Trader('R2D2', 3000, 'pump'); var bot2 = new Trader('C3PO' ,1000, 'dump');
 
 // |MarketMaker| Constructor
 var MarketMaker = function (traders) {
+	var self = this;
 	this.traderList = traders;
-	this.settle = function () {
+	//using data from this.listen to pass each bot let them set trade
+	this.discover = function (oldp, newp) {
 		for (var i = 0; i < this.traderList.length; i++) {
-			console.log(this.traderList[i])
+			//run though each trader have them track the trend
+			console.log(this.traderList[i].name + " now discovering price.")
+			//pass the price data down the line
+			this.traderList[i].track(oldp, newp);
 		};
+	};
+	//listen to see any changes happend on twitterTrend
+	this.listen = function () {
+		//obj.watch works only on one obj at a time.
+		twitterTrend.watch("GOOGL", function (id, oldval, newval) {
+			console.log( "twitter trend has changed." );
+			self.discover(oldval, newval);
+		});
 	};
 };
 
-// var marketMakerBot = new MarketMaker([bot1, bot2]);
+// var marketMakerBot = new MarketMaker([bot1, bot2]); marketMakerBot.listen();
+// twitterTrend.GOOGL = 111;
+
+
