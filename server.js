@@ -30,16 +30,56 @@ app.use(methodOverride(function(req, res) {
 
 // Root
 app.get('/', function (req, res){
-	res.sendfile('./public/index.html')
-})
+	res.sendfile('./public/index.html');
+});
 
 
-
-// api
+// api index
 app.get('/api/index', function (req, res) {
 	var data = {
 		teamName: "Wannabe",
 		projectName: "StockBot"
 	}
-	res.json(data)
+	res.json(data);
+});
+
+app.get('/api/bots/index', function (req, res) {
+	res.send('bots index');
+});
+
+app.get('/api/users/index', function (req, res) {
+	res.send('users index');
+});
+
+app.get('/api/stocks/index', function (req, res) {
+	res.send('stocks index');
+});
+
+
+// api save
+
+app.post('/api/bots/create', function (req, res) {
+	res.send('bots create');
+});
+
+app.post('/api/users/create', function (req, res) {
+	res.send('users create');
+});
+
+
+// api delete
+
+app.delete ('/api/bots/delete', function (req, res) {
+	res.send('bots delete');
+});
+
+app.delete('/api/users/delete', function (req, res) {
+	res.send('users delete');
 })
+
+
+
+
+
+
+
