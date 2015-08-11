@@ -30,7 +30,6 @@ app.use(methodOverride(function(req, res) {
 
 // Root
 app.get('/', function (req, res){
-
 	res.sendfile('./public/index.html')
 })
 

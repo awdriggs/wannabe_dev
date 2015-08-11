@@ -4,19 +4,28 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>	
+	<script src="/javascript/backbone/app.js"></script>
+	<script src="/javascript/backbone/views/testView.js"></script>
+	<script src="/javascript/backbone/models/testmodel.js"></script>
+
 </head>
 <body>
 	<h1>Test Express + Backbone</h1>
 
+	Express + Backbone test
+
+	<div id="app">
+	</div>
+
+
+
+	<!-- TEMPLATES -->
+	<template id="testTemplate">
+		<p> Team: {{teamName}} </p>
+		<p> Project: {{projectName}} </p>
+	</template>
 
 
 </body>
-
-	Express + Backbone test
-
-<template>
-</template>
-
-
 </html>
