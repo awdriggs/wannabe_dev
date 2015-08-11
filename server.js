@@ -30,10 +30,17 @@ app.use(methodOverride(function(req, res) {
 
 // Root
 app.get('/', function (req, res){
+
+	res.sendfile('./public/index.html')
+})
+
+
+
+// api
+app.get('/api/index', function (req, res) {
 	var data = {
 		teamName: "Wannabe",
 		projectName: "StockBot"
 	}
-
-	res.send(data)
+	res.json(data)
 })
