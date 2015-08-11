@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.13.3",
     "dotenv": "^1.2.0",
     "express-handlebars": "^2.0.1",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
-    "node-twitter-api": "^1.6.0"
+    "node-twitter-api": "^1.6.0",
+    "twitter": "^1.2.5"
   }
 }
