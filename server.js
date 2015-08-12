@@ -86,7 +86,11 @@ app.get('/api/trades', function (req, res) {
 })
 
 
-// API Save
+
+// Alter DB API routes.
+// res.send is just a placeholder until redirects are working
+
+// API Create. 
 
 app.post('/api/bots/create', function (req, res) {
 	res.send('bots create');
@@ -97,11 +101,29 @@ app.post('/api/users/create', function (req, res) {
 });
 
 app.post('/api/trades/create', function (req, res) {
-	res.send('trades create')
+	res.send('trades create');
+})
+
+// API Update. 
+
+app.put('/api/bots/update', function (req, res) {
+	res.send('bots update');
+});
+
+app.put('/api/users/update', function (req, res) {
+	res.send('users update');
+});
+
+app.put('/api/stocks/update', function (req, res) {
+	res.send('stocks update');
+})
+
+app.put('/api/trades/update', function (req, res) {
+	res.send('trades update');
 })
 
 
-// api Delete
+// API Delete.
 
 app.delete ('/api/bots/delete', function (req, res) {
 	res.send('bots delete');
