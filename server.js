@@ -96,6 +96,10 @@ app.post('/api/users/create', function (req, res) {
 	res.send('users create');
 });
 
+app.post('/api/trades/create', function (req, res) {
+	res.send('trades create')
+})
+
 
 // api Delete
 
