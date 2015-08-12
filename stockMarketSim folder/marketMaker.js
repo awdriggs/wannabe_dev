@@ -1,82 +1,10 @@
-// |Trader| Constructor
-var Trader = function (assignName, assignStartBal, assignTradeChar) {
-	//trader init state
-	var self = this;
-	this.name = assignName;
-	this.balance = assignStartBal;
-	this.portfolio =  { 'GOOGL': 1000 };
-	this.history = { "buy":[], "sell":[] };
-	this.character = assignTradeChar;
-	//trade state
-	this.lookingForTrade = false;
-	this.importance = null;
-	this.orderType = null;
-	this.offerPrice = null;
-	this.offerStock = null;
-	//ability to trade
-	this.trade = function (tradeType, offer, stock, importance) {
-		console.log(this.name + "'s trade sumbitted.")
-		this.lookingForTrade = true;
-		this.importance = importance;
-		this.orderType = tradeType;
-		this.offerPrice = offer;
-		this.offerStock = stock;
-	};
-	this.track = function (oldVal, newVal) {
-		var role = "";
-    	var offer = 0;
-    	//set buyer/seller behavior
-		if (assignTradeChar == 'pump') { 
-			role = 'Buy';	
-		}else if (assignTradeChar == 'dump') { 
-			role = 'Sell'; 
-		};
-    	var importanceVal = 0;
-    	//buyer trade importance
-	    if ( role=='Buy' && (newVal < 0) ) {
-	    	//neutral
-	    	offer = stockListing.market[0].GOOGL;
-	    	console.log(this.name + " kind of want to " + role + " for $" + offer);
-	    	importanceVal = 0;
-	    }else if ( role=='Buy' && (newVal >= 0 && newVal < 5) ) {
-	    	//desired buy
-	    	offer = stockListing.market[0].GOOGL + 1.25;
-	    	console.log(this.name + " really of want to " + role + " for $" + offer);
-	    	importanceVal = 1;
-	    }else if ( role=='Buy' && (newVal >= 5 && newVal <= 10)) {
-	    	//desperate buy
-	    	offer = stockListing.market[0].GOOGL + 2.5;
-	    	console.log(this.name + " desperatelly of want to " + role + " for $" + offer);
-	    	importanceVal = 2;
-	    };
-	    //seller trade importance
-	    if ( role=='Sell' && (newVal > 0) ) {
-	    	//neutral
-	    	offer = stockListing.market[0].GOOGL;
-	    	console.log(this.name + " kind of want to " + role + " for $" + offer);
-	    	importanceVal = 0;
-	    }else if ( role=='Sell' && (newVal <= 0 && newVal > -5) ) {
-	    	//desired buy
-	    	offer = stockListing.market[0].GOOGL - 1.25;
-	    	console.log(this.name + " really of want to " + role + " for $" + offer);
-	    	importanceVal = 1;
-	    }else if ( role=='Sell' && (newVal <= -5 && newVal >= -10)) {
-	    	//desperate buy
-	    	offer = stockListing.market[0].GOOGL - 2.5;
-	    	console.log(this.name + " desperatelly of want to " + role + " for $" + offer);
-	    	importanceVal = 2;
-	    };
-    	//post the trade
-    	self.trade(role, offer, 'GOOGL', importanceVal);
-	};
-};
-
 // |MarketMaker| Constructor
-var MarketMaker = function (traders) {
+var MarketMaker = function () {
 	var self = this;
-	this.traderList = traders;
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp) {
+		//load in all the bots
+		this.traderList = bots;
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader have them track the trend
 			console.log(this.traderList[i].name + " now discovering trend.")
@@ -149,7 +77,7 @@ var MarketMaker = function (traders) {
 	};
 	this.service = function () {
 		//listen to see any changes happend on twitterTrend
-		twitterTrend.watch("GOOGL", function (id, oldval, newval) {
+		trend.watch("twitterAPI", function (id, oldval, newval) {
 			//obj.watch works only on one obj at a time.
 			console.log("tracking stock... (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
 			self.discover(oldval, newval);
@@ -157,12 +85,8 @@ var MarketMaker = function (traders) {
 			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			//settle a trade btw 2 traders
-			self.settle(pairedTraders);
+			
+			//self.settle(pairedTraders);
 		});
 	};
 };
-/*
-	Bot charactistics:
-		pump: always try to buy
-		dump: always try to sell
-*/
