@@ -51,6 +51,7 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
+
 // TWITTER ////////////////////////////////////////////////////////////////////////////////////
 
 //this connections the server to the twitter api
@@ -59,6 +60,7 @@ client.stream('statuses/filter', {
     track: '$goog, $aapl, $baba, $fb, $amzm, $twtr, $msft'
 }, function(stream) {
     stream.on('data', function(tweet) {
+
         //var twitterChange = log(tweet.text)
         log(tweet.text)
         //console.log(twitterChange+" this is a change")
@@ -66,6 +68,7 @@ client.stream('statuses/filter', {
         //console.log(typeof twitterChange)
         //console.log(twitterChange+" this is the numbers");
         //twitterTrend.GOOGL = twitterChange;
+
 
     })
 })
