@@ -61,14 +61,10 @@ client.stream('statuses/filter', {
 }, function(stream) {
     stream.on('data', function(tweet) {
 
-        //var twitterChange = log(tweet.text)
+        //function for logic of tweets
+        //there is a call at the end to change the twitter key
         log(tweet.text)
-        //console.log(twitterChange+" this is a change")
-        //var twitterChange = log(tweet.text);
-        //console.log(typeof twitterChange)
-        //console.log(twitterChange+" this is the numbers");
-        //twitterTrend.GOOGL = twitterChange;
-
+        
 
     })
 })
@@ -109,16 +105,10 @@ var log = function(tweet) {
             console.log(trends[trendKeys[i]])
             //package the tweet, count, and attitude for the front end?
 
-            //
-            //console.log*change
-            //return change;
             twitterTrend.GOOGL = change
 
         }
     }
-
-    //for dev, see whats inside trends
-    //console.log(trends);
 }
 
 //percent change function for giving the simulation a value between -10 and 10
@@ -411,20 +401,4 @@ marketMakerBot.service();
 
 twitterTrend.GOOGL = 0;
 
-// var refreshIntervalId = setInterval( function() { 
-//     console.log("---------- ---------- ---------- ---------- ----------"); 
-//     console.log("Twitter API returning data..."); 
-//     function getRandomArbitrary(min, max) {
-//         return Math.random() * (max - min) + min;
-//     }
-//     twitterTrend.GOOGL = getRandomArbitrary(-10, 10);
-//     console.log('>> >> >> >> $GOOGL current price: ' + stockListing.market[0].GOOGL + ' << << << <<');
-//     tweetCounter = tweetCounter + 1;
 
-//     if (tweetCounter == 3) {
-//         clearInterval(refreshIntervalId);
-//         console.log("sim ended.")
-//     };
-
-//     console.log(tradeLedger);
-// }, 1000);
