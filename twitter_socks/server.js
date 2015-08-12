@@ -72,18 +72,43 @@ var log = function(tweet) {
 
         if (tweet.indexOf(tickerSymbol) > -1) {
             console.log(tweet)
-            console.log(tickerSymbol + 'hit')
+           
             //increase the count
             trends[trendKeys[i]].count += 1;
             
             //grab the sentiment
             var tweetSentiment = sentiment(tweet);
+            console.log("score type " + typeof tweetSentiment.score + " " + tweetSentiment.score)
+            //current sentiment
+            var currentSentiment = trends[trendKeys[i]].attitude
+            console.log("current type " + typeof currentSentiment + " " + currentSentiment)
+            //new sentiment
+            var newSentiment = currentSentiment + tweetSentiment.score
+            console.log("new type " + typeof newSentiment + " " + newSentiment)
+            //calculate % change
+            var change = percentChange(newSentiment, currentSentiment)
+            console.log("change " + change)
+            //pass change to sim!!!!!!!!!!!!!
 
             //change the attitude according to the returned sentiment socre
-            trends[trendKeys[i]].attitude += tweetSentiment.score
+            trends[trendKeys[i]].attitude = newSentiment
+            //see the new sentiment
+            console.log(tickerSymbol + ' hit, % change ' + change)
+            console.log(trends[trendKeys[i]])
+            //package the tweet, count, and attitude for the front end?
         }   
     }
 
     //for dev, see whats inside trends
-    console.log(trends);
+    //console.log(trends);
+}
+
+//percent change function for giving the simulation a value between -10 and 10
+var percentChange = function(newValue, prevValue){
+    
+    if (prevValue == 0){
+        return newValue;
+    }
+
+    return (newValue - prevValue)/Math.abs(prevValue) * 10;
 }
