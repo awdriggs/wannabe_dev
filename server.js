@@ -81,6 +81,10 @@ app.get('/api/stocks/index', function (req, res) {
 	res.send('stocks index');
 });
 
+app.get('/api/trades', function (req, res) {
+	res.send('trades index');
+})
+
 
 // API Save
 
