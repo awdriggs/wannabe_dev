@@ -4,7 +4,7 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 	var self = this;
 	this.name = assignName;
 	this.balance = assignStartBal;
-	this.portfolio =  { 'GOOGL': 100 };
+	this.portfolio =  { 'GOOGL': 1000 };
 	this.history = { "buy":[], "sell":[] };
 	this.character = assignTradeChar;
 	//trade state
@@ -57,12 +57,12 @@ var Trader = function (assignName, assignStartBal, assignTradeChar) {
 	    	importanceVal = 0;
 	    }else if ( role=='Sell' && (newVal <= 0 && newVal > -5) ) {
 	    	//desired buy
-	    	offer = stockListing.market[0].GOOGL - 1.5;
+	    	offer = stockListing.market[0].GOOGL - 1.25;
 	    	console.log(this.name + " really of want to " + role + " for $" + offer);
 	    	importanceVal = 1;
 	    }else if ( role=='Sell' && (newVal <= -5 && newVal >= -10)) {
 	    	//desperate buy
-	    	offer = stockListing.market[0].GOOGL - 3;
+	    	offer = stockListing.market[0].GOOGL - 2.5;
 	    	console.log(this.name + " desperatelly of want to " + role + " for $" + offer);
 	    	importanceVal = 2;
 	    };
@@ -132,7 +132,7 @@ var MarketMaker = function (traders) {
 		//console.log("buyer balance: " + pairedUpTraders[0].balance, "seller balance: " +pairedUpTraders[1].balance)
 		//take stock from seller give to buyer
 		pairedUpTraders[0].portfolio.GOOGL = pairedUpTraders[0].portfolio.GOOGL + 1;
-		pairedUpTraders[1].portfolio.GOOGL = pairedUpTraders[0].portfolio.GOOGL - 1;
+		pairedUpTraders[1].portfolio.GOOGL = pairedUpTraders[1].portfolio.GOOGL - 1;
 		//reset trade state
 		stockListing.market[0].GOOGL = newPrice;
 		for (var t = 0; t < 2; t++) {

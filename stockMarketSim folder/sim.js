@@ -7,7 +7,7 @@ var tradeLedger = {
 //{stockListing} JSON obj, stores the current value of stock
 var stockListing = {
 	"market":[
-		{"GOOGL": 50}
+		{"GOOGL": 500}
 	]
 };
 //{twitterTrend} basic obj, updates via twitter API
@@ -17,11 +17,12 @@ var twitterTrend = {
 
 //set test variable enviroment
 var tweetCounter = 0;
-var bot1 = new Trader('R2D2', 3000, 'pump'); 
-var bot2 = new Trader('C3PO' ,1000, 'dump');
+var bot1 = new Trader('R2D2', 3000000, 'pump'); 
+var bot2 = new Trader('C3PO' ,1000000, 'dump');
 var marketMakerBot = new MarketMaker([bot1, bot2]); 
 marketMakerBot.service();
 
+/*
 var refreshIntervalId = setInterval( function() { 
 	console.log("---------- ---------- ---------- ---------- ----------"); 
 	console.log("Twitter API returning data..."); 
@@ -32,12 +33,14 @@ var refreshIntervalId = setInterval( function() {
 	console.log('>> >> >> >> $GOOGL current price: ' + stockListing.market[0].GOOGL + ' << << << <<');
 	tweetCounter = tweetCounter + 1;
 
-    if (tweetCounter == 2) {
+    if (tweetCounter == 2000) {
     	clearInterval(refreshIntervalId);
     	console.log("sim ended.")
     };
 
     console.log(tradeLedger);
 }, 1000);
+*/
 
-
+twitterTrend.GOOGL = 0;
+console.log('>> >> >> >> $GOOGL current price: ' + stockListing.market[0].GOOGL + ' << << << <<');
