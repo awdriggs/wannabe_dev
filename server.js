@@ -6,11 +6,14 @@ var express = require('express'),
 	logger = require('morgan'),
 	fs = require('fs'),
 	session = require('express-session');
+	models = require('./models')
 
 var app = express();
 
 // LISTENER
 app.listen(3000);
+
+// app.set('port', process.env.PORT || 3000);
 
 // USES
 app.use(express.static('public'));
@@ -63,11 +66,10 @@ app.delete('/removeuser', function (req, res) {
 // API Index.
 
 app.get('/api/index', function (req, res) {
-	var data = {
-		teamName: "Wannabe",
-		projectName: "StockBot"
-	}
-	res.json(data);
+	models.users.findAll().then(function (result) {
+		console.log(result)
+		res.json(result);
+	})	
 });
 
 app.get('/api/bots/index', function (req, res) {
@@ -75,7 +77,10 @@ app.get('/api/bots/index', function (req, res) {
 });
 
 app.get('/api/users/index', function (req, res) {
-	res.send('users index');
+	models.users.findAll().then(function (result) {
+		console.log(result)
+		res.json(result);
+	})
 });
 
 app.get('/api/stocks/index', function (req, res) {

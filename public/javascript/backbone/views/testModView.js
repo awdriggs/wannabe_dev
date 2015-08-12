@@ -1,4 +1,4 @@
-App.Views.TestView = Backbone.View.extend({
+App.Views.TestModView = Backbone.View.extend({
 
 	el: '#app',
 
@@ -6,11 +6,12 @@ App.Views.TestView = Backbone.View.extend({
 		console.log('Test view created')
 		this.template = Handlebars.compile($('#testTemplate').html())
 		this.listenTo(this.model, 'change', this.render)
+		this.render();
 	},
 
 	render: function () {
-		console.log('render')
-		this.$el.append(this.template(this.model.toJSON()))
+		console.log('render');
+		this.$el.append(this.template(this.model.toJSON()));
 	}
 
 })

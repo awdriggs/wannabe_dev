@@ -25,14 +25,20 @@
 	<div id="app">
 	</div>
 
+
 	<!-- TEMPLATES FOR BACKBONE -->
+
+	<!-- users -->
 	<template id="testTemplate">
-		<p> Test template -> data from dummy API: </p>
 		<div class="test">
-			<p> Team: {{teamName}} </p>
-			<p> Project: {{projectName}} </p>
+			<p> Id: {{id}} --- Username: {{username}}</p> 
+			<p>Company Name: {{companyname}}</p> 
+			<p>Balance: {{balance}} </p>
+			<p>Bot: {{bot}} </p>
 		</div>
 	</template>
+
+
 
 	<!-- BACKBONE DEPENDENCIES -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
@@ -42,7 +48,10 @@
 	<script src="/javascript/backbone/app.js"></script>
 
 	<!-- BACKBONE FILES -->
-	<script src="/javascript/backbone/views/testView.js"></script>
+	<script src="/javascript/backbone/views/testColView.js"></script>
+	<script src="/javascript/backbone/views/testModView.js"></script>
 	<script src="/javascript/backbone/models/testmodel.js"></script>
+	<script src="/javascript/backbone/collections/testcollection.js"></script>
+
 </body>
 </html>
