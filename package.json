@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/awdriggs/wannabe_dev/issues"
   },
-  "homepage": "https://github.com/awdriggs/wannabe_dev#readme"
+  "homepage": "https://github.com/awdriggs/wannabe_dev#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "fs": "0.0.2",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.5.1"
+  }
 }

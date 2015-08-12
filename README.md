@@ -6,4 +6,5 @@ var data = {
 	app: 'stockbotter'
 }
 
+
 put all your business in the branches i created for you.

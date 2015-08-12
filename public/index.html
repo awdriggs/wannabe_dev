@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>StockBot</title>
+	<link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+<body>
+	<h1>Test Express + Backbone</h1>
+
+	<p>Express + Backbone test</p>
+
+	<div id="login">
+		<form action="/setuser" method="POST">
+			<input type="text" name="name" placeholder="user name">
+			<input type="submit">
+		</form>
+	</div>
+	<div id="logout">
+		<form action="/removeuser" method="POST">
+			<input type="hidden" name="_method" value="DELETE">
+			<button>logout</button>
+		</form>
+	</div>
+
+	<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
+	<div id="app">
+	</div>
+
+
+	<!-- TEMPLATES FOR BACKBONE -->
+
+	<!-- users -->
+	<template id="testTemplate">
+		<div class="test">
+			<p> Id: {{id}} --- Username: {{username}}</p> 
+			<p>Company Name: {{companyname}}</p> 
+			<p>Balance: {{balance}} </p>
+			<p>Bot: {{bot}} </p>
+		</div>
+	</template>
+
+
+
+	<!-- BACKBONE DEPENDENCIES -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>	
+	<script src="/javascript/backbone/app.js"></script>
+
+	<!-- BACKBONE FILES -->
+	<script src="/javascript/backbone/views/testColView.js"></script>
+	<script src="/javascript/backbone/views/testModView.js"></script>
+	<script src="/javascript/backbone/models/testmodel.js"></script>
+	<script src="/javascript/backbone/models/usermodel.js"></script>
+	<script src="/javascript/backbone/collections/testcollection.js"></script>
+	<script src="/javascript/backbone/collections/userscollection.js"></script>
+
+</body>
+</html>
