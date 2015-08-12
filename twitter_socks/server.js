@@ -6,7 +6,14 @@ var Twitter = require('twitter');
 var dotter = require('dotenv').load();
 var sentiment = require('sentiment');
 
-app.listen(3000);
+//sockets!
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+//app.listen(3000);
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
 
 app.use(logger('dev'));
 
@@ -50,6 +57,18 @@ var trends = {
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
+
+// SOCKET MAGIC ///////////////////////////////////////////////////////////////////////////////
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+   socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
+//put this somewhere useful
+//io.emit('tweet', tweet)
 
 
 // TWITTER ////////////////////////////////////////////////////////////////////////////////////
@@ -101,12 +120,17 @@ var log = function(tweet) {
             //change the attitude according to the returned sentiment socre
             trends[trendKeys[i]].attitude = newSentiment
             //see the new sentiment
+            
             console.log(tickerSymbol + ' hit, % change ' + change)
             console.log(trends[trendKeys[i]])
             //package the tweet, count, and attitude for the front end?
 
+            //send change to the simulation
             twitterTrend.GOOGL = change
 
+            //do some sockets magic
+            var magic = tickerSymbol + ' hit, % change ' + change
+            io.emit('tweet', magic)
         }
     }
 }
