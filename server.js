@@ -5,8 +5,8 @@ var express = require('express'),
 	path = require('path'),
 	logger = require('morgan'),
 	fs = require('fs'),
-	session = require('express-session');
-	models = require('./models')
+	session = require('express-session'),
+	models = require('./models');
 
 var app = express();
 
@@ -34,111 +34,14 @@ app.use(session({
 	resave: false
 }));
 
-
-// ROUTES
-
-// Root
-app.get('/', function (req, res){
-	res.sendfile('./public/index.html');
+// ROUTES-CONTROLLER FILE SYSTEM
+fs.readdirSync('./controllers').forEach(function (file) {
+ if(file.substr(-3) == '.js') {
+     route = require('./controllers/' + file);
+     console.log('this is the route', route);
+     route.controller(app);
+ };
 });
-
-
-// Session
-app.get('/session', function (req, res) {
-	if (req.session.name) {
-		res.send(req.session);
-	} else {
-		res.send('no session');
-	}
-})
-
-app.post('/setuser', function (req, res) {
-	req.session.name = req.body.name;
-	res.send('Session set for ' + req.session.name);
-})
-
-app.delete('/removeuser', function (req, res) {
-	req.session.name = null
-	res.redirect('/session')
-})
-
-
-// API Index.
-
-app.get('/api/index', function (req, res) {
-	models.users.findAll().then(function (result) {
-		console.log(result)
-		res.json(result);
-	})	
-});
-
-app.get('/api/bots/index', function (req, res) {
-	res.send('bots index');
-});
-
-app.get('/api/users/index', function (req, res) {
-	models.users.findAll().then(function (result) {
-		console.log(result)
-		res.json(result);
-	})
-});
-
-app.get('/api/stocks/index', function (req, res) {
-	res.send('stocks index');
-});
-
-app.get('/api/trades/index', function (req, res) {
-	res.send('trades index');
-})
-
-
-// API routes taht alter data in db:
-// res.send is just a placeholder until redirects are working
-
-// API Create. 
-
-app.post('/api/bots/create', function (req, res) {
-	res.send('bots create');
-});
-
-app.post('/api/users/create', function (req, res) {
-	res.send('users create');
-});
-
-app.post('/api/trades/create', function (req, res) {
-	res.send('trades create');
-})
-
-// API Update. 
-
-app.put('/api/bots/update', function (req, res) {
-	res.send('bots update');
-});
-
-app.put('/api/users/update', function (req, res) {
-	res.send('users update');
-});
-
-app.put('/api/stocks/update', function (req, res) {
-	res.send('stocks update');
-})
-
-app.put('/api/trades/update', function (req, res) {
-	res.send('trades update');
-})
-
-
-// API Delete.
-
-app.delete ('/api/bots/delete', function (req, res) {
-	res.send('bots delete');
-});
-
-app.delete('/api/users/delete', function (req, res) {
-	res.send('users delete');
-})
-
-
 
 
 

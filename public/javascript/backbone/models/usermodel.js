@@ -4,7 +4,7 @@ App.Models.UserModel = Backbone.Model.extend({
 	tagName: 'div',
 
 	initialize: function () {
-		console.log("new testModel created")
+		console.log("new User model created")
 	}
 
 })

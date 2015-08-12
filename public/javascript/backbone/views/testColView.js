@@ -3,7 +3,7 @@ App.Views.TestColView = Backbone.View.extend({
 	el: '#app',
 
 	initialize: function () {
-		console.log('Test view created')
+		console.log('Test Collection view created')
 		this.template = Handlebars.compile($('#testTemplate').html())
 		this.listenTo(this.collection, 'reset', this.renderAll)
 	},
@@ -12,8 +12,8 @@ App.Views.TestColView = Backbone.View.extend({
 		this.collection.each(this.renderOne, this)
 	},
 
-	renderOne: function (stock) {
-		var testView = new App.Views.TestModView({model: stock});
+	renderOne: function (user) {
+		var testView = new App.Views.TestModView({model: user});
 		this.$el.append(testView.el);
 	},
 

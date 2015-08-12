@@ -9,11 +9,11 @@ console.log('Backbone app.js loaded')
 $(function () {
 
 
-	App.testCollection = new App.Collections.TestCollection;
+	App.usersCollection = new App.Collections.UsersCollection;
 
-	App.testView = new App.Views.TestColView({ collection: App.testCollection })
+	App.testView = new App.Views.TestColView({ collection: App.usersCollection })
 
-	App.testCollection.fetch({ reset: true })
+	App.usersCollection.fetch({ reset: true })
 
 	// Single model:
 	// App.testModel = new App.Models.TestModel
