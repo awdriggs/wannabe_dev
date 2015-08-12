@@ -60,7 +60,8 @@ app.delete('/removeuser', function (req, res) {
 })
 
 
-// API Index
+// API Index.
+
 app.get('/api/index', function (req, res) {
 	var data = {
 		teamName: "Wannabe",
@@ -81,13 +82,12 @@ app.get('/api/stocks/index', function (req, res) {
 	res.send('stocks index');
 });
 
-app.get('/api/trades', function (req, res) {
+app.get('/api/trades/index', function (req, res) {
 	res.send('trades index');
 })
 
 
-
-// Alter DB API routes.
+// API routes taht alter data in db:
 // res.send is just a placeholder until redirects are working
 
 // API Create. 
