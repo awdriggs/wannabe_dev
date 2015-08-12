@@ -32,10 +32,12 @@ var refreshIntervalId = setInterval( function() {
 	console.log('>> >> >> >> $GOOGL current price: ' + stockListing.market[0].GOOGL + ' << << << <<');
 	tweetCounter = tweetCounter + 1;
 
-    if (tweetCounter == 10) {
+    if (tweetCounter == 2) {
     	clearInterval(refreshIntervalId);
     	console.log("sim ended.")
     };
-}, 2000);
+
+    console.log(tradeLedger);
+}, 1000);
 
 
