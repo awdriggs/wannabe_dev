@@ -36,39 +36,32 @@
     	importanceVal = 2;
     };
 */
-/*
-	Bot charactistics:
-		random: sometimes buy sometimes sell randomly
-		pumper: always try to buy
-		dumper: always try to sell
-		
-		scalper: buy low sell high often
-		chaser: buy high sell higher often
-		horder: buy and hold never sell
-		
-		trendbot: set bot to trade with trend
-		metabot: watch what other bots do
-*/
 
-var traderCharacteristics = function (botChar, self) {
+
+var tradeLogic = function (botChar, self) {
+    
+    console.log('tradeLogic loaded...');
 	//setup behavior based on characteristics 
 	switch (botChar) {
-		//pumper characteristics
-	    case 'pumper':
-	        console.log(self.name + ' is a constant buyer.');
+		
+        // bot will always buy but at lowest urgency
+	    case 'marketBuyer':
+	        console.log(self.name + ' is a constant buyer. lowest possible urgency [-1]');
 
-	        break;
-	    //dumper characteristics
-	    case 'dumper':
-	        console.log(self.name + ' is a constant seller.');
+        break;
+
+	    // bot will always buy but at lowest urgency
+	    case 'marketSeller':
+	        console.log(self.name + ' is a constant seller. lowest possible urgency [-1]');
 	        
-	        break;
-	    //edge case finder
+        break;
+	    
+        //find empty bots
 	    default:
 			console.log("Woah dis bot has no characteristics contact someone right away!");
-			break;
+        break;
 	};
 };
 
 
-
+module.exports = tradeLogic;

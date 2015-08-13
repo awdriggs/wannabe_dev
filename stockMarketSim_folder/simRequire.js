@@ -1,48 +1,51 @@
-// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
-// object.watch by Eli Grey, http://eligrey.com
+var objWatcher = function () {
 
-if (!Object.prototype.watch) {
-	Object.defineProperty(Object.prototype, "watch", {
-		  enumerable: false
-		, configurable: true
-		, writable: false
-		, value: function (prop, handler) {
-			var
-			  oldval = this[prop]
-			, getter = function () {
-				return oldval;
-			}
-			, setter = function (newval) {
-				if (oldval !== newval) {
-					handler.call(this, prop, oldval, newval);
-					oldval = newval;
+	console.log('objWatcher loaded...')
+	// object.watch by Eli Grey, http://eligrey.com
+	if (!Object.prototype.watch) {
+		Object.defineProperty(Object.prototype, "watch", {
+			  enumerable: false
+			, configurable: true
+			, writable: false
+			, value: function (prop, handler) {
+				var
+				  oldval = this[prop]
+				, getter = function () {
+					return oldval;
 				}
-				else { return false }
-			};
-			if (delete this[prop]) { // can't watch constants
-				Object.defineProperty(this, prop, {
-					  get: getter
-					, set: setter
-					, enumerable: true
-					, configurable: true
-				});
+				, setter = function (newval) {
+					if (oldval !== newval) {
+						handler.call(this, prop, oldval, newval);
+						oldval = newval;
+					}
+					else { return false }
+				};
+				if (delete this[prop]) { // can't watch constants
+					Object.defineProperty(this, prop, {
+						  get: getter
+						, set: setter
+						, enumerable: true
+						, configurable: true
+					});
+				}
 			}
-		}
-	});
-}
+		});
+	}
 
-if (!Object.prototype.unwatch) {
-	Object.defineProperty(Object.prototype, "unwatch", {
-		  enumerable: false
-		, configurable: true
-		, writable: false
-		, value: function (prop) {
-			var val = this[prop];
-			delete this[prop]; // remove accessors
-			this[prop] = val;
-		}
-	});
-}
+	if (!Object.prototype.unwatch) {
+		Object.defineProperty(Object.prototype, "unwatch", {
+			  enumerable: false
+			, configurable: true
+			, writable: false
+			, value: function (prop) {
+				var val = this[prop];
+				delete this[prop]; // remove accessors
+				this[prop] = val;
+			}
+		});
+	};
+
+};
 /*
 * Example usage:
 	var o = {p: 1};
@@ -53,4 +56,5 @@ if (!Object.prototype.unwatch) {
 	o.p = 2; // should log the change
 	o.p = 2; // should do nothing
 */
-// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+
+module.exports = objWatcher;

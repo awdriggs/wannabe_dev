@@ -10,6 +10,12 @@ var express = require('express'),
 
 var app = express();
 
+// node-debug server.js
+// SIM DEPENDENCIES
+var sim = require('./stockMarketSim_folder/sim.js');
+// starts the simulation
+sim.process();
+
 // LISTENER
 app.listen(3000);
 
@@ -44,6 +50,7 @@ fs.readdirSync('./controllers').forEach(function (file) {
 });
 
 
+// simulation 
 
 
 

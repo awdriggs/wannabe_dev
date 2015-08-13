@@ -1,10 +1,16 @@
+var nodeWatch = require('./simRequire.js');
+nodeWatch();
+
 // |MarketMaker| Constructor
-var MarketMaker = function () {
+var MarketMaker = function (bots) {
+console.log('marketMakerConstructor loaded...')
 	var self = this;
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp) {
 		//load in all the bots on the dance floor
 		this.traderList = bots;
+
+		//market maker need to find out who want to trade
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader have them track the trend
 			console.log(this.traderList[i].name + " now discovering trend.")
@@ -17,6 +23,7 @@ var MarketMaker = function () {
 		var buyer = "";
 		var seller = "";
 		var pair = [];
+		//loop through each bot to find out who want to trade via urgency
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader to see if they want to trade
 			if (this.traderList[i].lookingForTrade == true && this.traderList[i].orderType == "Buy") {
@@ -32,6 +39,9 @@ var MarketMaker = function () {
 	this.settle = function (pairedUpTraders) {
 		console.log("We got ourselves a trade!");
 		console.log(pairedUpTraders[0].name + " is buying "+ pairedUpTraders[1].name + " is selling");
+		
+		//market maker need to find out who want to trade and wants to trade badly
+
 		var d = new Date();
 		//do trade operation 
 		console.log("time of trade: " + d);
@@ -75,18 +85,24 @@ var MarketMaker = function () {
 		var newTrade = {"buyer":pairedUpTraders[0].name, "seller":pairedUpTraders[0].name, "timeOfTrade":t, "price":stockListing.market[0].GOOGL, "stock":'GOOGL'};
 		tradeLedger.trades.push(newTrade);
 	};
-	this.service = function () {
+	this.service = function (watchedObj) {
 		//listen to see any changes happend on twitterTrend
-		trend.watch("twitterAPI", function (id, oldval, newval) {
+		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
 			//obj.watch works only on one obj at a time.
 			console.log("tracking stock... (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
+			
 			self.discover(oldval, newval);
+
 			//stage a trade
-			var pairedTraders = self.stage();
+			//var pairedTraders = self.stage();
 			//console.log(pairedTraders);
+			
 			//settle a trade btw 2 traders
 			
 			//self.settle(pairedTraders);
 		});
 	};
 };
+
+
+module.exports = MarketMaker;
