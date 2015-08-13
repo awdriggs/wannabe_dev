@@ -12,11 +12,11 @@ module.exports.controller = function (app) {
 		res.send('users create');
 	});
 
-	app.put('/api/users/update', function (req, res) {
+	app.put('/api/users/update/:id', function (req, res) {
 		res.send('users update');
 	});
 
-	app.delete('/api/users/delete', function (req, res) {
+	app.delete('/api/users/delete/:id', function (req, res) {
 		res.send('users delete');
 	});
 
