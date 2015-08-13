@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Twitter Socks</title>
+   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+  </head>
+  <body>
+    
+    <p>hello node</p>
+    <p>check the node console to see if i'm working </p>
+  	<div id="tweets">
+	<p>Sweet Tweet Info Should Go Here</p>
+  	</div>
+	<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.on('tweet', function(msg){
+    $('#tweets').append(msg);
+  });
+</script>
+
+  </body>
+</html>
