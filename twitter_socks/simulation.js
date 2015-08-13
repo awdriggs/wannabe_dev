@@ -1,66 +1,3 @@
-var express = require('express');
-var app = express();
-var logger = require('morgan');
-var path = require('path');
-var Twitter = require('twitter');
-var dotter = require('dotenv').load();
-var sentiment = require('sentiment');
-
-//sockets!
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-
-//app.listen(3000);
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
-
-app.use(logger('dev'));
-
-// TWITTER ////////////////////////////////////////////////////////////////////////////////////
-
-//twitter keys
-var client = new Twitter({
-    consumer_key: process.env.TWITTER_KEY,
-    consumer_secret: process.env.TWITTER_SECRET,
-    access_token_key: process.env.TOKEN_KEY,
-    access_token_secret: process.env.TOKEN_SECRET
-});
-
-var twitterModule = require('./twitter_module');
-
-//this connects the server to the twitter api
-client.stream('statuses/filter', {
-    track: '$goog, $aapl, $baba, $fb, $amzm, $twtr, $msft'
-}, function(stream) {
-    stream.on('data', function(tweet) {
-        //calles the process function in the twitter module. better way to handle trends which is in the same file?
-        twitterModule.process(tweet.text)
-
-        //do the emiting here?
-    })
-})
-
-
-// ROUTES ////////////////////////////////////////////////////////////////////////////////////
-
-// HOME
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
-
-// SOCKET MAGIC ///////////////////////////////////////////////////////////////////////////////
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-   socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
-//put this somewhere useful
-//io.emit('tweet', tweet)
 
 // Simulation ////////////////////////////////////////////////////////////////////////////////////
 // NOT CONNECTED TO ANYTHING IN THIS VERSION
@@ -68,7 +5,7 @@ io.on('connection', function(socket){
 // simRequire.js
 // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 // object.watch by Eli Grey, http://eligrey.com
-
+console.log('sim working')
 if (!Object.prototype.watch) {
     Object.defineProperty(Object.prototype, "watch", {
         enumerable: false,
@@ -291,6 +228,8 @@ var MarketMaker = function(traders) {
     this.service = function() {
         //listen to see any changes happend on twitterTrend
         twitterTrend.watch("GOOGL", function(id, oldval, newval) {
+
+            console.log('inside market maker service!')
             //obj.watch works only on one obj at a time.
             console.log("tracking stock... (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
             self.discover(oldval, newval);
@@ -341,4 +280,4 @@ marketMakerBot.service();
 
 twitterTrend.GOOGL = 0;
 
-
+module.exports.simTrend = twitterTrend.GOOGL;
