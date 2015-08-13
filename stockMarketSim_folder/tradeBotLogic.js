@@ -51,17 +51,22 @@
 */
 
 var traderCharacteristics = function (botChar, self) {
+	//setup behavior based on characteristics 
 	switch (botChar) {
-	    //setup behavior based on characteristics 
-	    case 'pump':
-	        console.log(self.name + ' is a pumper.');
+		//pumper characteristics
+	    case 'pumper':
+	        console.log(self.name + ' is a constant buyer.');
+
 	        break;
-	    case 'dump':
-	        console.log(self.name + ' is a dumper.');
-	        console.log(self);
+	    //dumper characteristics
+	    case 'dumper':
+	        console.log(self.name + ' is a constant seller.');
+	        
 	        break;
+	    //edge case finder
 	    default:
-		console.log("Wow bot has no characteristics contact someone right away!");
+			console.log("Woah dis bot has no characteristics contact someone right away!");
+			break;
 	};
 };
 

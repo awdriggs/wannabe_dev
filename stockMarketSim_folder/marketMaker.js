@@ -3,7 +3,7 @@ var MarketMaker = function () {
 	var self = this;
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp) {
-		//load in all the bots
+		//load in all the bots on the dance floor
 		this.traderList = bots;
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader have them track the trend
