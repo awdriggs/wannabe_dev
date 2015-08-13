@@ -30,9 +30,9 @@ trends = {
 }
 
 var process = function(tweet) {
-
+    var dataChanges = [];
     //console.log('process hit')
-    console.log(tweet)
+    console.log(tweet.text)
 
     //grab the symbol names in the symbols obj
     var trendKeys = Object.keys(trends)
@@ -43,13 +43,13 @@ var process = function(tweet) {
         var tickerSymbol = '$' + trendKeys[i];
         var tickerSymbolUp = '$' + trendKeys[i].toUpperCase();
 
-        if (tweet.indexOf(tickerSymbol) > -1 || tweet.indexOf(tickerSymbolUp) > -1) {
+        if (tweet.text.indexOf(tickerSymbol) > -1 || tweet.text.indexOf(tickerSymbolUp) > -1) {
 
             //increase the count
             trends[trendKeys[i]].count += 1;
 
             //grab the sentiment
-            var tweetSentiment = sentiment(tweet);
+            var tweetSentiment = sentiment(tweet.text);
 
             //current sentiment
             var currentSentiment = trends[trendKeys[i]].attitude
@@ -57,17 +57,18 @@ var process = function(tweet) {
             //new sentiment
             var newSentiment = currentSentiment + tweetSentiment.score
 
+            var change = newSentiment - currentSentiment;
             // DEBUGGING BLOCK
             // console.log("score type " + typeof tweetSentiment.score + " " + tweetSentiment.score)
             //  console.log("current type " + typeof currentSentiment + " " + currentSentiment)
             // console.log("new type " + typeof newSentiment + " " + newSentiment)
 
             //calculate % change
-            var change = 0;
+            var pchange = 0;
             if (currentSentiment == 0) {
-                change = newSentiment;
+                pchange = newSentiment;
             } else {
-                change = (newSentiment - currentSentiment) / Math.abs(currentSentiment) * 10;
+                pchange = change / Math.abs(currentSentiment) * 10;
             }
 
             //change the attitude according to the returned sentiment socre
@@ -76,14 +77,23 @@ var process = function(tweet) {
             console.log(tickerSymbol + ' hit, % change ' + change)
             console.log(trends[trendKeys[i]])
 
-            sim = change;
+            //sim = change; //this isn't working
+
             //we cant use return here, will exit the function
             //use an array of the changes instead and return outside the for block?
 
             //or add emit to the sockets.io. totally untested in the module format
-
+            dataChanges.push({
+               symbol: tickerSymbol,
+               count: trends[trendKeys[i]].count,
+               attitude: trends[trendKeys[i]].attitude,
+               change: change,
+               pchange: pchange
+            })
         }
     }
+    tweet.changes = dataChanges;
+    return tweet;
 }
 
 

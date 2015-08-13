@@ -30,20 +30,32 @@ var client = new Twitter({
 
 var twitterModule = require('./twitter_module');
 
+var tweetArray = [];
+
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
-    track: '$goog, $aapl, $baba, $fb, $amzm, $twtr, $msft'
+    track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
 }, function(stream) {
     stream.on('data', function(tweet) {
         //calles the process function in the twitter module. better way to handle trends which is in the same file?
-        twitterModule.process(tweet.text)
+        //twitterModule.process(tweet.text)
 
         //do the emiting here?
+        //io.emit
+        var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
+        console.log(info.changes) //this is an array of all the changes that happpened with a tweet
+
+            //write some logic to show the last ten tweets
+            
+            io.emit('tweet', tweet)
+            console.log(tweet)
     })
 })
 
 
+
 // ROUTES ////////////////////////////////////////////////////////////////////////////////////
+app.use(express.static('public'));
 
 // HOME
 app.get('/', function(req, res) {

@@ -10,9 +10,12 @@
     
     <p>hello node</p>
     <p>check the node console to see if i'm working </p>
-  	<div id="tweets">
-	<p>Sweet Tweet Info Should Go Here</p>
+  	<div id="tweets_wrapper">
+      <h2>Twitter Feed</h2>
+    <div id="tweets">
+	     
   	</div>
+  </div> <!-- end of twitter wrapper -->
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var tweetStream = []
@@ -20,19 +23,23 @@
   var socket = io();
   socket.on('tweet', function(tweet){
     var tweetDiv = $('<div>').addClass('tweet')
+    tweetDiv.append('<img src="'+tweet.user.profile_image_url+'">')
     tweetDiv.append('<h2> @'+tweet.user.screen_name+'</h2>')
-    tweetDiv.append('<p>'+tweet.text+'</p>')
-    tweetDiv.append('<p>'+tweet.created_at+'</p>')
-  
 
+
+
+
+  
+    tweetDiv.append('<p>'+tweet.text+'</p>')
+    
     $('#tweets').prepend(tweetDiv);
 
     var count = $('#tweets').children().length;
     
     //only show ten tweets
-    if(count > 10){
-      $('#tweets p:last').fadeOut();
-      $('#tweets p:last').remove();
+    if(count > 3){
+      $('#tweets div:last').fadeOut();
+      $('#tweets div:last').remove();
     }
     
   });

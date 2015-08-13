@@ -1,0 +1,22 @@
+#tweets_wrapper {
+	padding: 10px;
+	width: 300px;
+	background-color: #397D02;
+	color: #93DB70;
+}
+
+.tweet h2{
+	color: #83F52C;
+	display: inline;
+}
+
+.tweet img{
+	display: inline;
+    float: left;
+    margin-right: 10px;
+}
+
+.tweet p{
+	clear: both;
+}
+
