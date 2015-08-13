@@ -1,7 +1,7 @@
 <!-- 
 
 	Bot charactistics:
-	
+
 		random: sometimes buy sometimes sell randomly
 		pumper: always try to buy
 		dumper: always try to sell
@@ -24,32 +24,5 @@
 		Transformers:
 			Optimus Prime
 			Megatron
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 -->

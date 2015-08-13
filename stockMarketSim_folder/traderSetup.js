@@ -15,27 +15,24 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.riskTolerance = assignTolerance;
 	this.stepSize = assignStepSize;
 	this.attitude = assignAttitude;
-	this.on = assignMode;
+	this.active = assignMode;
 	//trade state
 	this.lookingForTrade = false;
 	this.urgency = null;
 	this.orderType = null;
 	this.offerPrice = null;
-	this.offerStock = null;
-	//ability to trade
-	this.trade = function (tradeType, offer, urgency) {
-		console.log(this.name + "'s trade sumbitted.")
-		this.lookingForTrade = true;
-		this.orderType = tradeType;
-		this.offerPrice = offer;
-		this.urgency = urgency;
+    //pass bot info to outside func to set trade style/characteristics
+	this.track = function (oldVal, newVal, marketPrice) {
+    	//console.log (marketPrice + ' is the current price traker see.')
+    	tradeLogic(this.character, self, marketPrice, oldVal, newVal);
 	};
-	this.track = function (oldVal, newVal) {
-    	//pass bot info to outside func to set trade style/characteristics
-    	tradeLogic(this.character, self);
-    	//send the trade
-    	//self.trade(action, offer, urgency);
-	};
+	//resets trader to starting state
+	this.chill = function (){
+		this.lookingForTrade = false;
+		this.urgency = null;
+		this.orderType = null;
+		this.offerPrice = null;
+	}
 };
 
 module.exports = Trader;

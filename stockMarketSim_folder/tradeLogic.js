@@ -1,59 +1,66 @@
-/*
-	//bot trade logic
-	var importanceVal = 0;
-	//buyer trade importance
-    if ( role=='Buy' && (newVal < 0) ) {
-    	//neutral
-    	offer = stockListing.market[0].GOOGL;
-    	console.log(this.name + " kind of want to " + role + " for $" + offer);
-    	importanceVal = 0;
-    }else if ( role=='Buy' && (newVal >= 0 && newVal < 5) ) {
-    	//desired buy
-    	offer = stockListing.market[0].GOOGL + 1.25;
-    	console.log(this.name + " really of want to " + role + " for $" + offer);
-    	importanceVal = 1;
-    }else if ( role=='Buy' && (newVal >= 5 && newVal <= 10)) {
-    	//desperate buy
-    	offer = stockListing.market[0].GOOGL + 2.5;
-    	console.log(this.name + " desperatelly of want to " + role + " for $" + offer);
-    	importanceVal = 2;
-    };
-    //seller trade importance
-    if ( role=='Sell' && (newVal > 0) ) {
-    	//neutral
-    	offer = stockListing.market[0].GOOGL;
-    	console.log(this.name + " kind of want to " + role + " for $" + offer);
-    	importanceVal = 0;
-    }else if ( role=='Sell' && (newVal <= 0 && newVal > -5) ) {
-    	//desired buy
-    	offer = stockListing.market[0].GOOGL - 1.25;
-    	console.log(this.name + " really of want to " + role + " for $" + offer);
-    	importanceVal = 1;
-    }else if ( role=='Sell' && (newVal <= -5 && newVal >= -10)) {
-    	//desperate buy
-    	offer = stockListing.market[0].GOOGL - 2.5;
-    	console.log(this.name + " desperatelly of want to " + role + " for $" + offer);
-    	importanceVal = 2;
-    };
-*/
-
-
-var tradeLogic = function (botChar, self) {
+var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal) {
     
     console.log('tradeLogic loaded...');
 	//setup behavior based on characteristics 
 	switch (botChar) {
 		
-        // bot will always buy but at lowest urgency
-	    case 'marketBuyer':
-	        console.log(self.name + ' is a constant buyer. lowest possible urgency [-1]');
-
+        // basic marketBuyer bot will always buy but at lowest urgency
+        case 'marketBuyer':
+            //console.log (marketPrice + ' is the current price ' + self.name + ' can see.')
+            self.offerPrice = marketPrice;
+            self.orderType = 'BUY';
+            self.lookingForTrade = true;
+            self.urgency = -1;
+	        console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
-	    // bot will always buy but at lowest urgency
+	    // basic marketBuyer bot will always buy but at lowest urgency
 	    case 'marketSeller':
-	        console.log(self.name + ' is a constant seller. lowest possible urgency [-1]');
-	        
+            self.offerPrice = marketPrice;
+            self.orderType = 'SELL';
+            self.lookingForTrade = true;
+            self.urgency = -1;
+            console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+        break;
+
+        // basic marketTrader bot will buy or sell using basic logic
+        case 'marketTrader':
+            //bot determining to buy or sell
+            if ( newTrendVal >= 0 ) { 
+                self.orderType = 'BUY';
+            }else if ( newTrendVal < 0 ) {
+                self.orderType = 'SELL';
+            };
+            var absVal = Math.abs(newTrendVal);
+            //interested to do something
+            if (absVal > 0 && absVal < 3) {
+                if (self.orderType == 'BUY') {
+                    self.offerPrice = marketPrice + 0.25;
+                }else{
+                    self.offerPrice = marketPrice - 0.25;
+                };
+                self.urgency = 1;
+                console.log(self.name + " kind of want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+            //desired to do something
+            }else if (absVal > 3 && absVal < 6) {
+                if (self.orderType == 'BUY') {
+                    self.offerPrice = marketPrice + 1.50;
+                }else{
+                    self.offerPrice = marketPrice - 1.50;
+                };
+                self.urgency = 5;
+                console.log(self.name + " really want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+            //desperate to do something
+            }else if (absVal > 6) {
+                if (self.orderType == 'BUY') {
+                    self.offerPrice = marketPrice + 3;
+                }else{
+                    self.offerPrice = marketPrice - 3;
+                };
+                self.urgency = 10;
+                console.log(self.name + " desperatelly want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+            };
+            self.lookingForTrade = true;
         break;
 	    
         //find empty bots

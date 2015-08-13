@@ -6,41 +6,49 @@ var MarketMaker = function (bots) {
 console.log('marketMakerConstructor loaded...')
 	var self = this;
 	//using data from this.listen to pass each bot let them set trade
-	this.discover = function (oldp, newp) {
+	this.discover = function (oldp, newp, marketPrice) {
 		//load in all the bots on the dance floor
 		this.traderList = bots;
 
-		//market maker need to find out who want to trade
+		//market maker sets up all the bots to get ready for trading
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader have them track the trend
 			console.log(this.traderList[i].name + " now discovering trend.")
 			//pass the price data down the line
-			this.traderList[i].track(oldp, newp);
+			this.traderList[i].track(oldp, newp, marketPrice);
 		};
 	};
 	//stages trade between bots
 	this.stage = function () {
+		//run though each trader to see if they want to trade
 		var buyer = "";
 		var seller = "";
 		var pair = [];
-		//loop through each bot to find out who want to trade via urgency
-		for (var i = 0; i < this.traderList.length; i++) {
-			//run though each trader to see if they want to trade
-			if (this.traderList[i].lookingForTrade == true && this.traderList[i].orderType == "Buy") {
-				buyer = this.traderList[i]
-			}else if (this.traderList[i].lookingForTrade == true && this.traderList[i].orderType == "Sell") {
-				seller = this.traderList[i]
+
+		//loop through each bot to find out who want to BUY
+		for (var b = 0; b < this.traderList.length; b++) {
+			if (this.traderList[b].lookingForTrade == true && this.traderList[b].orderType == "BUY") {
+				//check who has most urgency
+				buyer = this.traderList[b]
 			};
 		};
+		//loop through each bot to find out who want to SELL
+		for (var s = 0; s < this.traderList.length; s++) {
+			if (this.traderList[s].lookingForTrade == true && this.traderList[s].orderType == "SELL") {
+				//check who has most urgency
+				seller = this.traderList[s]
+			};
+		};
+
+		console.log("We got ourselves a trade!");
+		console.log(buyer.name + " is buying and " + seller.name + " is selling");
+		// sends of the traders to settle trade
 		pair = [buyer, seller];
+		//var possibleTrades = [];
 		return pair;
 	};
 	//settle trades between bots
 	this.settle = function (pairedUpTraders) {
-		console.log("We got ourselves a trade!");
-		console.log(pairedUpTraders[0].name + " is buying "+ pairedUpTraders[1].name + " is selling");
-		
-		//market maker need to find out who want to trade and wants to trade badly
 
 		var d = new Date();
 		//do trade operation 
@@ -85,21 +93,23 @@ console.log('marketMakerConstructor loaded...')
 		var newTrade = {"buyer":pairedUpTraders[0].name, "seller":pairedUpTraders[0].name, "timeOfTrade":t, "price":stockListing.market[0].GOOGL, "stock":'GOOGL'};
 		tradeLedger.trades.push(newTrade);
 	};
-	this.service = function (watchedObj) {
+	this.service = function (watchedObj, marketPrice) {
 		//listen to see any changes happend on twitterTrend
 		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
 			//obj.watch works only on one obj at a time.
 			console.log("tracking stock... (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
-			
-			self.discover(oldval, newval);
+			console.log("marketMaker announce " + marketPrice + " is the current price.")
 
-			//stage a trade
-			//var pairedTraders = self.stage();
+			self.discover(oldval, newval, marketPrice);
+
+			// stage trades, loop though all possible trades for bots wanting to trade
+
+			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			
 			//settle a trade btw 2 traders
-			
 			//self.settle(pairedTraders);
+		
 		});
 	};
 };
