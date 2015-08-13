@@ -49,8 +49,10 @@ var twitterTrend = {
 */
 
 //set test variable enviroment
-var bot1 = new Trader('R2D2', 3000000, 'pumper', 0, 'goog', true); 
-var bot2 = new Trader('C3PO' ,1000000, 'dumper', 500, 'goog', true);
+var bot1 = new Trader('R2D2', 300000, 'pumper', 0, 'goog', true); 
+var bot2 = new Trader('C3PO' ,100000, 'dumper', 500, 'goog', true);
+var bot3 = new Trader('bender', 5000, 'random', 100, 'goog', true);
+
 var bots = [bot1, bot2];
 var marketMakerBot = new MarketMaker(); 
 // start to wait for stream change
