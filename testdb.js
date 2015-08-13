@@ -20,11 +20,13 @@ STOCKS has many BOTS
 id, name, price
 
 USERS has many BOTS
+id, username, password, companyname, startingbalance, currentbalance, profit
 
 COMPANIES has many BOTS
+id, name, startingbalance, currentbalance, profit
 
 TRADES has and belongs to many BOTS
-id, 
+id, buyer, seller, stock, price, time
 
 
 BOTS belongs to STOCKS
