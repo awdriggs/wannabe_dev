@@ -48,11 +48,9 @@ var process = function() {
 
         tweetCounter = tweetCounter + 1;
         trend.twitterAPI = getRandomArbitrary(-10, 10);
-        console.log("---------- ---------- ---------- ---------- ----------"); 
-        console.log('>> >> >> >> $goog current price: ' + stockListing.market[0].goog + ' << << << <<');
 
         //sets sim trade count
-        if (tweetCounter == 1) {
+        if (tweetCounter == 100) {
             clearInterval(refreshIntervalId);
             console.log("---------- ---------- ---------- ---------- ----------");
             console.log("dasz it, sim ended.")

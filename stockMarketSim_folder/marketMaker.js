@@ -24,7 +24,6 @@ console.log('marketMakerConstructor loaded...')
 		var buyer = "";
 		var seller = "";
 		var pair = [];
-
 		//loop through each bot to find out who want to BUY
 		for (var b = 0; b < this.traderList.length; b++) {
 			if (this.traderList[b].lookingForTrade == true && this.traderList[b].orderType == "BUY") {
@@ -40,7 +39,6 @@ console.log('marketMakerConstructor loaded...')
 			};
 		};
 
-		console.log("We got ourselves a trade!");
 		console.log(buyer.name + " is buying and " + seller.name + " is selling");
 		// sends of the traders to settle trade
 		pair = [buyer, seller];
@@ -48,39 +46,43 @@ console.log('marketMakerConstructor loaded...')
 		return pair;
 	};
 	//settle trades between bots
-	this.settle = function (pairedUpTraders) {
+	this.settle = function (pairedUpTraders, marketPrice) {
 
 		var d = new Date();
-		//do trade operation 
-		console.log("time of trade: " + d);
-		var currentPrice = stockListing.market[0].GOOGL;
+		console.log("We got ourselves a trade!");
+		console.log("Time of trade: " + d);
+
+		//determent spread on the trade 
+		var currentPrice = marketPrice;
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
-		console.log("Current spread $" + spread);
-		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
+		console.log("Current spread on trade :$" + spread);
+		
 		//determent who the trade favors
 		var settleUptonPrice = null;
-		if (pairedUpTraders[0].importance > pairedUpTraders[1].importance) {
-			// buyer wants it more, seller advantage
-			settleUptonPrice = stockListing.market[0].GOOGL + spread;
-			console.log("settled price " + settleUptonPrice + " seller advantage.")
-		}else if (pairedUpTraders[1].importance > pairedUpTraders[0].importance) {
-			// seller wants it more, buyer advantage
-			settleUptonPrice = stockListing.market[0].GOOGL - spread;
-			console.log("settled price " + settleUptonPrice + " buyer advantage.")
+
+		// buyer wants it more, seller advantage
+		if (pairedUpTraders[0].urgency > pairedUpTraders[1].urgency) {
+			settleUptonPrice = marketPrice + spread;
+			console.log("settled price " + settleUptonPrice + " " + pairedUpTraders[1].name + " advantage.")
+		// seller wants it more, buyer advantage
+		}else if (pairedUpTraders[1].urgency > pairedUpTraders[0].urgency) {
+			settleUptonPrice = marketPrice - spread;
+			console.log("settled price " + settleUptonPrice + " " + pairedUpTraders[0].name + " advantage.")
+		// importance is matching no advantage
 		}else{
-			// importance is matching no advantage
-			settleUptonPrice = stockListing.market[0].GOOGL;
-			console.log(settleUptonPrice + " even trade.")
+			settleUptonPrice = marketPrice;
+			console.log("settled price " + settleUptonPrice + " even trade.")
 		};
+
 		// money change hands
 		pairedUpTraders[0].balance = pairedUpTraders[0].balance - settleUptonPrice;
 		pairedUpTraders[1].balance = pairedUpTraders[1].balance + settleUptonPrice;
-		//console.log("buyer balance: " + pairedUpTraders[0].balance, "seller balance: " +pairedUpTraders[1].balance)
-		//take stock from seller give to buyer
-		pairedUpTraders[0].portfolio.GOOGL = pairedUpTraders[0].portfolio.GOOGL + 1;
-		pairedUpTraders[1].portfolio.GOOGL = pairedUpTraders[1].portfolio.GOOGL - 1;
+		// stock change hands
+		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
+		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
+		
+		/*
 		//reset trade state
-		stockListing.market[0].GOOGL = newPrice;
 		for (var t = 0; t < 2; t++) {
 			pairedUpTraders[t].lookingForTrade = false;
 			pairedUpTraders[t].importance = null;
@@ -92,6 +94,10 @@ console.log('marketMakerConstructor loaded...')
 		var t = new Date().getTime();
 		var newTrade = {"buyer":pairedUpTraders[0].name, "seller":pairedUpTraders[0].name, "timeOfTrade":t, "price":stockListing.market[0].GOOGL, "stock":'GOOGL'};
 		tradeLedger.trades.push(newTrade);
+		*/
+		// new stock price
+		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
+		return newPrice;
 	};
 	this.service = function (watchedObj, marketPrice) {
 		//listen to see any changes happend on twitterTrend
@@ -103,13 +109,12 @@ console.log('marketMakerConstructor loaded...')
 			self.discover(oldval, newval, marketPrice);
 
 			// stage trades, loop though all possible trades for bots wanting to trade
-
 			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			
 			//settle a trade btw 2 traders
-			//self.settle(pairedTraders);
-		
+			var newMarketPrice = self.settle(pairedTraders, marketPrice);
+			console.log('>> >> >> >> $goog current price: ' + newMarketPrice + ' << << << <<');
 		});
 	};
 };
