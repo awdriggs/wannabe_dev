@@ -1,87 +1,92 @@
 var sentiment = require('sentiment');
+var sim = require('./simulation.js').simTrend;
+console.log(sim);
 
-
-module.exports = {
-    trends: {
-        "goog": {
-            count: 0,
-            attitude: 0
-        },
-        "aapl": {
-            count: 0,
-            attitude: 0
-        },
-        "fb": {
-            count: 0,
-            attitude: 0
-        },
-        "amzn": {
-            count: 0,
-            attitude: 0
-        },
-        "twtr": {
-            count: 0,
-            attitude: 0
-        },
-        "msft": {
-            count: 0,
-            attitude: 0
-        }
+trends = {
+    "goog": {
+        count: 0,
+        attitude: 0
     },
+    "aapl": {
+        count: 0,
+        attitude: 0
+    },
+    "fb": {
+        count: 0,
+        attitude: 0
+    },
+    "amzn": {
+        count: 0,
+        attitude: 0
+    },
+    "twtr": {
+        count: 0,
+        attitude: 0
+    },
+    "msft": {
+        count: 0,
+        attitude: 0
+    }
+}
 
-    process: function(tweet, trends) {
-       
-        //console.log('process hit')
-        console.log(tweet)
+var process = function(tweet) {
 
-        //grab the symbol names in the symbols obj
-        var trendKeys = Object.keys(trends)
-        
+    //console.log('process hit')
+    console.log(tweet)
 
-        //loop through the keys, look to see if the key is in the tweet
-        for (var i = 0; i < trendKeys.length; i++) {
-            var tickerSymbol = '$' + trendKeys[i];
-            var tickerSymbolUp = '$' + trendKeys[i].toUpperCase();
+    //grab the symbol names in the symbols obj
+    var trendKeys = Object.keys(trends)
 
-            if (tweet.indexOf(tickerSymbol) > -1 || tweet.indexOf(tickerSymbolUp) > -1) {
 
-                //increase the count
-                trends[trendKeys[i]].count += 1;
+    //loop through the keys, look to see if the key is in the tweet
+    for (var i = 0; i < trendKeys.length; i++) {
+        var tickerSymbol = '$' + trendKeys[i];
+        var tickerSymbolUp = '$' + trendKeys[i].toUpperCase();
 
-                //grab the sentiment
-                var tweetSentiment = sentiment(tweet);
+        if (tweet.indexOf(tickerSymbol) > -1 || tweet.indexOf(tickerSymbolUp) > -1) {
 
-                //current sentiment
-                var currentSentiment = trends[trendKeys[i]].attitude
+            //increase the count
+            trends[trendKeys[i]].count += 1;
 
-                //new sentiment
-                var newSentiment = currentSentiment + tweetSentiment.score
+            //grab the sentiment
+            var tweetSentiment = sentiment(tweet);
 
-                // DEBUGGING BLOCK
-                // console.log("score type " + typeof tweetSentiment.score + " " + tweetSentiment.score)
-                //  console.log("current type " + typeof currentSentiment + " " + currentSentiment)
-                // console.log("new type " + typeof newSentiment + " " + newSentiment)
+            //current sentiment
+            var currentSentiment = trends[trendKeys[i]].attitude
 
-                //calculate % change
-                var change = 0;
-                if (currentSentiment == 0) {
-                    change = newSentiment;
-                } else {
-                    change = (newSentiment - currentSentiment) / Math.abs(currentSentiment) * 10;
-                }
+            //new sentiment
+            var newSentiment = currentSentiment + tweetSentiment.score
 
-                //change the attitude according to the returned sentiment socre
-                trends[trendKeys[i]].attitude = newSentiment
+            // DEBUGGING BLOCK
+            // console.log("score type " + typeof tweetSentiment.score + " " + tweetSentiment.score)
+            //  console.log("current type " + typeof currentSentiment + " " + currentSentiment)
+            // console.log("new type " + typeof newSentiment + " " + newSentiment)
 
-                console.log(tickerSymbol + ' hit, % change ' + change)
-                console.log(trends[trendKeys[i]])
-
-                //we cant use return here, will exit the function
-                //use an array of the changes instead and return outside the for block?
-
-                //or add emit to the sockets.io. totally untested in the module format
-
+            //calculate % change
+            var change = 0;
+            if (currentSentiment == 0) {
+                change = newSentiment;
+            } else {
+                change = (newSentiment - currentSentiment) / Math.abs(currentSentiment) * 10;
             }
+
+            //change the attitude according to the returned sentiment socre
+            trends[trendKeys[i]].attitude = newSentiment
+
+            console.log(tickerSymbol + ' hit, % change ' + change)
+            console.log(trends[trendKeys[i]])
+
+            sim = change;
+            //we cant use return here, will exit the function
+            //use an array of the changes instead and return outside the for block?
+
+            //or add emit to the sockets.io. totally untested in the module format
+
         }
     }
 }
+
+
+// MODULE EXPORTS //////////////////////////////////////////////////////////////////////////
+module.exports.process = process;
+module.exports.trends = trends;
