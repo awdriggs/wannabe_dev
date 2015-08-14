@@ -17,11 +17,14 @@ module.exports = {
       companyname: {
         type: Sequelize.STRING
       },
-      balance: {
+      currentbalance: {
         type: Sequelize.INTEGER
       },
-      bot: {
-        type: Sequelize.STRING
+      startingbalance: {
+        type: Sequelize.INTEGER
+      },
+      profit: {
+        type: Sequelize.INTEGER
       }
     });
   },
