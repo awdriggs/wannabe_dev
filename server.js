@@ -25,10 +25,40 @@ var io = require('socket.io')(http);
 // SIM DEPENDENCIES
 var SIM = require('./stockMarketSim_folder/sim.js');
 var trend = require('./stockMarketSim_folder/sim.js').trend;
+var price =  require('./stockMarketSim_folder/sim.js').price;
+
 // starts the simulation a.k.a the humancentipad
 SIM();
 console.log(trend.twitterAPI);
-trend.twitterAPI = 1;
+
+//random number test sim, dummy sim
+var runSim = function() {
+    console.log("sim is starting captainn!")
+    var tweetCounter = 0;
+    var refreshIntervalId = setInterval( function() { 
+        console.log("---------- ---------- ---------- ---------- ----------"); 
+        function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        price = 500;
+        console.log("Current price from database is: $" + price)
+
+        trend.twitterAPI = getRandomArbitrary(-10, 10);
+        
+        tweetCounter = tweetCounter + 1;
+        //sets sim trade count
+        if (tweetCounter == 5) {
+            clearInterval(refreshIntervalId);
+            console.log("---------- ---------- ---------- ---------- ----------");
+            console.log("...sim ended.")
+        };
+
+    }, 1000);
+};
+
+runSim();
+//trend.twitterAPI = 1;
 
 // LISTENER
 //app.listen(3000);
@@ -78,7 +108,7 @@ var client = new Twitter({
     access_token_key: process.env.TOKEN_KEY,
     access_token_secret: process.env.TOKEN_SECRET
 });
-
+/*
 console.log('key '+ process.env.TWITTER_KEY )
 console.log(client.consumer_secret);
 
@@ -87,7 +117,7 @@ console.log(client.consumer_key);
 console.log(client.access_token_secret);
 
 console.log(client.access_token_key);
-
+*/
 var twitterModule = require('./twitter_module');
 
 var tweetArray = [];

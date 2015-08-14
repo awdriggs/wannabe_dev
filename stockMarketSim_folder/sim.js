@@ -16,9 +16,6 @@ var SIM = function () {
         "msft": { count: 0, attitude: 0}
     };
 
-    //{stockListing} JSON obj, stores the current value of stock
-    var stockListing = { "market":[ {"goog": 500} ] };
-
     //set test variable enviroment        
     var marketMakerBuyerBot = new traderMaker('R2D2', 300000, 'marketBuyer', 0, 'goog', true, 5, 5, 5); 
     var marketMakerSellerBot = new traderMaker('C3PO' ,100000, 'marketSeller', 5000, 'goog', true, 5, 5, 5);
@@ -32,8 +29,8 @@ var SIM = function () {
     ];
 
     var marketMakerBot = new marketMaker(botArray); 
-    marketMakerBot.service(trend, stockListing.market[0].goog);
-
+    //make the world go round
+    marketMakerBot.service(trend, price);
     /*
     var process = function() {
         //MAIN SIM FILE LOADS IN DEPENDENCIES
@@ -56,15 +53,18 @@ var SIM = function () {
                 console.log("---------- ---------- ---------- ---------- ----------");
                 console.log("dasz it, sim ended.")
             };
-
         }, 1000);
     };
-
     */
     //exports func that runs the sim
     //module.exports.process = process;
 };
 var trend = {twitterAPI: 5555};
+//{stockListing} JSON obj, stores the current value of stock
+//which would need to be grabbed from the database
+var stockListing = { "market":[ {"GOOG": 500} ] };
+var price = stockListing.market[0].GOOG;
 
 module.exports = SIM;
 module.exports.trend = trend;
+module.exports.price = price;
