@@ -1,0 +1,127 @@
+  
+$title-font:   'Fredoka One', sans-serif;
+$body-font: 'Ruda', sans-serif;
+
+/* Coolors Exported Palette - coolors.co/102542-f87060-cdd7d6-acfdc7-ffffff */
+$navy: #102542; //rgba(16, 37, 66, 100)
+$red: #d95141; //rgba(248, 112, 96, 100)
+$blue: #cdd7d6; //rgba(205, 215, 214, 100)
+$green: #99cc66; //rgba(172, 253, 199, 100)
+$tan: #ebe1c8; //rgba(255, 255, 255, 100)
+
+*{
+	margin: 0;
+	
+}
+
+body{
+	background-color: $tan;
+}
+
+
+#left_side{
+	font-family: $title-font;
+	margin-top: -10px;
+	padding-bottom: 10px;
+	width: 30%;
+	background-color: $navy;
+	color: $red;
+	float: left;
+	
+
+	h1{	
+		padding-top: 1rem;
+		text-align: center;
+		font-size: 5rem;
+	}
+
+	.form{ 
+		max-width: 100%; 
+		color: $red;
+		font-size: 1.5rem; 
+		margin: 0px; 
+		font-family: $body-font;
+		padding: 20px; 
+	} 
+	.content{ 
+		margin: 0px; 
+	} 
+	.form label{ 
+		color: $red; 
+		 
+		display: block; 
+	} 
+	.form div{ 
+		display: block; 
+	} 
+	.form input { 
+		border-width: 1px; 
+		border-style: solid; 
+		border-color: #666666; 
+		border-radius: 0px; 
+		padding: 3px; 
+		width: 100%; 
+	} 
+	.form h2{ 
+		text-align: center;
+		font-family: $title-font;
+		font-size: 40px; 
+		color: $red; 
+		padding: 0px; 
+		margin: 0px; 
+		margin-bottom: 10px; 
+	} 
+
+	
+	.form button{ 
+		display: block;
+		margin: 0 auto;
+		width: 50%;
+		background-color: $navy; 
+		color: $red; 
+		font-family: $body-font;
+		font-size: 2rem;
+		border: none;
+		border-bottom: $red solid 2px;
+	} 
+
+	.form button:hover{
+		background-color: $red;
+		color: $navy;
+	}
+
+	.field{ 
+		margin-bottom: 5px; 
+	} 
+
+	.form input {
+		padding: 15px;
+		background: rgba(255,255,255,0.5);
+		margin: 0 0 10px 0;
+	}
+
+	input:focus { 
+		outline: none; 
+		outline: $red solid 2px;
+	}
+}
+
+#app{
+	background-color: $tan;
+	width: 70%;
+	float: left;
+	height: 100%;
+}
+
+//this is the user test
+.test {
+	width: 200px; height: 100px;
+	box-shadow:0 1px 20px #aaa;
+	
+	text-align: center;
+	background-color: $green;
+	font-size: 10px;
+	margin: 5px;
+
+	float: left;
+}

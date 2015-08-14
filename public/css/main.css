@@ -1,0 +1,88 @@
+/* Coolors Exported Palette - coolors.co/102542-f87060-cdd7d6-acfdc7-ffffff */
+* {
+  margin: 0; }
+
+body {
+  background-color: #ebe1c8; }
+
+#left_side {
+  font-family: "Fredoka One", sans-serif;
+  margin-top: -10px;
+  padding-bottom: 10px;
+  width: 30%;
+  background-color: #102542;
+  color: #d95141;
+  float: left; }
+  #left_side h1 {
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 5rem; }
+  #left_side .form {
+    max-width: 100%;
+    color: #d95141;
+    font-size: 1.5rem;
+    margin: 0px;
+    font-family: "Ruda", sans-serif;
+    padding: 20px; }
+  #left_side .content {
+    margin: 0px; }
+  #left_side .form label {
+    color: #d95141;
+    display: block; }
+  #left_side .form div {
+    display: block; }
+  #left_side .form input {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #666666;
+    border-radius: 0px;
+    padding: 3px;
+    width: 100%; }
+  #left_side .form h2 {
+    text-align: center;
+    font-family: "Fredoka One", sans-serif;
+    font-size: 40px;
+    color: #d95141;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px; }
+  #left_side .form button {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    background-color: #102542;
+    color: #d95141;
+    font-family: "Ruda", sans-serif;
+    font-size: 2rem;
+    border: none;
+    border-bottom: #d95141 solid 2px; }
+  #left_side .form button:hover {
+    background-color: #d95141;
+    color: #102542; }
+  #left_side .field {
+    margin-bottom: 5px; }
+  #left_side .form input {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 0 10px 0; }
+  #left_side input:focus {
+    outline: none;
+    outline: #d95141 solid 2px; }
+
+#app {
+  background-color: #ebe1c8;
+  width: 70%;
+  float: left;
+  height: 100%; }
+
+.test {
+  width: 200px;
+  height: 100px;
+  box-shadow: 0 1px 20px #aaa;
+  text-align: center;
+  background-color: #99cc66;
+  font-size: 10px;
+  margin: 5px;
+  float: left; }
+
+/*# sourceMappingURL=main.css.map */
