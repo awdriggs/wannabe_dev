@@ -1,4 +1,4 @@
-var SIM = function () {
+var SIM = function (initBotinfo) {
 
     var marketMaker = require('./marketMaker.js');
     var traderMaker = require('./traderSetup.js');
@@ -7,6 +7,7 @@ var SIM = function () {
     var tradeLedger = { "trades":[{"buyer":"Bot1_name", "seller":"Bot2_name", "timeOfTrade":1439254635102, "price":50, "stock":'goog'}]
     };
 
+/*    
     var stocks = {
         "goog": { count: 0, attitude: 0 },
         "appl": { count: 0, attitude: 0 },
@@ -15,6 +16,7 @@ var SIM = function () {
         "twtr": { count: 0, attitude: 0 },
         "msft": { count: 0, attitude: 0}
     };
+*/
 
     //set test variable enviroment        
     var marketMakerBuyerBot = new traderMaker('R2D2', 300000, 'marketBuyer', 0, 'goog', true, 5, 5, 5); 
