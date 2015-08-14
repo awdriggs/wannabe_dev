@@ -70,7 +70,7 @@ body {
     outline: none;
     outline: #d95141 solid 2px; }
 
-#app {
+#content_wrapper {
   background-color: #ebe1c8;
   width: 70%;
   float: left;
@@ -83,11 +83,6 @@ body {
   width: 94%;
   background-color: #cdd7d6; }
 
-.column_title_div {
-  width: 100%;
-  border-bottom: #69a426 solid 1px;
-  margin-bottom: 1rem; }
-
 .data_wrapper {
   float: right;
   margin-right: 3%;
@@ -96,10 +91,13 @@ body {
   width: 44%;
   background-color: #99cc66;
   color: #69a426; }
-  .data_wrapper .tweet {
+  .data_wrapper .column_title_div {
+    width: 100%;
+    margin-bottom: 1rem; }
+  .data_wrapper .content {
     border-bottom: #69a426 solid 1px;
     margin-bottom: 1rem; }
-    .data_wrapper .tweet h2 {
+    .data_wrapper .content h2 {
       text-align: left;
       line-height: 3rem; }
   .data_wrapper h2 {
@@ -112,6 +110,18 @@ body {
   .data_wrapper p {
     clear: both;
     margin-bottom: 1rem; }
+
+.tweet_wrapper {
+  background-color: #99cc66; }
+  .tweet_wrapper .column_title_div, .tweet_wrapper .content {
+    border-bottom: #69a426 solid 1px; }
+
+.trades {
+  background-color: #f7f2e8;
+  color: #b1aea8; }
+  .trades .column_title_div, .trades .content {
+    border-bottom: #b1aea8 solid 1px;
+    color: #b1aea8; }
 
 .test {
   width: 200px;

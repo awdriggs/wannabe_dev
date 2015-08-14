@@ -10,6 +10,8 @@ $green: #99cc66; //rgba(172, 253, 199, 100)
 $light-green: #99cc66;
 $green: #69a426;
 $tan: #ebe1c8; //rgba(255, 255, 255, 100)
+$light-grey: #f7f2e8;
+$dark-grey: #b1aea8;
 
 *{
 	margin: 0;
@@ -109,7 +111,7 @@ body{
 	}
 }
 
-#app{
+#content_wrapper{
 	background-color: $tan;
 	width: 70%;
 	float: left;
@@ -127,15 +129,7 @@ body{
 
 
 
-
-
-.column_title_div{
-	width: 100%;
-	border-bottom: $green solid 1px;
-	margin-bottom: 1rem;
-}
-
-//twitter
+//data columns
 .data_wrapper {
 
 	float: right;
@@ -147,9 +141,13 @@ body{
 	background-color: $light-green;
 	color: $green;
 	
+	.column_title_div{
+		width: 100%;
+		// border-bottom: $green solid 1px;
+		margin-bottom: 1rem;
+	}
 	
-
-	.tweet {
+	.content {
 		border-bottom: $green solid 1px;
 		margin-bottom: 1rem;
 
@@ -173,8 +171,31 @@ body{
 	p{
 		clear: both;
 		margin-bottom: 1rem;
-	}	
+	}
+
+
+
 }
+
+	.tweet_wrapper{
+		background-color: $light-green;
+		
+		.column_title_div, .content{
+			border-bottom: $green solid 1px;
+		}
+	}
+
+	.trades{
+		background-color: $light-grey;
+		color: $dark-grey;
+
+		.column_title_div, .content{
+			border-bottom: $dark-grey solid 1px;
+			color: $dark-grey;
+		}
+
+	}
+
 
 //this is the user test
 .test {

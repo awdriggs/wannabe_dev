@@ -4,7 +4,7 @@ var tweetStream = []
 
   var socket = io();
   socket.on('tweet', function(tweet){
-    var tweetDiv = $('<div>').addClass('tweet')
+    var tweetDiv = $('<div>').addClass('content')
     tweetDiv.append('<img src="'+tweet.user.profile_image_url+'">')
     tweetDiv.append('<h2> @'+tweet.user.screen_name+'</h2>')
 
