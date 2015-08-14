@@ -48,7 +48,7 @@ var runSim = function() {
         
         tweetCounter = tweetCounter + 1;
         //sets sim trade count
-        if (tweetCounter == 5) {
+        if (tweetCounter == 10) {
             clearInterval(refreshIntervalId);
             console.log("---------- ---------- ---------- ---------- ----------");
             console.log("...sim ended.")
