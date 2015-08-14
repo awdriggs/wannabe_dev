@@ -2,6 +2,7 @@ var SIM = function (initBotinfo, initMarketInfo, initCompanyInfo) {
 
     var marketMaker = require('./marketMaker.js');
     var traderMaker = require('./traderSetup.js');
+
 /*
     //{tradeLedger} JSON Obj, stores everytrade
     var tradeLedger = { "trades":[{"buyer":"Bot1_name", "seller":"Bot2_name", "timeOfTrade":1439254635102, "price":50, "stock":'goog'}]
@@ -17,20 +18,33 @@ var SIM = function (initBotinfo, initMarketInfo, initCompanyInfo) {
         "msft": { count: 0, attitude: 0}
     };
 */
-    console.log(initBotinfo);
     //bot array with all the bots
-    //var botArray = [];
-/*    
-    //create bots from database
-    for (var e = 0; e < initBotinfo.length; e++) {
-        //new traderMaker(); 
-        console.log(initBotinfo[e])
+    var botArray = [];
+
+    //loop thought initBotinfo obj to create bots
+    for (var key in initBotinfo) {
+       if (initBotinfo.hasOwnProperty(key)) {
+           var obj = initBotinfo[key];
+            //console.log(key);
+
+            var currentBot = new traderMaker(key, obj.balance, obj.character, obj.quantity, obj.interests, obj.active, obj.riskTolerance, obj.stepSize, obj.attitude)
+            botArray.push(currentBot);
+            /*
+            for (var prop in obj) {
+              // important check that this is objects own property 
+              // not from prototype prop inherited
+              if(obj.hasOwnProperty(prop)){
+                console.log(prop + " = " + obj[prop]);
+              }
+            }
+            */
+        }
     };
-*/
+    //console.log(botArray);
     //setup market maker     
-    //var marketMakerBot = new marketMaker(botArray); 
+    var marketMakerBot = new marketMaker(botArray); 
     //make the world go round
-    //marketMakerBot.service(trend, price);
+    marketMakerBot.service(trend, price);
 
 };
 
