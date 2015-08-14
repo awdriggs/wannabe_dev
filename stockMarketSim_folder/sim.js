@@ -1,4 +1,4 @@
-var SIM = function (initBotinfo, initMarketInfo, initCompanyInfo) {
+var SIM = function (initBotinfo, initMarketInfo, initCompanyInfo, initPrice) {
 
     var marketMaker = require('./marketMaker.js');
     var traderMaker = require('./traderSetup.js');
@@ -44,7 +44,8 @@ var SIM = function (initBotinfo, initMarketInfo, initCompanyInfo) {
     //setup market maker     
     var marketMakerBot = new marketMaker(botArray); 
     //make the world go round
-    marketMakerBot.service(trend, price);
+    marketMakerBot.initPrice;
+    marketMakerBot.service(trend);
 
 };
 
