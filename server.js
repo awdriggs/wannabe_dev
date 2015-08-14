@@ -31,6 +31,8 @@ var price =  require('./stockMarketSim_folder/sim.js').price;
 SIM();
 console.log(trend.twitterAPI);
 
+var ready = false; //variable to flip the switch on the twitter feed.
+
 //random number test sim, dummy sim
 var runSim = function() {
     console.log("sim is starting captainn!")
@@ -109,6 +111,7 @@ var client = new Twitter({
     access_token_secret: process.env.TOKEN_SECRET
 });
 
+console.log(process.env.TWITTER_KEY)
 var twitterModule = require('./twitter_module');
 
 var tweetArray = [];
@@ -117,24 +120,38 @@ var tweetArray = [];
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
 }, function(stream) {
-    stream.on('data', function(tweet) {
-    	console.log('stream')
-        //calles the process function in the twitter module. better way to handle trends which is in the same file?
-        //twitterModule.process(tweet.text)
 
-        //do the emiting here?
-        //io.emit
-        var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
-        console.log(info.changes) //this is an array of all the changes that happpened with a tweet
+    
+        stream.on('data', function(tweet) {
+
+          if(ready){
+            console.log('stream')
+            //calles the process function in the twitter module. better way to handle trends which is in the same file?
+            //twitterModule.process(tweet.text)
+
+            //do the emiting here?
+            //io.emit
+            var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
+            console.log(info.changes) //this is an array of all the changes that happpened with a tweet
 
             //write some logic to show the last ten tweets
             
             trend.twitterAPI = info.changes[0].pchange;
             io.emit('tweet', tweet)
             //console.log(tweet) //will print tweet json
-    })
+        
+            } else {
+                console.log('twitter hit but sim not ready')
+            }
+
+    }) //end of data stream on
+
+    
+    
+
 })
 
+//just for testing the twitter oauth,
 app.get('/search_test', function(req, res) {
     client.get('search/tweets', {
         q: '$GOOG', count: 100
