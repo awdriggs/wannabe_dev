@@ -1,5 +1,9 @@
+var tradeLogic = require('./tradeLogic.js');
+
 // |Trader| Constructor
-var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuantity, assignStockInterest, assignMode) {
+var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuantity, assignStockInterest, assignMode, assignTolerance, assignStepSize, assignAttitude) {
+
+	console.log('traderConstructor loaded...')
 	//trader init state
 	var self = this;
 	this.name = assignName;
@@ -7,29 +11,28 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.character = assignTradeChar;
 	this.quantity =  assignQuantity;
 	this.interests = assignStockInterest;
-	this.on = assignMode;
+	//user change-able attr
+	this.riskTolerance = assignTolerance;
+	this.stepSize = assignStepSize;
+	this.attitude = assignAttitude;
+	this.active = assignMode;
 	//trade state
 	this.lookingForTrade = false;
-	this.importance = null;
+	this.urgency = null;
 	this.orderType = null;
 	this.offerPrice = null;
-	this.offerStock = null;
-	//ability to trade
-	this.trade = function (tradeType, offer, importance) {
-		console.log(this.name + "'s trade sumbitted.")
-		this.lookingForTrade = true;
-		this.importance = importance;
-		this.orderType = tradeType;
-		this.offerPrice = offer;
+    //pass bot info to outside func to set trade style/characteristics
+	this.track = function (oldVal, newVal, marketPrice) {
+    	//console.log (marketPrice + ' is the current price traker see.')
+    	tradeLogic(this.character, self, marketPrice, oldVal, newVal);
 	};
-	this.track = function (oldVal, newVal) {
-		var action = null;
-    	var offer = null;
-    	var stockTarget = null;
-    	var importance = null;
-    	//pass bot info to outside func to set trade style
-    	traderCharacteristics(this.character, self);
-    	//send the trade
-    	//self.trade(action, offer, importance);
-	};
+	//resets trader to starting state
+	this.chill = function (){
+		this.lookingForTrade = false;
+		this.urgency = null;
+		this.orderType = null;
+		this.offerPrice = null;
+	}
 };
+
+module.exports = Trader;
