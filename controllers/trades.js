@@ -1,3 +1,5 @@
+// PLACEHOLDER FOR WHEN DATABASE USES TRADES IN FUTURE
+
 var models = require('../models');
 
 module.exports.controller = function (app) {

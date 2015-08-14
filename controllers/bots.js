@@ -2,20 +2,43 @@ var models = require('../models');
 
 module.exports.controller = function (app) {
 
+	// BOTS INDEX
 	app.get('/api/bots/index', function (req, res) {
-		res.send('bots index');
+		models.bots.findAll().then(function (result) {
+			res.json(result);
+		});
 	});
 
+	// BOT CREATE
+	// needs userId from form
 	app.post('/api/bots/create', function (req, res) {
-		res.send('bots create');
+		models.bots.create( req.body ).then(function (result) {
+			res.json(result);
+		});
 	});
 
-	app.put('/api/bots/update', function (req, res) {
-		res.send('bots update');
+	// BOT SHOW AND THE COMPANY IT BELONGS TO AND THE STOCK IT OWNS
+	app.get('/api/bots/:id', function (req, res) {
+		models.bots.findOne( { where: { id: params.id  }, include: [models.users, models.companies, models.stocks] }).then(function (result) {
+			res.json(result);
+		});
+	}
+
+	// BOT UPDATE
+	app.put('/api/bots/update/:id', function (req, res) {
+	    models.bots.findById( req.params.id ).then(function (result) {
+	    	result.update( req.body ).then(function (updatedResult) {
+	            res.json(updatedResult);
+	        });
+	    });
 	});
 
-	app.delete ('/api/bots/delete', function (req, res) {
-		res.send('bots delete');
+	// BOT DELETE
+	app.delete ('/api/bots/delete/:id', function (req, res) {
+		models.bots.findById( req.params.id ).then function (result) {
+			result.destroy();
+			res.json(result);
+		};
 	});
 
 }
