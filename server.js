@@ -62,13 +62,13 @@ var botInfoFromDatabase = {
 }
 
 
-SIM(botInfoFromDatabase);
-
 var ready = false; //variable to flip the switch on the twitter feed.
 
+/*
 //random number test sim, dummy sim
-var runSim = function() {
+var runSim = function(value) {
 
+    
     console.log("sim is starting captainn!")
     var tweetCounter = 0;
     var refreshIntervalId = setInterval( function() { 
@@ -77,10 +77,10 @@ var runSim = function() {
             return Math.random() * (max - min) + min;
         }
 
-        price = 500;
+        price = value;
         console.log("Current price from database is: $" + price)
 
-        trend.twitterAPI = getRandomArbitrary(-10, 10);
+        //trend.twitterAPI = getRandomArbitrary(-10, 10);
         
         tweetCounter = tweetCounter + 1;
         //sets sim trade count
@@ -90,11 +90,23 @@ var runSim = function() {
             console.log("...sim ended.")
         };
 
-    }, 1000);
+    }, 2000);
 };
+*/
 
-runSim();
-//trend.twitterAPI = 1;
+
+var getStock = function () {
+    models.stocks.findOne({ where: { id: 1 }}).then(function (result) {
+
+        SIM(botInfoFromDatabase);
+        //result
+        price = result.price;
+        ready = true;
+    });
+}
+
+getStock()
+
 
 // LISTENER
 //app.listen(3000);
