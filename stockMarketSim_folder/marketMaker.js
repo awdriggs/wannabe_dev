@@ -101,9 +101,11 @@ console.log('marketMakerConstructor loaded...')
 	};
 	this.service = function (watchedObj, marketPrice) {
 		//listen to see any changes happend on twitterTrend
-		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
-			//obj.watch works only on one obj at a time.
-			console.log("tracking stock... (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
+		Object.observe(watchedObj, function(changes) {
+			var newval = (changes[0].object.twitterAPI);
+			var oldval = (changes[0].oldValue);
+
+			console.log("tracking stock. (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
 			console.log("marketMaker announce " + marketPrice + " is the current price.")
 
 			self.discover(oldval, newval, marketPrice);
@@ -114,8 +116,15 @@ console.log('marketMakerConstructor loaded...')
 			
 			//settle a trade btw 2 traders
 			var newMarketPrice = self.settle(pairedTraders, marketPrice);
-			console.log('>> >> >> >> $goog current price: ' + newMarketPrice + ' << << << <<');
+			console.log('>> >> >> >> ' + "$GOOG" + ' current price: $' + newMarketPrice + ' << << << <<');
+
 		});
+		/*
+		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
+			//obj.watch works only on one obj at a time.
+		});
+		*/
+
 	};
 };
 
