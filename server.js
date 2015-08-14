@@ -79,14 +79,6 @@ var client = new Twitter({
     access_token_secret: process.env.TOKEN_SECRET
 });
 
-console.log('key '+ process.env.TWITTER_KEY )
-console.log(client.consumer_secret);
-
-console.log(client.consumer_key);
-
-console.log(client.access_token_secret);
-
-console.log(client.access_token_key);
 
 var twitterModule = require('./twitter_module');
 
@@ -108,8 +100,9 @@ client.stream('statuses/filter', {
 
             //write some logic to show the last ten tweets
             
+            trend.twitterAPI = info.changes[0].pchange;
             io.emit('tweet', tweet)
-            console.log(tweet)
+            //console.log(tweet) //will print tweet json
     })
 })
 
