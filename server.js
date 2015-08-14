@@ -10,15 +10,34 @@ var express = require('express'),
 
 var app = express();
 
+
+//adding all twitter bs
+var Twitter = require('twitter');
+var dotter = require('dotenv').load();
+var sentiment = require('sentiment');
+
+//sockets!
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 // node-debug server.js 
 
 // SIM DEPENDENCIES
-var sim = require('./stockMarketSim_folder/sim.js');
+var SIM = require('./stockMarketSim_folder/sim.js');
+var trend = require('./stockMarketSim_folder/sim.js').trend;
 // starts the simulation a.k.a the humancentipad
-sim.process();
+SIM();
+console.log(trend.twitterAPI);
+trend.twitterAPI = 1;
 
 // LISTENER
-app.listen(3000);
+//app.listen(3000);
+
+//listener for sockets io
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
 
 // app.set('port', process.env.PORT || 3000);
 
@@ -50,6 +69,57 @@ fs.readdirSync('./controllers').forEach(function (file) {
  };
 });
 
+// TWITTER ////////////////////////////////////////////////////////////////////////////////////
+
+//twitter keys
+var client = new Twitter({
+    consumer_key: process.env.TWITTER_KEY,
+    consumer_secret: process.env.TWITTER_SECRET,
+    access_token_key: process.env.TOKEN_KEY,
+    access_token_secret: process.env.TOKEN_SECRET
+});
+
+console.log('key '+ process.env.TWITTER_KEY )
+console.log(client.consumer_secret);
+
+console.log(client.consumer_key);
+
+console.log(client.access_token_secret);
+
+console.log(client.access_token_key);
+
+var twitterModule = require('./twitter_module');
+
+var tweetArray = [];
+
+//this connects the server to the twitter api
+client.stream('statuses/filter', {
+    track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
+}, function(stream) {
+    stream.on('data', function(tweet) {
+    	console.log('stream')
+        //calles the process function in the twitter module. better way to handle trends which is in the same file?
+        //twitterModule.process(tweet.text)
+
+        //do the emiting here?
+        //io.emit
+        var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
+        console.log(info.changes) //this is an array of all the changes that happpened with a tweet
+
+            //write some logic to show the last ten tweets
+            
+            io.emit('tweet', tweet)
+            console.log(tweet)
+    })
+})
+
+app.get('/search_test', function(req, res) {
+    client.get('search/tweets', {
+        q: '$GOOG', count: 100
+    }, function(error, tweets, response) {
+        res.send(tweets);
+    });
+})
 
 // simulation 
 
