@@ -22,7 +22,7 @@ module.exports.controller = function (app) {
 		models.bots.findOne( { where: { id: params.id  }, include: [models.users, models.companies, models.stocks] }).then(function (result) {
 			res.json(result);
 		});
-	}
+	});
 
 	// BOT UPDATE
 	app.put('/api/bots/update/:id', function (req, res) {
@@ -35,10 +35,10 @@ module.exports.controller = function (app) {
 
 	// BOT DELETE
 	app.delete ('/api/bots/delete/:id', function (req, res) {
-		models.bots.findById( req.params.id ).then function (result) {
+		models.bots.findById( req.params.id ).then(function (result) {
 			result.destroy();
 			res.json(result);
-		};
+		});
 	});
 
 }
