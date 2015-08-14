@@ -62,6 +62,15 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
             };
             self.lookingForTrade = true;
         break;
+        
+        // basic marketBuyer bot will always buy but at lowest urgency
+        case 'marketTrader':
+            self.offerPrice = marketPrice;
+            self.orderType = 'BUY';
+            self.lookingForTrade = true;
+            self.urgency = -1;
+            console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+        break;
 	    
         //find empty bots
 	    default:

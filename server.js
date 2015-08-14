@@ -28,13 +28,47 @@ var trend = require('./stockMarketSim_folder/sim.js').trend;
 var price =  require('./stockMarketSim_folder/sim.js').price;
 
 // starts the simulation a.k.a the humancentipad
-SIM();
-console.log(trend.twitterAPI);
+var botInfoFromDatabase = { 
+    'R2D2': {
+        balance: 300000, 
+        character: 'marketBuyer',
+        quantity: 110,
+        interests: 'goog',
+        active: true,
+        riskTolerance: 5,
+        stepSize: 5,
+        attitude: 5
+    },
+    'C3PO': {
+        balance: 100000,
+        character: 'marketSeller',
+        quantity: 5000,
+        interests: 'goog',
+        active: true,
+        riskTolerance: 5,
+        stepSize: 5,
+        attitude: 5
+    },
+    'ED209': {
+        balance: 100000,
+        character: 'marketTrader',
+        quantity: 500,
+        interests: 'goog',
+        active: true,
+        riskTolerance: 5,
+        stepSize: 5,
+        attitude: 5
+    }
+}
+
+
+SIM(botInfoFromDatabase);
 
 var ready = false; //variable to flip the switch on the twitter feed.
 
 //random number test sim, dummy sim
 var runSim = function() {
+
     console.log("sim is starting captainn!")
     var tweetCounter = 0;
     var refreshIntervalId = setInterval( function() { 
@@ -50,7 +84,7 @@ var runSim = function() {
         
         tweetCounter = tweetCounter + 1;
         //sets sim trade count
-        if (tweetCounter == 10) {
+        if (tweetCounter == 1) {
             clearInterval(refreshIntervalId);
             console.log("---------- ---------- ---------- ---------- ----------");
             console.log("...sim ended.")
