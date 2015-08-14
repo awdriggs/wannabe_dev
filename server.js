@@ -10,10 +10,11 @@ var express = require('express'),
 
 var app = express();
 
-// node-debug server.js
+// node-debug server.js 
+
 // SIM DEPENDENCIES
 var sim = require('./stockMarketSim_folder/sim.js');
-// starts the simulation
+// starts the simulation a.k.a the humancentipad
 sim.process();
 
 // LISTENER
