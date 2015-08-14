@@ -7,6 +7,8 @@ $navy: #102542; //rgba(16, 37, 66, 100)
 $red: #d95141; //rgba(248, 112, 96, 100)
 $blue: #cdd7d6; //rgba(205, 215, 214, 100)
 $green: #99cc66; //rgba(172, 253, 199, 100)
+$light-green: #99cc66;
+$green: #69a426;
 $tan: #ebe1c8; //rgba(255, 255, 255, 100)
 
 *{
@@ -16,6 +18,7 @@ $tan: #ebe1c8; //rgba(255, 255, 255, 100)
 
 body{
 	background-color: $tan;
+	font-family: $body-font;
 }
 
 
@@ -111,6 +114,66 @@ body{
 	width: 70%;
 	float: left;
 	height: 100%;
+}
+
+#viz_wrapper{
+
+	height: 300px;
+	margin: 3%;
+	display: block;
+	width: 94%;
+	background-color: $blue;
+}
+
+
+
+
+
+.column_title_div{
+	width: 100%;
+	border-bottom: $green solid 1px;
+	margin-bottom: 1rem;
+}
+
+//twitter
+.data_wrapper {
+
+	float: right;
+	margin-right: 3%;
+
+	min-height: 500px;
+	padding: 10px;
+	width: 44%;
+	background-color: $light-green;
+	color: $green;
+	
+	
+
+	.tweet {
+		border-bottom: $green solid 1px;
+		margin-bottom: 1rem;
+
+		h2{
+			text-align: left;
+			line-height: 3rem;
+		}
+	}
+
+	h2{
+		display: inline;
+		text-align: center;
+	}
+
+	img{
+		display: inline;
+    	float: left;
+    	margin: 0 10px 10px 0;
+	}
+	
+	p{
+		clear: both;
+		margin-bottom: 1rem;
+	}	
 }
 
 //this is the user test
