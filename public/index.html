@@ -3,6 +3,7 @@
 	<title>StockBot</title>
 	<link rel="stylesheet" href="/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Ruda|Fredoka+One' rel='stylesheet' type='text/css'>
+	
 </head>
 <body>
 	<div id="left_side">
@@ -62,6 +63,26 @@
 
 	<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
 	<div id="app">
+		<div id="viz_wrapper">
+
+			<p>viz go here</p>
+		</div>
+
+		<div class="data_wrapper">
+			<div class="column_title_div">
+				<h2>Trade Feed</h2>
+			</div>
+		</div>
+
+
+		<div class="data_wrapper">
+			<div class="column_title_div">
+				<h2>Twitter Feed</h2>
+			</div>
+			<div id="tweets">
+				<!-- sweet tweets go here -->
+			</div>
+		</div> <!-- end of twitter wrapper -->
 	</div>
 
 
@@ -95,6 +116,10 @@
 	<script src="/javascript/backbone/models/usermodel.js"></script>
 	<script src="/javascript/backbone/collections/testcollection.js"></script>
 	<script src="/javascript/backbone/collections/userscollection.js"></script>
+
+	<!-- SOCKETS DEPENDENCIES -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/javascript/sockets-script.js"></script>
 
 </body>
 </html>
