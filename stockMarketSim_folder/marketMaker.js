@@ -2,10 +2,10 @@ var nodeWatch = require('./simRequire.js');
 nodeWatch();
 
 // |MarketMaker| Constructor
-var MarketMaker = function (bots) {
+var MarketMaker = function (bots, initMarketPrice) {
 console.log('marketMakerConstructor loaded...')
 	var self = this;
-	this.marketMakersPrice = null;
+	this.marketMakersPrice = initMarketPrice;
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp, marketPrice) {
 		//load in all the bots on the dance floor
@@ -102,24 +102,27 @@ console.log('marketMakerConstructor loaded...')
 	};
 	this.service = function (watchedObj) {
 		//listen to see any changes happend on twitterTrend
-		if (this.marketMakersPrice ) {};
+
 		Object.observe(watchedObj, function(changes) {
+
 			var newval = (changes[0].object.twitterAPI);
 			var oldval = (changes[0].oldValue);
 
 			console.log("tracking stock. (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
-			console.log("marketMaker announce " + this.marketMakersPrice + " is the current price.")
+			console.log("marketMaker announce " + self.marketMakersPrice + " is the current price.")
 
-			self.discover(oldval, newval, this.marketMakersPrice);
+			self.discover(oldval, newval, self.marketMakersPrice);
 
 			// stage trades, loop though all possible trades for bots wanting to trade
 			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			
 			//settle a trade btw 2 traders
-			var newMarketPrice = self.settle(pairedTraders, this.marketMakersPrice);
+			var newMarketPrice = self.settle(pairedTraders, self.marketMakersPrice);
+			console.log("This is new market price after a trade..." + newMarketPrice)
 			console.log('>> >> >> >> ' + "$GOOG" + ' current price: $' + newMarketPrice + ' << << << <<');
 			
+			self.marketMakersPrice = newMarketPrice;
 		});
 		/*
 		watchedObj.watch("twitterAPI", function (id, oldval, newval) {

@@ -98,9 +98,9 @@ var runSim = function(value) {
 var getStock = function () {
     models.stocks.findOne({ where: { id: 1 }}).then(function (result) {
 
-        SIM(botInfoFromDatabase);
+        console.log('PRICE: ', result.price)
+        SIM(botInfoFromDatabase, result.price);
         //result
-        price = result.price;
         ready = true;
     });
 }
