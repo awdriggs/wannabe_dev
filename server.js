@@ -143,7 +143,5 @@ app.get('/search_test', function(req, res) {
     });
 })
 
-// simulation 
-
 
 
