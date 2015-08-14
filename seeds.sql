@@ -8,6 +8,6 @@ INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('S
 INSERT INTO stocks (name, price) VALUES('$GOOGL', 55);
 INSERT INTO stocks (name, price) VALUES('$AAPL', 55);
 
-INSERT INTO users (username, password, companyname, currentbalance, startingbalance, profit) VALUES ('Thom', 'brooklyndonuts', 'TinyMountain', 1000, 1000, 0);
-INSERT INTO users (username, password, companyname, currentbalance, startingbalance, profit) VALUES ('Adam', 'brooklyndonuts', 'NascentBreathers', 1000, 1000, 0);
-INSERT INTO users (username, password, companyname, currentbalance, startingbalance, profit) VALUES ('Zhen', 'queensdonuts', 'SlidingVines', 1000, 1000, 0);
+INSERT INTO users (username, password_digest, companyname, currentbalance, startingbalance, profit) VALUES ('Thom', 'brooklyndonuts', 'TinyMountain', 1000, 1000, 0);
+INSERT INTO users (username, password_digest, companyname, currentbalance, startingbalance, profit) VALUES ('Adam', 'brooklyndonuts', 'NascentBreathers', 1000, 1000, 0);
+INSERT INTO users (username, password_digest, companyname, currentbalance, startingbalance, profit) VALUES ('Zhen', 'queensdonuts', 'SlidingVines', 1000, 1000, 0);
