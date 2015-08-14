@@ -5,6 +5,7 @@ nodeWatch();
 var MarketMaker = function (bots) {
 console.log('marketMakerConstructor loaded...')
 	var self = this;
+	this.marketMakersPrice = null;
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp, marketPrice) {
 		//load in all the bots on the dance floor
@@ -99,25 +100,26 @@ console.log('marketMakerConstructor loaded...')
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		return newPrice;
 	};
-	this.service = function (watchedObj, marketPrice) {
+	this.service = function (watchedObj) {
 		//listen to see any changes happend on twitterTrend
+		if (this.marketMakersPrice ) {};
 		Object.observe(watchedObj, function(changes) {
 			var newval = (changes[0].object.twitterAPI);
 			var oldval = (changes[0].oldValue);
 
 			console.log("tracking stock. (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
-			console.log("marketMaker announce " + marketPrice + " is the current price.")
+			console.log("marketMaker announce " + this.marketMakersPrice + " is the current price.")
 
-			self.discover(oldval, newval, marketPrice);
+			self.discover(oldval, newval, this.marketMakersPrice);
 
 			// stage trades, loop though all possible trades for bots wanting to trade
 			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			
 			//settle a trade btw 2 traders
-			var newMarketPrice = self.settle(pairedTraders, marketPrice);
+			var newMarketPrice = self.settle(pairedTraders, this.marketMakersPrice);
 			console.log('>> >> >> >> ' + "$GOOG" + ' current price: $' + newMarketPrice + ' << << << <<');
-
+			
 		});
 		/*
 		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
