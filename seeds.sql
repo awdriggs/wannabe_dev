@@ -1,7 +1,7 @@
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('R2D2', 300000, 'marketBuyer', 'goog', 110, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('C3PO', 100000, 'marketSeller', 'goog', 5000, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('ED209', 100000, 'marketTrader', 'goog', 500, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('HAL9000', 90000, 'priceTrader', 'goog', 500, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('R2D2', 300000, 'marketBuyer', 'GOOG', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('C3PO', 100000, 'marketSeller', 'GOOG', 5000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('ED209', 100000, 'marketTrader', 'GOOG', 555, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('HAL9000', 90000, 'priceTrader', 'GOOG', 555, 5, 5, 5, 'True', 0, 0, 0);
 
 -- INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('BlahCorp', 1000, 1000, 0);
 -- INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('SmellCorp', 1000, 1000, 0);

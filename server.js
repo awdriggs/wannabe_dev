@@ -30,7 +30,7 @@ var SIM = {
     simName: "[Stock_Bot_Simulation]",
     botArray: [],
     marketMakerBot: null,
-    makeBots: function (initBotinfo, initPrice) {
+    makeBots: function (initBotinfo, initStockinfo) {
         /*
         for (var key in initBotinfo) {
            if (initBotinfo.hasOwnProperty(key)) {
@@ -44,7 +44,7 @@ var SIM = {
             var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].interests, initBotinfo[b].active, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude)
                 this.botArray.push(currentBot);
         };
-        this.marketMakerBot = new marketMaker(this.botArray, initPrice); 
+        this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
         console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
     },
     openMarket: function (trend) {
@@ -53,7 +53,7 @@ var SIM = {
 };
 // set to change, change drive the sim
 var twitterTrend = {twitterAPI: 5555};
-
+/*
 // test stock info from db
 var stocksAryFromDatabase = [
     {
@@ -130,31 +130,32 @@ var botAryFromDatabase = [
         companyId: 1
         }
 ];
-
+*/
 // testing stock price ary 
 var stockPricesAry = [];
 
 var ready = false; //variable to flip the switch on the twitter feed.
 
-var getStock = function () {
+var getStocksAndBots = function () {
 
-    models.stocks.findOne({ where: { id: 1 }}).then(function (result) {
+    models.stocks.findAll().then(function (stocksresult) {
+        models.bots.findAll().then(function (botsresult) { 
+            //console.log('db finds PRICE:', stocksresult.price)
+            //init the SIM to setup
+            console.log(SIM.simName + ' suddenly started running...');
+            console.log(SIM.botArray.length + ' is current array size.')
 
-        console.log('db finds PRICE:', result.price)
-        //init the SIM to setup
-        console.log(SIM.simName + ' suddenly started running...');
-        console.log(SIM.botArray.length + ' is current array size.')
+            //stockPricesAry.push(result.price)
+            SIM.makeBots(botsresult, stocksresult);
+            SIM.openMarket(twitterTrend);
 
-        stockPricesAry.push(result.price)
-        SIM.makeBots(botAryFromDatabase, stocksAryFromDatabase);
-        SIM.openMarket(twitterTrend);
-
-        //result
-        ready = true;
+            //result
+            ready = true;
+        });
     });
 
 }
-getStock();
+getStocksAndBots();
 
 // ALSO GET from db BOTS
 // ALSO GET from db COMPANIES
@@ -224,6 +225,8 @@ var updateStock = function (stockparams) {
             result.update ( stockparams );
             console.log('stock price updated');
     });
+    
+    console.log("THIS is NODE price..." +  SIM.marketMakerBot.marketMakersPrice);
 }; // end updateStock
 
 
@@ -251,9 +254,8 @@ client.stream('statuses/filter', {
             //{sybmol: , change: }
             twitterTrend.twitterAPI = info.changes[0].pchange;
             console.log("current sentiment from twtr is " + twitterTrend.twitterAPI);
+            
             var nodePrice = SIM.marketMakerBot.marketMakersPrice;
-            console.log("THIS is NODE price..." + nodePrice);
-
             //save this mofo
             updateStock({ id: 1, price: nodePrice });
             //the id will need to be dynamic in the future...
