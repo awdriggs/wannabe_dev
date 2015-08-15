@@ -15,7 +15,7 @@ var tweetStream = []
     var count = $('#tweets').children().length;
     
     //only show ten tweets
-    if(count > 3){
+    if(count > 10){
       $('#tweets div:last').fadeOut();
       $('#tweets div:last').remove();
     }
