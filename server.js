@@ -168,6 +168,14 @@ var twitterModule = require('./twitter_module');
 
 var tweetArray = [];
 
+//save to db
+var updateStock = function (stockparams) {
+    models.stocks.findOne({ where: { id: stockparams.id }}).then(function (result) {
+            result.update ( stockparams );
+            console.log('stock price updated');
+    });
+}; // end updateStock
+
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
@@ -191,7 +199,11 @@ client.stream('statuses/filter', {
             //triggers sim to run
             twitterTrend.twitterAPI = info.changes[0].pchange;
             console.log("current sentiment from twtr is " + twitterTrend.twitterAPI);
-            console.log("THIS is NODE price..." + SIM.marketMakerBot.marketMakersPrice)
+            var nodePrice = SIM.marketMakerBot.marketMakersPrice;
+            console.log("THIS is NODE price..." + nodePrice);
+
+            //save this mofo
+            updateStock({ id: 1, price: nodePrice });
 
             io.emit('tweet', tweet)
             //console.log(tweet) //will print tweet json
@@ -212,6 +224,8 @@ app.get('/search_test', function(req, res) {
         res.send(tweets);
     });
 })
+
+
 
 
 
