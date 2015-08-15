@@ -31,12 +31,18 @@ var SIM = {
     botArray: [],
     marketMakerBot: null,
     makeBots: function (initBotinfo, initPrice) {
+        /*
         for (var key in initBotinfo) {
            if (initBotinfo.hasOwnProperty(key)) {
                var obj = initBotinfo[key];
                 var currentBot = new traderMaker(key, obj.balance, obj.character, obj.quantity, obj.interests, obj.active, obj.riskTolerance, obj.stepSize, obj.attitude)
                 this.botArray.push(currentBot);
             };
+        };
+        */
+        for (var b = 0; b < initBotinfo.length; b++) {
+            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].interests, initBotinfo[b].active, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude)
+                this.botArray.push(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initPrice); 
         console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
@@ -45,52 +51,88 @@ var SIM = {
         this.marketMakerBot.service(trend);
     }
 };
+// set to change, change drive the sim
 var twitterTrend = {twitterAPI: 5555};
 
-// starts the simulation a.k.a the humancentipad
-var botInfoFromDatabase = { 
-    'R2D2': {
-        balance: 300000, 
-        character: 'marketBuyer',
-        quantity: 110,
-        interests: 'goog',
-        active: true,
-        riskTolerance: 5,
-        stepSize: 5,
-        attitude: 5
+// test stock info from db
+var stocksAryFromDatabase = [
+    {
+        id: 1,
+        name: "$GOOGL",
+        price: "111.111"
     },
-    'C3PO': {
-        balance: 100000,
-        character: 'marketSeller',
-        quantity: 5000,
-        interests: 'goog',
-        active: true,
-        riskTolerance: 5,
-        stepSize: 5,
-        attitude: 5
-    },
-    'ED209': {
-        balance: 100000,
-        character: 'marketTrader',
-        quantity: 500,
-        interests: 'goog',
-        active: true,
-        riskTolerance: 5,
-        stepSize: 5,
-        attitude: 5
-    },
-    'HAL9000': {
-        balance: 90000,
-        character: 'priceTrader',
-        quantity: 500,
-        interests: 'goog',
-        active: false,
-        riskTolerance: 5,
-        stepSize: 5,
-        attitude: 5
+    {
+        id: 2,
+        name: "$AAPL",
+        price: "35.125"
     }
-}
+];
+// test bot info from db
+var botAryFromDatabase = [
+    {
+        id: 1,
+        botname: 'R2D2',
+        balance: 300000,
+        character: "marketBuyer",
+        stockinterest: "$GOOGL",
+        quantity: 100,
+        risktolerance: 5,
+        stepsize: 5,
+        attitude: 5,
+        active: "True",
+        userId: 0,
+        stockId: 1,
+        companyId: 1
+    },
+    {
+        id: 2,
+        botname: 'C3PO',
+        balance: 100000,
+        character: "marketSeller",
+        stockinterest: "$GOOGL",
+        quantity: 5000,
+        risktolerance: 5,
+        stepsize: 5,
+        attitude: 5,
+        active: "True",
+        userId: 0,
+        stockId: 1,
+        companyId: 1
+    },
+    {
+        id: 3,
+        botname: 'ED209',
+        balance: 100000,
+        character: "marketTrader",
+        stockinterest: "$GOOGL",
+        quantity: 777,
+        risktolerance: 5,
+        stepsize: 5,
+        attitude: 5,
+        active: "True",
+        userId: 0,
+        stockId: 1,
+        companyId: 1
+    },
+    {
+        id: 4,
+        botname: 'HAL9000',
+        balance: 100000,
+        character: "priceTrader",
+        stockinterest: "$GOOGL",
+        quantity: 666,
+        risktolerance: 5,
+        stepsize: 5,
+        attitude: 5,
+        active: "True",
+        userId: 0,
+        stockId: 1,
+        companyId: 1
+        }
+];
 
+// testing stock price ary 
+var stockPricesAry = [];
 
 var ready = false; //variable to flip the switch on the twitter feed.
 
@@ -103,7 +145,8 @@ var getStock = function () {
         console.log(SIM.simName + ' suddenly started running...');
         console.log(SIM.botArray.length + ' is current array size.')
 
-        SIM.makeBots(botInfoFromDatabase, result.price);
+        stockPricesAry.push(result.price)
+        SIM.makeBots(botAryFromDatabase, stocksAryFromDatabase);
         SIM.openMarket(twitterTrend);
 
         //result
