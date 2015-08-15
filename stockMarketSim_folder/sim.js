@@ -1,5 +1,6 @@
 // var SIM = function (initBotinfo, initPrice ) {
 
+
 //     var marketMaker = require('./marketMaker.js');
 //     var traderMaker = require('./traderSetup.js');
 
