@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var stocks = sequelize.define('stocks', {
     name: DataTypes.STRING,
-    price: DataTypes.INTEGER
+    price: DataTypes.NUMERIC
   }, {
     timestamps: false,
     classMethods: {
