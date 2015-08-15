@@ -4,6 +4,13 @@
 	<link rel="stylesheet" href="/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Ruda|Fredoka+One' rel='stylesheet' type='text/css'>
 	
+	
+	<link rel="stylesheet" href="/css/ticker.css" type="text/css" media="screen"> <!-- css for wt -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+	<script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.3.1/jquery.marquee.min.js'></script>
+
 </head>
 <body>
 	<div id="left_side">
@@ -64,7 +71,26 @@
 	<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
 	<div id="content_wrapper">
 		<div id="viz_wrapper">
-
+			<div id="marquee">
+				<li id='item1'>
+					AAPL $500
+				</li>
+				<li id='item2'>
+					AMZN $500
+				</li>
+				<li id='item3'>
+					FB $500
+				</li>
+				<li id='item4'>
+					GOOG $500
+				</li>
+				<li id='item5'>
+					MSFT $500
+				</li>
+				<li id='item6'>
+					TWTR $500
+				</li>
+			</div>
 			<p>viz go here</p>
 
 		<!-- WEB TICKER -->
@@ -110,7 +136,7 @@
 
 
 	<!-- BACKBONE DEPENDENCIES -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>	
@@ -128,8 +154,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/javascript/sockets-script.js"></script>
 
-	<!-- TICKER DEPENDENCIES -->
-	<script src="/javascript/ticker_update.js"></script>
+	<script src="/javascript/ticker.js"></script>
 
 </body>
 </html>

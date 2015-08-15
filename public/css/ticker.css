@@ -1,0 +1,11 @@
+#marquee {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 3rem;
+  color: navy; }
+  #marquee li {
+    margin: 1rem;
+    display: inline-block; }
+
+/*# sourceMappingURL=ticker.css.map */
