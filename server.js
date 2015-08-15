@@ -10,7 +10,6 @@ var express = require('express'),
 
 var app = express();
 
-
 //adding all twitter bs
 var Twitter = require('twitter');
 var dotter = require('dotenv').load();
@@ -20,12 +19,33 @@ var sentiment = require('sentiment');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-// node-debug server.js 
 
+// node-debug server.js 
 // SIM DEPENDENCIES
-var SIM = require('./stockMarketSim_folder/sim.js');
-var trend = require('./stockMarketSim_folder/sim.js').trend;
-var price =  require('./stockMarketSim_folder/sim.js').price;
+var marketMaker = require('./stockMarketSim_folder/marketMaker.js');
+var traderMaker = require('./stockMarketSim_folder/traderSetup.js');
+
+//SIM obj
+var SIM = {
+    simName: "[Stock_Bot_Simulation]",
+    botArray: [],
+    marketMakerBot: null,
+    makeBots: function (initBotinfo, initPrice) {
+        for (var key in initBotinfo) {
+           if (initBotinfo.hasOwnProperty(key)) {
+               var obj = initBotinfo[key];
+                var currentBot = new traderMaker(key, obj.balance, obj.character, obj.quantity, obj.interests, obj.active, obj.riskTolerance, obj.stepSize, obj.attitude)
+                this.botArray.push(currentBot);
+            };
+        };
+        this.marketMakerBot = new marketMaker(this.botArray, initPrice); 
+        console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
+    },
+    openMarket: function (trend) {
+        this.marketMakerBot.service(trend);
+    }
+};
+var twitterTrend = {twitterAPI: 5555};
 
 // starts the simulation a.k.a the humancentipad
 var botInfoFromDatabase = { 
@@ -74,48 +94,24 @@ var botInfoFromDatabase = {
 
 var ready = false; //variable to flip the switch on the twitter feed.
 
-/*
-//random number test sim, dummy sim
-var runSim = function(value) {
-
-    
-    console.log("sim is starting captainn!")
-    var tweetCounter = 0;
-    var refreshIntervalId = setInterval( function() { 
-        console.log("---------- ---------- ---------- ---------- ----------"); 
-        function getRandomArbitrary(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        price = value;
-        console.log("Current price from database is: $" + price)
-
-        //trend.twitterAPI = getRandomArbitrary(-10, 10);
-        
-        tweetCounter = tweetCounter + 1;
-        //sets sim trade count
-        if (tweetCounter == 10) {
-            clearInterval(refreshIntervalId);
-            console.log("---------- ---------- ---------- ---------- ----------");
-            console.log("...sim ended.")
-        };
-
-    }, 2000);
-};
-*/
-
-
 var getStock = function () {
+
     models.stocks.findOne({ where: { id: 1 }}).then(function (result) {
 
-        console.log('PRICE: ', result.price)
-        SIM(botInfoFromDatabase, result.price);
+        console.log('db finds PRICE:', result.price)
+        //init the SIM to setup
+        console.log(SIM.simName + ' suddenly started running...');
+        console.log(SIM.botArray.length + ' is current array size.')
+
+        SIM.makeBots(botInfoFromDatabase, result.price);
+        SIM.openMarket(twitterTrend);
+
         //result
         ready = true;
     });
-}
 
-getStock()
+}
+getStock();
 
 
 // LISTENER
@@ -123,9 +119,9 @@ getStock()
 
 //listener for sockets io
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+    
+    console.log('listening on *:3000');
 });
-
 
 // app.set('port', process.env.PORT || 3000);
 
@@ -192,7 +188,11 @@ client.stream('statuses/filter', {
 
             //write some logic to show the last ten tweets
             
-            trend.twitterAPI = info.changes[0].pchange;
+            //triggers sim to run
+            twitterTrend.twitterAPI = info.changes[0].pchange;
+            console.log("current sentiment from twtr is " + twitterTrend.twitterAPI);
+            console.log("THIS is NODE price..." + SIM.marketMakerBot.marketMakersPrice)
+
             io.emit('tweet', tweet)
             //console.log(tweet) //will print tweet json
         
@@ -201,9 +201,6 @@ client.stream('statuses/filter', {
             }
 
     }) //end of data stream on
-
-    
-    
 
 })
 
