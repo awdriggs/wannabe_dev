@@ -1,18 +1,17 @@
-//var nodeWatch = require('./simRequire.js');
-//nodeWatch();
-
 // |MarketMaker| Constructor
-var MarketMaker = function (bots, initMarketPrice) {
+var MarketMaker = function (initBotsArray, initStocksArray) {
 console.log('marketMakerConstructor loaded...')
 
 	var self = this;
-	this.marketMakersPrice = initMarketPrice;
+	this.marketMakersPrice = parseFloat(initStocksArray[0].price);
+	this.testStock = initStocksArray[0].name;
+
 	//using data from this.listen to pass each bot let them set trade
 	this.discover = function (oldp, newp, marketPrice) {
-		//load in all the bots on the dance floor
-		this.traderList = bots;
+		//load in all the initBotsArray on the dance floor
+		this.traderList = initBotsArray;
 
-		//market maker sets up all the bots to get ready for trading
+		//market maker sets up all the initBotsArray to get ready for trading
 		for (var i = 0; i < this.traderList.length; i++) {
 			//run though each trader have them track the trend
 			console.log(this.traderList[i].name + " now discovering trend.")
@@ -20,7 +19,7 @@ console.log('marketMakerConstructor loaded...')
 			this.traderList[i].track(oldp, newp, marketPrice);
 		};
 	};
-	//stages trade between bots
+	//stages trade between initBotsArray
 	this.stage = function () {
 		//run though each trader to see if they want to trade
 		var buyer = "";
@@ -47,7 +46,7 @@ console.log('marketMakerConstructor loaded...')
 		//var possibleTrades = [];
 		return pair;
 	};
-	//settle trades between bots
+	//settle trades between initBotsArray
 	this.settle = function (pairedUpTraders, marketPrice) {
 
 		var d = new Date();
@@ -82,21 +81,6 @@ console.log('marketMakerConstructor loaded...')
 		// stock change hands
 		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
 		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
-		
-		/*
-		//reset trade state
-		for (var t = 0; t < 2; t++) {
-			pairedUpTraders[t].lookingForTrade = false;
-			pairedUpTraders[t].importance = null;
-			pairedUpTraders[t].orderType = null;
-			pairedUpTraders[t].offerPrice = null;
-			pairedUpTraders[t].offerStock = null;
-		};
-		// push to JSON
-		var t = new Date().getTime();
-		var newTrade = {"buyer":pairedUpTraders[0].name, "seller":pairedUpTraders[0].name, "timeOfTrade":t, "price":stockListing.market[0].GOOGL, "stock":'GOOGL'};
-		tradeLedger.trades.push(newTrade);
-		*/
 
 		// new stock price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
@@ -115,14 +99,14 @@ console.log('marketMakerConstructor loaded...')
 
 			self.discover(oldval, newval, self.marketMakersPrice);
 
-			// stage trades, loop though all possible trades for bots wanting to trade
+			// stage trades, loop though all possible trades for initBotsArray wanting to trade
 			var pairedTraders = self.stage();
 			//console.log(pairedTraders);
 			
 			//settle a trade btw 2 traders
 			var newMarketPrice = self.settle(pairedTraders, self.marketMakersPrice);
 			console.log("This is new market price after a trade..." + newMarketPrice)
-			console.log('>> >> >> >> ' + "$GOOG" + ' current price: $' + newMarketPrice + ' << << << <<');
+			console.log('>> >> >> >> ' + self.testStock + ' current price: $' + newMarketPrice + ' << << << <<');
 			
 			self.marketMakersPrice = newMarketPrice;
 			//return newMarketPrice;
