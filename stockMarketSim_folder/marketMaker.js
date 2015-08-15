@@ -1,9 +1,10 @@
-var nodeWatch = require('./simRequire.js');
-nodeWatch();
+//var nodeWatch = require('./simRequire.js');
+//nodeWatch();
 
 // |MarketMaker| Constructor
 var MarketMaker = function (bots, initMarketPrice) {
 console.log('marketMakerConstructor loaded...')
+
 	var self = this;
 	this.marketMakersPrice = initMarketPrice;
 	//using data from this.listen to pass each bot let them set trade
@@ -124,6 +125,7 @@ console.log('marketMakerConstructor loaded...')
 			console.log('>> >> >> >> ' + "$GOOG" + ' current price: $' + newMarketPrice + ' << << << <<');
 			
 			self.marketMakersPrice = newMarketPrice;
+			//return newMarketPrice;
 		});
 		
 		// watch to see any change happenes to stock market price
@@ -134,7 +136,9 @@ console.log('marketMakerConstructor loaded...')
 		// obj.watch works only on one obj at a time.
 		// watchedObj.watch("twitterAPI", function (id, oldval, newval) {});	
 	};
+	this.returnPrice = function () {
+		return self.marketMakersPrice;
+	};
 };
-
 
 module.exports = MarketMaker;
