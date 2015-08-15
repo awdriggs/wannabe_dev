@@ -183,6 +183,9 @@ var updateStock = function (stockparams) {
     });
 }; // end updateStock
 
+
+//
+
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
