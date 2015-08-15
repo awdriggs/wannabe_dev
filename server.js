@@ -58,6 +58,16 @@ var botInfoFromDatabase = {
         riskTolerance: 5,
         stepSize: 5,
         attitude: 5
+    },
+    'HAL9000': {
+        balance: 90000,
+        character: 'priceTrader',
+        quantity: 500,
+        interests: 'goog',
+        active: false,
+        riskTolerance: 5,
+        stepSize: 5,
+        attitude: 5
     }
 }
 

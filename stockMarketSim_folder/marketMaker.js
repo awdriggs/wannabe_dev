@@ -96,13 +96,14 @@ console.log('marketMakerConstructor loaded...')
 		var newTrade = {"buyer":pairedUpTraders[0].name, "seller":pairedUpTraders[0].name, "timeOfTrade":t, "price":stockListing.market[0].GOOGL, "stock":'GOOGL'};
 		tradeLedger.trades.push(newTrade);
 		*/
+
 		// new stock price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		return newPrice;
 	};
 	this.service = function (watchedObj) {
-		//listen to see any changes happend on twitterTrend
 
+		// listen to see any change happenes to twitterTrend
 		Object.observe(watchedObj, function(changes) {
 
 			var newval = (changes[0].object.twitterAPI);
@@ -124,12 +125,14 @@ console.log('marketMakerConstructor loaded...')
 			
 			self.marketMakersPrice = newMarketPrice;
 		});
-		/*
-		watchedObj.watch("twitterAPI", function (id, oldval, newval) {
-			//obj.watch works only on one obj at a time.
+		
+		// watch to see any change happenes to stock market price
+		Object.observe(self, function(changes) {
+			console.log("Stock market price has changed...to" + changes.object.marketMakersPrice);
 		});
-		*/
-
+		
+		// obj.watch works only on one obj at a time.
+		// watchedObj.watch("twitterAPI", function (id, oldval, newval) {});	
 	};
 };
 
