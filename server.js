@@ -113,6 +113,13 @@ var getStock = function () {
 }
 getStock();
 
+// ALSO GET from db BOTS
+// ALSO GET from db COMPANIES
+// ALSO GET from db USERS
+// ALSO GET from db NEW BOTS
+// ALSO GET from db NEW COMPANIES
+// ALSO GET from db NEW USERS
+
 
 // LISTENER
 //app.listen(3000);
@@ -181,22 +188,21 @@ client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
 }, function(stream) {
 
-    
         stream.on('data', function(tweet) {
 
           if(ready){
             console.log('stream')
-            //calles the process function in the twitter module. better way to handle trends which is in the same file?
-            //twitterModule.process(tweet.text)
-
-            //do the emiting here?
-            //io.emit
+            
             var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
             console.log(info.changes) //this is an array of all the changes that happpened with a tweet
 
             //write some logic to show the last ten tweets
             
             //triggers sim to run
+
+            //info.changes is an array with the changes from one tweet. 
+            //write a for loop that goes through all
+            //{sybmol: , change: }
             twitterTrend.twitterAPI = info.changes[0].pchange;
             console.log("current sentiment from twtr is " + twitterTrend.twitterAPI);
             var nodePrice = SIM.marketMakerBot.marketMakersPrice;
@@ -204,10 +210,21 @@ client.stream('statuses/filter', {
 
             //save this mofo
             updateStock({ id: 1, price: nodePrice });
+            //the id will need to be dynamic in the future...
+
+            // UPDATE COMPANY INFO
+            // UPDATE BOT INFO
+            // UPDATE USER INFO
 
             io.emit('tweet', tweet)
             //console.log(tweet) //will print tweet json
-        
+            
+            //add an emitter for the trades
+            //adam needs an objec that I can parse on the client side
+
+            //add an emitter for the ticker symbol prices
+            //needs an object with all the ticker symbols and the prices
+
             } else {
                 console.log('twitter hit but sim not ready')
             }
