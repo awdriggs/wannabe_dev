@@ -84,5 +84,4 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
 	};
 };
 
-
 module.exports = tradeLogic;
