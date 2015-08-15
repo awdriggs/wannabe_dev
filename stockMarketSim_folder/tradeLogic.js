@@ -11,7 +11,7 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
             self.orderType = 'BUY';
             self.lookingForTrade = true;
             self.urgency = -1;
-	        console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+	        console.log(self.name + ' is a constant buyer, looking for trade: for $' + self.offerPrice + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
 	    // basic marketBuyer bot will always buy but at lowest urgency
@@ -20,7 +20,7 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
             self.orderType = 'SELL';
             self.lookingForTrade = true;
             self.urgency = -1;
-            console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+            console.log(self.name + ' is a constant buyer, looking for trade: for $' + self.offerPrice + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
         // basic marketTrader bot will buy or sell using basic logic
@@ -33,7 +33,7 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
             };
             var absVal = Math.abs(newTrendVal);
             //interested to do something
-            if (absVal > 0 && absVal < 3) {
+            if (absVal > 0 && absVal <= 3) {
                 if (self.orderType == 'BUY') {
                     self.offerPrice = marketPrice + 0.25;
                 }else{
@@ -63,13 +63,18 @@ var tradeLogic = function (botChar, self, marketPrice, oldTrendVal, newTrendVal)
             self.lookingForTrade = true;
         break;
         
-        // basic marketBuyer bot will always buy but at lowest urgency
-        case 'marketTrader':
-            self.offerPrice = marketPrice;
+        // basic price trader bot will trade following price movements
+        case 'priceTrader':
+            /*            
+            if (marketPrice) {};
             self.orderType = 'BUY';
             self.lookingForTrade = true;
-            self.urgency = -1;
             console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+            */
+            console.log(self.name + " is a priceTrader bot.")
+            self.offerPrice = marketPrice;
+            self.lookingForTrade = false;
+            self.urgency = -1;
         break;
 	    
         //find empty bots
