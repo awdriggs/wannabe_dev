@@ -69,6 +69,10 @@ body {
   #left_side input:focus {
     outline: none;
     outline: #d95141 solid 2px; }
+  #left_side button:focus {
+    outline: none; }
+  #left_side .ui-slider {
+    margin: 1rem 0; }
 
 #content_wrapper {
   background-color: #ebe1c8;
