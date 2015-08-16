@@ -11,6 +11,8 @@ module.exports.controller = function (app) {
 
 	// BOT CREATE
 	app.post('/api/bots', function (req, res) {
+		console.log('form body', req.body);
+
 		models.bots.create( req.body ).then(function (result) {
 			res.json(result);
 		});
