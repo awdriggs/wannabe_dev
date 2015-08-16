@@ -109,6 +109,14 @@ body{
 		outline: none; 
 		outline: $red solid 2px;
 	}
+
+	button:focus{
+		outline:none;
+	}
+
+	.ui-slider{
+		    margin: 1rem 0;
+	}
 }
 
 #content_wrapper{
@@ -119,7 +127,6 @@ body{
 }
 
 #viz_wrapper{
-
 	height: 300px;
 	margin: 3%;
 	display: block;
@@ -131,7 +138,6 @@ body{
 
 //data columns
 .data_wrapper {
-
 	float: right;
 	margin-right: 3%;
 

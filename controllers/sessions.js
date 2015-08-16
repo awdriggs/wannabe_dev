@@ -10,7 +10,11 @@ module.exports.controller = function (app) {
 
 	app.post('/setuser', function (req, res) {
 		req.session.name = req.body.name;
-		res.send('Session set for ' + req.session.name);
+		//res.json(req.session.name);
+		// models.users.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
+		// 	res.json(result);
+		// })
+		res.redirect('/');
 	});
 
 	app.delete('/removeuser', function (req, res) {
