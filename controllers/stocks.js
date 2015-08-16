@@ -13,8 +13,8 @@ module.exports.controller = function (app) {
 	app.get('/api/stocks/:id', function (req, res) {
 		models.stocks.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
 			res.json(result)
-		})
-	})
+		});
+	});
 
 	// STOCK UPDATE
 	app.put('/api/stocks/:id', function (req, res) {
