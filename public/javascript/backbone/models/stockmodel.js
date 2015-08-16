@@ -7,7 +7,7 @@ App.Models.Stock = Backbone.Model.extend({
 	initialize: function () {
 		console.log('stock model created');
 		clearInterval(this.query);
-		this.sync();
+		// this.sync();
 	},
 
 	sync: function () { 
