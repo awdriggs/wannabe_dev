@@ -1,12 +1,37 @@
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('R2D2', 300000, 'marketBuyer', 'GOOG', 110, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('C3PO', 100000, 'marketSeller', 'GOOG', 5000, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('ED209', 100000, 'marketTrader', 'GOOG', 555, 5, 5, 5, 'True', 0, 0, 0);
-INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('HAL9000', 90000, 'priceTrader', 'GOOG', 555, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('R2D2', 500000, 'marketBuyer', '$GOOG', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('C3PO', 100000, 'marketSeller', '$GOOG', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('ED209', 100000, 'marketTrader', '$GOOG', 555, 5, 5, 5, 'True', 0, 0, 0);
+
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('OptimusPrime', 600000, 'marketBuyer', '$AAPL', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Bumblebee', 100000, 'marketSeller', '$AAPL', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Sideswipe', 100000, 'marketTrader', '$AAPL', 555, 5, 5, 5, 'True', 0, 0, 0);
+
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Megatron', 700000, 'marketBuyer', '$FB', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Starscream', 100000, 'marketSeller', '$FB', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Thundercracker', 100000, 'marketTrader', '$FB', 555, 5, 5, 5, 'True', 0, 0, 0);
+
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('HAL9000', 800000, 'marketBuyer', '$AMZN', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('T-1000', 100000, 'marketSeller', '$AMZN', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('IronGiant', 100000, 'marketTrader', '$AMZN', 555, 5, 5, 5, 'True', 0, 0, 0);
+
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('FalseMaria', 900000, 'marketBuyer', '$TWTR', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Wall-E', 100000, 'marketSeller', '$TWTR', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Gort', 100000, 'marketTrader', '$TWTR', 555, 5, 5, 5, 'True', 0, 0, 0);
+
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Johnny5', 400000, 'marketBuyer', '$MSFT', 110, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('Gerty', 100000, 'marketSeller', '$MSFT', 9000, 5, 5, 5, 'True', 0, 0, 0);
+INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('MechaGodzilla', 100000, 'marketTrader', '$MSFT', 555, 5, 5, 5, 'True', 0, 0, 0);
 
 -- INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('BlahCorp', 1000, 1000, 0);
 -- INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('SmellCorp', 1000, 1000, 0);
 
-INSERT INTO stocks (name, price) VALUES('GOOG', 500);
+INSERT INTO stocks (name, price) VALUES('$GOOG', 611.412);
+INSERT INTO stocks (name, price) VALUES('$AAPL', 135.125);
+INSERT INTO stocks (name, price) VALUES('$FB', 75.435);
+INSERT INTO stocks (name, price) VALUES('$AMZN', 245.159);
+INSERT INTO stocks (name, price) VALUES('$TWTR', 41.216);
+INSERT INTO stocks (name, price) VALUES('$MSFT', 65.239);
+
 -- INSERT INTO stocks (name, price) VALUES('$AAPL', 55);
 
 -- INSERT INTO users (username, password_digest, companyname, currentbalance, startingbalance, profit) VALUES ('Thom', 'brooklyndonuts', 'TinyMountain', 1000, 1000, 0);

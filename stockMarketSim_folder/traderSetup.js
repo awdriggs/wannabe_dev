@@ -10,7 +10,7 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.balance = assignStartBal;
 	this.character = assignTradeChar;
 	this.quantity =  assignQuantity;
-	this.interests = assignStockInterest;
+	this.stockinterest = assignStockInterest;
 	//user change-able attr
 	this.riskTolerance = assignTolerance;
 	this.stepSize = assignStepSize;
@@ -22,9 +22,9 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.orderType = null;
 	this.offerPrice = null;
     //pass bot info to outside func to set trade style/characteristics
-	this.track = function (oldVal, newVal, marketPrice) {
-    	//console.log (marketPrice + ' is the current price traker see.')
-    	tradeLogic(this.character, self, marketPrice, oldVal, newVal);
+	this.track = function (currentMarketPrice, newTrendVal) {
+    	//run trade logic to set bot ready for trading	
+    	tradeLogic(this.character, self, currentMarketPrice, newTrendVal);
 	};
 	//resets trader to starting state
 	this.chill = function (){

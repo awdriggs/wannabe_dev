@@ -20,10 +20,36 @@
 			* this trading company will not be listed. 
 			market maker bots types:
 				marketBuyer
-				marketSeller 
+				marketSeller
+				marketTrader 
 
-		CobraCommand: CC
-		Transformers:
-			Optimus Prime
-			Megatron
+		$GOOG:
+			'R2D2'
+			'C3PO'
+			'ED209'
+		$AAPL:
+			'OptimusPrime'
+			'Bumblebee'
+			'Sideswipe'
+		$FB:
+			'Megatron'
+			'Starscream'
+			'Thundercracker'
+		$AMZN:
+			'HAL9000'
+			'T-1000'
+			'IronGiant'
+		$TWTR:
+			'FalseMaria'
+			'Wall-E'
+			'Gort'
+		$MSFT:
+			'Johnny5'
+			'Gerty'
+			'MechaGodzilla'
+
+
+
+
+
 -->
