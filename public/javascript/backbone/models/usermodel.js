@@ -1,10 +1,10 @@
-App.Models.UserModel = Backbone.Model.extend({
+App.Models.User = Backbone.Model.extend({
 
-	urlRoot: '/api/users/index',
+	urlRoot: '/api/users',
 	tagName: 'div',
 
 	initialize: function () {
-		console.log("new User model created")
+		console.log('User model created');
 	}
 
 })

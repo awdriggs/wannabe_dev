@@ -1,10 +1,8 @@
-App.Views.TestModView = Backbone.View.extend({
-
-	el: '#app',
+App.Views.CompanyView = Backbone.View.extend({
 
 	initialize: function () {
-		console.log('Test Model view created');
-		this.template = Handlebars.compile($('#testTemplate').html());
+		console.log('single company view created');
+		this.template = Handlebars.compile($('#companytemplate').html());
 		this.listenTo(this.model, 'change', this.render);
 		this.render();
 	},
