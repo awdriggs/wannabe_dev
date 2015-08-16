@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Ruda|Fredoka+One' rel='stylesheet' type='text/css'>
 	
-	
+	<link rel="stylesheet" href="/css/stylesheet.css">
 	<link rel="stylesheet" href="/css/ticker.css" type="text/css" media="screen"> <!-- css for wt -->
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
@@ -68,7 +68,13 @@
 	
 	
 
-	<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
+	<!-- TEST CLICKS FOR BACKBONE GRABS -->
+	<span id="showstocks">show stocks</span> --
+	<span id="showbots">show bots</span> --
+	<span id="showcompanies">show companies</span> --
+	<span id="showusers">show users</span>
+
+	<!-- MAIN CONTENT -->
 	<div id="content_wrapper">
 		<div id="viz_wrapper">
 			<div id="marquee">
@@ -91,7 +97,10 @@
 					TWTR $500
 				</li>
 			</div>
-			<p>viz go here</p>
+
+			<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
+			<div id="container">
+			</div>
 
 		<!-- WEB TICKER -->
 
@@ -119,19 +128,40 @@
 	<!-- TEMPLATES FOR BACKBONE -->
 
 	<!-- users -->
-	<template id="testTemplate">
-		<div class="test">
-			<p> Id: {{id}} --- Username: {{username}}</p> 
-			<p>Company Name: {{companyname}}</p> 
-			<p>Balance: {{balance}} </p>
-			<p>Bot: {{bot}} </p>
-		</div>
+	<template id="usertemplate">
+		<p>ID: {{id}} </p>
+		<p>USERNAME: {{username}}</p>
+		<p>STARTING BALANCE: {{startingbalance}} </p>
+		<p>CURRENT BALANCE: {{currentbalance}} </p>
+		<p>PROFIT: {{profit}}</p>
 	</template>
 
-<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
-	<div id="app">
+	<template id="stocktemplate">
+		<p>ID: {{id}}</p>
+		<p>NAME: {{name}}</p>
+		<p>PRICE: {{price}}</p>
+	</template>
 
-	</div>
+	<template id="companytemplate">
+		<p>ID: {{id}} </p>
+		<p>NAME: {{name}} </p>
+		<p>STARTINGBALANCE: {{startingbalance}}</p>
+		<p>CURRENTBALANCE: {{currentbalance}}</p>
+		<p>PROFIT: {{profit}}</p>
+	</template>
+
+	<template id="bottemplate">
+		<p>BOTNAME: {{botname}}</p>
+		<p>BALANCE: {{balance}}</p>
+		<p>CHARACTER: {{character}}</p>
+		<p>STOCK OF INTEREST: {{stockinterest}}</p>
+		<p>QUANTITY OF STOCK: {{quantity}}</p>
+		<p>RISK TOLERANCE: {{risktolerance}}</p>
+		<p>ATTITUDE: {{attitude}}</p>
+		<p>STEPSIZE: {{stepsize}}</p>	
+	</template>
+
+
 
 
 
@@ -143,12 +173,26 @@
 	<script src="/javascript/backbone/app.js"></script>
 
 	<!-- BACKBONE FILES -->
-	<script src="/javascript/backbone/views/testColView.js"></script>
-	<script src="/javascript/backbone/views/testModView.js"></script>
-	<script src="/javascript/backbone/models/testmodel.js"></script>
+	<!-- Stocks -->
+	<script src="/javascript/backbone/views/stocksview.js"></script>
+	<script src="/javascript/backbone/views/stockview.js"></script>
+	<script src="/javascript/backbone/models/stockmodel.js"></script>
+	<script src="/javascript/backbone/collections/stockscollection.js"></script>
+	<!-- Bots -->
+	<script src="/javascript/backbone/views/botsview.js"></script>
+	<script src="/javascript/backbone/views/botview.js"></script>
+	<script src="/javascript/backbone/models/botmodel.js"></script>
+	<script src="/javascript/backbone/collections/botscollection.js"></script>
+	<!-- Users -->
+	<script src="/javascript/backbone/views/usersview.js"></script>
+	<script src="/javascript/backbone/views/userview.js"></script>
 	<script src="/javascript/backbone/models/usermodel.js"></script>
-	<script src="/javascript/backbone/collections/testcollection.js"></script>
-	<script src="/javascript/backbone/collections/userscollection.js"></script>
+	<script src="/javascript/backbone/collections/userscollection.js"></script>	
+	<!-- Companies -->
+	<script src="/javascript/backbone/views/companiesview.js"></script>
+	<script src="/javascript/backbone/views/companyview.js"></script>
+	<script src="/javascript/backbone/models/companymodel.js"></script>
+	<script src="/javascript/backbone/collections/companiescollection.js"></script>
 
 	<!-- SOCKETS DEPENDENCIES -->
 	<script src="/socket.io/socket.io.js"></script>

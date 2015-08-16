@@ -2,22 +2,42 @@ var models = require('../models');
 
 module.exports.controller = function (app) {
 
-	app.get('/api/users/index', function (req, res) {
+	// USERS ALL
+	app.get('/api/users', function (req, res) {
 		models.users.findAll().then(function (result) {
 			res.json(result);
 		});
 	});
 
+	// USER SHOW WITH THE BOTS HE OR SHE OWNS
+	app.get('/api/users/:id', function (req, res) {
+		models.users.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
+			res.json(result);
+		})
+	})
+
+	// USER CREATE
 	app.post('/api/users/create', function (req, res) {
-		res.send('users create');
+		models.users.create( req.body ).then(function (result) {
+			res.json(result);
+		});
 	});
 
-	app.put('/api/users/update/:id', function (req, res) {
-		res.send('users update');
+	// USER UPDATE
+	app.put('/api/users/:id', function (req, res) {
+		models.users.findById( req.params.id ).then(function (result) {
+	    	result.update( req.body ).then(function (updatedResult) {
+	            res.json(updatedResult);
+	        });
+	    });
 	});
 
-	app.delete('/api/users/delete/:id', function (req, res) {
-		res.send('users delete');
+	// USER DELETE
+	app.delete('/api/users/:id', function (req, res) {
+		models.users.findById( req.params.id ).then(function (result) {
+			result.destroy();
+			res.json(result);
+		});
 	});
 
 }

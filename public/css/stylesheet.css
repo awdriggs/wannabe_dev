@@ -1,9 +1,4 @@
-.test {
-	width: 200px; height: 100px;
-	border: 1px solid black;
-	border-radius: 5px;
-	text-align: center;
-	background-color: azure;
-	font-size: 10px;
-	margin: 5px;
+
+#showstocks, #showusers, #showbots, #showcompanies {
+	cursor: pointer;
 }

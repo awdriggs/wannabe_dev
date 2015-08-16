@@ -4,22 +4,35 @@ App = {
 	Views: {}
 }
 
-console.log('Backbone app.js loaded')
-
 $(function () {
 
+	$('#showstocks').click(function () {
+		console.log('stocks')
+		App.stocks = new App.Collections.Stocks;
+		App.stocksView = new App.Views.StocksView({ collection: App.stocks })
+		App.stocks.fetch({ reset: true });
+	});
 
-	App.usersCollection = new App.Collections.UsersCollection;
 
-	App.testView = new App.Views.TestColView({ collection: App.usersCollection })
+	$('#showusers').click(function () {
+		console.log('users')
+		App.users = new App.Collections.Users;
+		App.usersView = new App.Views.UsersView({ collection: App.users })
+		App.users.fetch({ reset: true });
+	})
 
-	App.usersCollection.fetch({ reset: true })
+	$('#showcompanies').click(function () {
+		console.log('companies')
+		App.companies = new App.Collections.Companies;
+		App.companiesView = new App.Views.CompaniesView({ collection: App.companies })
+		App.companies.fetch({ reset: true });
+	})
 
-	// Single model:
-	// App.testModel = new App.Models.TestModel
+	$('#showbots').click(function () {
+		console.log('bots')
+		App.bots = new App.Collections.Bots;
+		App.botsView = new App.Views.BotsView({ collection: App.bots })
+		App.bots.fetch({ reset: true });
+	});
 
-	// App.testView = new App.Views.TestView({model: App.testModel})
-
-	// App.testModel.fetch();
-
-});
+})
