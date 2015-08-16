@@ -3,11 +3,14 @@ var MarketMaker = function (initBotsArray, initStocksArray) {
 console.log('marketMakerConstructor loaded...')
 
 	var self = this;
-	this.marketMakersPrice = parseFloat(initStocksArray[0].price);
-	this.testStock = initStocksArray[0].name;
+	//hold input stock info name and price of each stock
+	this.marketStockListing = initStocksArray;
+
+	//this.testStock = initStocksArray[0].name;
+	//this.marketMakersPrice = parseFloat(initStocksArray[0].price);
 
 	//using data from this.listen to pass each bot let them set trade
-	this.discover = function (oldp, newp, marketPrice) {
+	this.discover = function (currentStockPrice, newval) {
 		//load in all the initBotsArray on the dance floor
 		this.traderList = initBotsArray;
 
@@ -16,7 +19,7 @@ console.log('marketMakerConstructor loaded...')
 			//run though each trader have them track the trend
 			console.log(this.traderList[i].name + " now discovering trend.")
 			//pass the price data down the line
-			this.traderList[i].track(oldp, newp, marketPrice);
+			this.traderList[i].track(newval, marketPrice);
 		};
 	};
 	//stages trade between initBotsArray
@@ -25,6 +28,7 @@ console.log('marketMakerConstructor loaded...')
 		var buyer = "";
 		var seller = "";
 		var pair = [];
+
 		//loop through each bot to find out who want to BUY
 		for (var b = 0; b < this.traderList.length; b++) {
 			if (this.traderList[b].lookingForTrade == true && this.traderList[b].orderType == "BUY") {
@@ -57,7 +61,6 @@ console.log('marketMakerConstructor loaded...')
 		var currentPrice = marketPrice;
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
 		console.log("Current spread on trade :$" + spread);
-		
 		//determent who the trade favors
 		var settleUptonPrice = null;
 
@@ -81,48 +84,70 @@ console.log('marketMakerConstructor loaded...')
 		// stock change hands
 		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
 		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
-
 		// new stock price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		return newPrice;
 	};
+	this.yell = function (state, stockName, stockPrice) {
+		var currentState = null;
+		if (state == 'start') {
+			currentState = ' current price: $';
+		}else if (state == 'finish') {
+			currentState = ' new price: $';
+		};
+		console.log('>> >> >> >> $' + stockName + currentState + stockPrice + ' << << << <<');
+	};
+	// main simulation logic
 	this.service = function (watchedObj) {
-
 		// listen to see any change happenes to twitterTrend
 		Object.observe(watchedObj, function(changes) {
+			//[ { symbol: '$goog', count: 1, attitude: 3, change: 3, pchange: 3 } ]
+			console.log("The following marketMaker saw a change in twitter stream.")
+			var twitterUpdates = changes[0].object.API;
 
-			var newval = (changes[0].object.twitterAPI);
-			var oldval = (changes[0].oldValue);
-
-			console.log("tracking stock. (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
-			console.log("marketMaker announce " + self.marketMakersPrice + " is the current price.")
-
-			self.discover(oldval, newval, self.marketMakersPrice);
-
-			// stage trades, loop though all possible trades for initBotsArray wanting to trade
-			var pairedTraders = self.stage();
-			//console.log(pairedTraders);
+			// reports current market state at start of twitter update
+			console.log("There are " + (self.marketStockListing.length)  + " stocks in db.");
 			
-			//settle a trade btw 2 traders
-			var newMarketPrice = self.settle(pairedTraders, self.marketMakersPrice);
-			console.log("This is new market price after a trade..." + newMarketPrice)
-			console.log('>> >> >> >> ' + self.testStock + ' current price: $' + newMarketPrice + ' << << << <<');
-			
-			self.marketMakersPrice = newMarketPrice;
-			//return newMarketPrice;
+			for (var t = 0; t < twitterUpdates.length; t++) {
+				//console.log(twitterUpdates[t].symbol + ":" + twitterUpdates[t].pchange);
+
+				//compare the twitter stock name to database stock name
+				var stockName = twitterUpdates[t].symbol.toUpperCase();
+				var tempName = '$' + self.marketStockListing[t].name;
+				if (stockName == tempName) {
+					var currentStockName = stockName;
+					var currentStockPrice = parseFloat(self.marketStockListing[t].price);
+					
+					self.yell('start', currentStockName, currentStockPrice);
+					
+					// pass info to bots so bot can decide what they want to do
+					self.discover(currentStockPrice, twitterUpdates[t].pchange);
+
+					/*					
+					// loop though all stock symbols to trigger the trade setups
+
+					// stage trades, loop though all bot wanting to trade
+					var pairedTraders = self.stage();
+
+					//settle a trade btw 2 traders
+					var newMarketPrice = self.settle(pairedTraders, self.marketMakersPrice);
+					self.marketMakersPrice = newMarketPrice;
+
+					self.yell('finish', currentStockName, currentStockPrice);
+					*/
+				};
+				
+			};
+
 		});
-		
+		/*
 		// watch to see any change happenes to stock market price
 		Object.observe(self, function(changes) {
 			console.log("Stock market price has changed...to" + changes.object.marketMakersPrice);
-		});
-		
-		// obj.watch works only on one obj at a time.
-		// watchedObj.watch("twitterAPI", function (id, oldval, newval) {});	
+		});	
+		*/
 	};
-	this.returnPrice = function () {
-		return self.marketMakersPrice;
-	};
+
 };
 
 module.exports = MarketMaker;

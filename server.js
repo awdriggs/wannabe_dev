@@ -31,28 +31,20 @@ var SIM = {
     botArray: [],
     marketMakerBot: null,
     makeBots: function (initBotinfo, initStockinfo) {
-        /*
-        for (var key in initBotinfo) {
-           if (initBotinfo.hasOwnProperty(key)) {
-               var obj = initBotinfo[key];
-                var currentBot = new traderMaker(key, obj.balance, obj.character, obj.quantity, obj.interests, obj.active, obj.riskTolerance, obj.stepSize, obj.attitude)
-                this.botArray.push(currentBot);
-            };
-        };
-        */
         for (var b = 0; b < initBotinfo.length; b++) {
-            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].interests, initBotinfo[b].active, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude)
+            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].active, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude)
                 this.botArray.push(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
-        console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
+        // loop though all stock report price at start
+        //console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
     },
     openMarket: function (trend) {
         this.marketMakerBot.service(trend);
     }
 };
 // set to change, change drive the sim
-var twitterTrend = {twitterAPI: 5555};
+var twitterTrend = { API:null };
 /*
 // test stock info from db
 var stocksAryFromDatabase = [
@@ -65,6 +57,26 @@ var stocksAryFromDatabase = [
         id: 2,
         name: "$AAPL",
         price: "35.125"
+    },
+    {
+        id: 3,
+        name: "$FB",
+        price: "75.435"
+    },
+    {
+        id: 4,
+        name: "$AMZM",
+        price: "245.159"
+    },
+    {
+        id: 5,
+        name: "$TWTR",
+        price: "41.216"
+    },
+    {
+        id: 6,
+        name: "$MSFT",
+        price: "65.239"
     }
 ];
 // test bot info from db
@@ -170,7 +182,6 @@ getStocksAndBots();
 
 //listener for sockets io
 http.listen(3000, function(){
-    
     console.log('listening on *:3000');
 });
 
@@ -243,21 +254,19 @@ client.stream('statuses/filter', {
             console.log('stream')
             
             var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
-            console.log(info.changes) //this is an array of all the changes that happpened with a tweet
-
+            //console.log(info.changes) 
+            //this is an array of all the changes that happpened with a tweet
             //write some logic to show the last ten tweets
-            
-            //triggers sim to run
 
             //info.changes is an array with the changes from one tweet. 
-            //write a for loop that goes through all
-            //{sybmol: , change: }
-            twitterTrend.twitterAPI = info.changes[0].pchange;
-            console.log("current sentiment from twtr is " + twitterTrend.twitterAPI);
+            //triggers sim to run
+
+            twitterTrend.API = info.changes;
+            //var nodePrice = SIM.marketMakerBot.marketMakersPrice;
             
-            var nodePrice = SIM.marketMakerBot.marketMakersPrice;
             //save this mofo
-            updateStock({ id: 1, price: nodePrice });
+            //updateStock({ id: 1, price: nodePrice });
+            
             //the id will need to be dynamic in the future...
 
             // UPDATE COMPANY INFO

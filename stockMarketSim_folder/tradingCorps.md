@@ -1,4 +1,6 @@
 <!-- 
+	// open hidden file
+	open .env
 
 	Bot charactistics:
 
@@ -24,5 +26,4 @@
 		Transformers:
 			Optimus Prime
 			Megatron
-
 -->

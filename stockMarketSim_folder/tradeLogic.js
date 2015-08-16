@@ -1,4 +1,4 @@
-var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTrendVal) {
+var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
     this.marketPrice = parseFloat(marketPriceInput);
     console.log('tradeLogic loaded...');
 	//setup behavior based on characteristics 
