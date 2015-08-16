@@ -15,6 +15,7 @@ App.Views.BotsView = Backbone.View.extend({
 	renderOne: function (bot) {
 		var viewthis = new App.Views.BotView({ model: bot });
 		this.$el.append(viewthis.el);
+		
 	},
 
 })

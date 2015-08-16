@@ -1,8 +1,11 @@
 #marquee {
-  width: 100%;
+  background-color: #b1aea8;
+  margin: 3%;
+  display: block;
+  width: 94%;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #102542; }
   #marquee li {
     margin: 1rem;

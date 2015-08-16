@@ -16,6 +16,7 @@ App.Views.StocksView = Backbone.View.extend({
 	renderOne: function (stock) {
 		var viewthis = new App.Views.StockView({ model: stock });
 		this.$el.append(viewthis.el);
+		this.$el.attr('class', 'item');
 	},
 
 })

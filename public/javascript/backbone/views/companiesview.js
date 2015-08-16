@@ -15,6 +15,7 @@ App.Views.CompaniesView = Backbone.View.extend({
 	renderOne: function (company) {
 		var viewthis = new App.Views.CompanyView({ model: company });
 		this.$el.append(viewthis.el);
+		this.$el.attr('class', 'item');
 	},
 
 })

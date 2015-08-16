@@ -1,19 +1,26 @@
 $navy: #102542; //rgba(16, 37, 66, 100)
+$dark-grey: #b1aea8;
 
 #marquee{
 
-	width: 100%;
+	background-color: $dark-grey;
+	margin: 3%;
+	display: block;
+	width: 94%;
 	
 	white-space: nowrap;
     overflow: hidden;
 
-	font-size: 3rem;
+	font-size: 2rem;
 	color: $navy;
 
 	li{
 		margin: 1rem;
 		display: inline-block;
 	}
+
+	// border-bottom: $navy solid 1px;
+	// margin-bottom: .5rem;
 }
 
 
