@@ -132,6 +132,18 @@ body{
 	display: block;
 	width: 94%;
 	background-color: $blue;
+
+	#nav{
+		display: flex;
+		//background-color: blue;
+
+		.nav_item{
+			background-color: blue;
+			width: 20%
+		}
+	}
+
+
 }
 
 

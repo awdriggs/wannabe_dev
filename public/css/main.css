@@ -86,6 +86,11 @@ body {
   display: block;
   width: 94%;
   background-color: #cdd7d6; }
+  #viz_wrapper #nav {
+    display: flex; }
+    #viz_wrapper #nav .nav_item {
+      background-color: blue;
+      width: 20%; }
 
 .data_wrapper {
   float: right;
