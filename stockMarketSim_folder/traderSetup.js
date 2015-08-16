@@ -23,7 +23,8 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.offerPrice = null;
     //pass bot info to outside func to set trade style/characteristics
 	this.track = function (currentMarketPrice, newTrendVal) {
-    	//run trade logic to set bot ready for trading	
+    	//run trade logic to set bot ready for trading
+    	console.log(self.name + " tracking stock...")	
     	tradeLogic(this.character, self, currentMarketPrice, newTrendVal);
 	};
 	//resets trader to starting state

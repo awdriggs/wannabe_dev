@@ -32,7 +32,7 @@ var SIM = {
     marketMakerBot: null,
     makeBots: function (initBotinfo, initStockinfo) {
         for (var b = 0; b < initBotinfo.length; b++) {
-            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].active, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude)
+            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude, initBotinfo[b].active)
                 this.botArray.push(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 

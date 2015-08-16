@@ -20,7 +20,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
             self.orderType = 'SELL';
             self.lookingForTrade = true;
             self.urgency = -1;
-            console.log(self.name + ' is a constant buyer, looking for trade: for $' +  self.offerPrice + ',' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+            console.log(self.name + ' is a constant seller, looking for trade: for $' +  self.offerPrice + ',' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
         // basic marketTrader bot will buy or sell using basic logic
@@ -41,7 +41,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 };
                 self.urgency = 1;
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " kind of want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " kind of want to " + self.orderType + ' $' + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desired to do something
             }else if (absVal >= 3 && absVal < 6) {
                 if (self.orderType == 'BUY') {
@@ -51,7 +51,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 };
                 self.urgency = 5;
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " really want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " really want to " + self.orderType + ' $' + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desperate to do something
             }else if (absVal > 6) {
                 if (self.orderType == 'BUY') {
@@ -62,7 +62,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 self.urgency = 10;
 
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " desperatelly want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " desperatelly want to " + self.orderType + ' $' + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             };
             self.lookingForTrade = true;
         break;
