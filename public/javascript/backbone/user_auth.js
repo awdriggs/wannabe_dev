@@ -29,6 +29,7 @@ var getSession = function() {
                 App.currentUserView = new App.Views.CurrentUserView();
                 //show the user info template
 
+                //this is to set up the bot form, maybe it should live somewher else?
 
                 $(".risk-slider").slider({
                     min: 0,
@@ -90,14 +91,10 @@ var getSession = function() {
 
                     App.bot.save();
                     console.log('bot SHOULD have saved');
-
+                    socket.emit('change_bot', bot_params); //need to write script to handle is server
                 });
 
-                //emitter for the set/update of the bot
-                $('#setbot').click(function() {
-                    console.log('spitter');
-                    socket.emit('change_bot', "working?"); //need to write script to handle is server
-                });
+            
 
 
                 //add a button to the button of the sidebar for logout, kills the session
