@@ -48,7 +48,9 @@ var updateMarquee = function(priceobj){
         var symbolItem = $('.'+keyfixed)
         console.log(symbolItem);
         // console.log(symbolItem.length)
-        symbolItem.text(key.toUpperCase() + " : $" + value.toFixed(2))
+      
+        var numericValue = parseFloat(value).toFixed(2)
+        symbolItem.text(key.toUpperCase() + " : $" + numericValue)
         
     });
 }
