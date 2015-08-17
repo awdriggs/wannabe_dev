@@ -73,6 +73,9 @@ body {
     outline: none; }
   #left_side .ui-slider {
     margin: 1rem 0; }
+  #left_side #logout {
+    margin: 0 1rem;
+    border-top: #d95141 solid 1px; }
 
 #content_wrapper {
   background-color: #ebe1c8;

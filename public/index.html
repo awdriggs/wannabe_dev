@@ -23,77 +23,10 @@
 		
 		</div>
 
-		<!-- <div id="logout">
-			<form action="/removeuser" method="POST">
-				<input type="hidden" name="_method" value="DELETE">
-				<button>logout</button>
-			</form>
-		</div>
- -->
+		
 
 <!-- this needs to be turned into a template son -->
- 		<div id="bot_form">
-			<div class="form">
-					<h2>Create Bot</h2>
-					<div class="field">
-						<label for="botname">bot name</label>
-						<input type="text" id="botname" name="botname">
-					</div>
-
-					<!-- balance needs to be grabbed from db -->
-					<div class="field">
-						<label for="balance">balance</label>
-						<input type="number" name="balance" min="1" max="1000" value="0">
-					</div>
-					
-					
-					<!-- this list needs to be generated in hb -->
-					<div class="field">
-						<label for="character">Character</label>
-						<select name="character">
-							<option value="Timmy">Timmy</option>
-							<option value="Steve">Steve</option>
-							<option value="Robert">Robert</option>
-						</select>
-					</div>
-					<!-- this list needs to be generated in hb -->
-					<div class="field">
-						<label for="interest">Interest</label>
-						<select name="interest">
-							<option value="$aapl">$aapl</option>
-							<option value="$amzn">$amzn</option>
-							<option value="$goog">$goog</option>
-							<option value="$msft">$msft</option>
-							<option value="$twtr">$twtr</option>
-						</select>
-					</div>
-
-					<div class="field">
-						<label for="risk">Risk Tolerance</label>
-						<div id="risk">0</div>
-					</div>
-					<div class='risk-slider'>
-					</div>
-
-					<div class="field">
-						<label for="trend">Trend Tolerance</label>
-						<div id="trend">0</div>
-					</div>
-					<div class='trend-slider'>
-					</div>
-
-					<div class="field">
-						<label for="attitude">Attitude</label>
-						<div id="attitude">0</div>
-					</div>
-					<div class='attitude-slider'>
-					</div>
-
-					<div class="field">
-						<button type="submit" id="setbot" name="setbot">Set Bot</button>
-					</div>
-				</div>
- 		</div>
+ 		
 	</div> <!-- end of left_side div -->
 	
 	
@@ -218,6 +151,76 @@
 			</div>
 		</div> 
 	</template>
+	
+	<template id="currentusertemplate">
+		<div id="bot_form">
+			<div class="form">
+					<h2>Create Bot</h2>
+					<div class="field">
+						<label for="botname">bot name</label>
+						<input type="text" id="botname" name="botname">
+					</div>
+
+					<!-- balance needs to be grabbed from db -->
+					<div class="field">
+						<label for="balance">balance</label>
+						<input type="number" name="balance" min="1" max="1000" value="0">
+					</div>
+					
+					
+					<!-- this list needs to be generated in hb -->
+					<div class="field">
+						<label for="character">Character</label>
+						<select name="character">
+							<option value="Timmy">Timmy</option>
+							<option value="Steve">Steve</option>
+							<option value="Robert">Robert</option>
+						</select>
+					</div>
+					<!-- this list needs to be generated in hb -->
+					<div class="field">
+						<label for="interest">Interest</label>
+						<select name="interest">
+							<option value="$aapl">$aapl</option>
+							<option value="$amzn">$amzn</option>
+							<option value="$goog">$goog</option>
+							<option value="$msft">$msft</option>
+							<option value="$twtr">$twtr</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="risk">Risk Tolerance</label>
+						<div id="risk">0</div>
+					</div>
+					<div class='risk-slider'>
+					</div>
+
+					<div class="field">
+						<label for="trend">Trend Tolerance</label>
+						<div id="trend">0</div>
+					</div>
+					<div class='trend-slider'>
+					</div>
+
+					<div class="field">
+						<label for="attitude">Attitude</label>
+						<div id="attitude">0</div>
+					</div>
+					<div class='attitude-slider'>
+					</div>
+
+					<div class="field">
+						<button type="submit" id="setbot" name="setbot">Set Bot</button>
+					</div>
+				</div>
+ 		</div>
+
+ 		<div id="logout" class="form">
+ 			<button type="submit" id="logout_button">logout</button>
+		</div>
+	</template>
+
 
 	<!-- users -->
 	<template id="usertemplate">
@@ -287,6 +290,7 @@
 	<script src="/javascript/backbone/collections/companiesCollection.js"></script>
 	<!-- session/login -->
 		<script src="/javascript/backbone/views/loginView.js"></script>
+		<script src="/javascript/backbone/views/currentuserview.js"></script>
 	<!-- SOCKETS DEPENDENCIES -->
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/javascript/sockets-script.js"></script>
