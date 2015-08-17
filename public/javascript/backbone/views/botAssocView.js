@@ -4,7 +4,7 @@ App.Views.BotAssocView = Backbone.View.extend({
 
 	initialize: function () {
 		console.log('associative bot view created');
-		this.template = Handlebars.compile($('#bottemplate').html());
+		this.template = Handlebars.compile($('#singlebottemplate').html());
 		this.listenTo(this.model, 'change', this.render);
 		this.render();
 	},
