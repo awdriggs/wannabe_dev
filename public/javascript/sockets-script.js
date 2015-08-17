@@ -32,16 +32,6 @@ socket.on('price_update', function(price) {
 });
 
 var updateMarquee = function(priceobj){
-    
-    //this data should be coming from the trade bot
-    // var priceobj = {
-    //  aapl : 100,
-    //  amzn : 200,
-    //  fb : 300,
-    //  goog : 400,
-    //  msft : 500,
-    //  twtr : 600  
-    // }
 
     $.each(priceobj, function(key, value) {
         var keyfixed = key.substr(1); //$ can't be in the class name if you want jquery to work
@@ -54,5 +44,24 @@ var updateMarquee = function(priceobj){
         
     });
 }
+
+socket.on('trade', function(tradeObj) {
+    var tradeDiv = $('<div>').addClass('content')
+    
+    tradeDiv.append('<h2> @' + tradeObj.time + '</h2>')
+    tradeDiv.append('<p>' + tradeObj.trade_string + '</p>')
+    tradeDiv.append('<p> Stock:'+ tradeObj.stock_name + ' Spread: ' + tradeObj.spread +  ' New Price: ' + tradeObj.stock_price + '</p>')
+    
+
+    $('#trades').prepend(tradeDiv);
+
+    var count = $('#trades').children().length;
+
+    //only show ten tweets
+    if (count > 10) {
+        $('#trades div:last').fadeOut();
+        $('#trades div:last').remove();
+    }
+});
 
 

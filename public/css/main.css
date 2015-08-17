@@ -161,10 +161,10 @@ body {
   .tweet_wrapper .column_title_div, .tweet_wrapper .content {
     border-bottom: #69a426 solid 1px; }
 
-.trades {
+.trade_wrapper {
   background-color: #f7f2e8;
   color: #b1aea8; }
-  .trades .column_title_div, .trades .content {
+  .trade_wrapper .column_title_div, .trade_wrapper .content {
     border-bottom: #b1aea8 solid 1px;
     color: #b1aea8; }
 
