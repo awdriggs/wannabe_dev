@@ -212,7 +212,7 @@ client.stream('statuses/filter', {
 
                     if (change.name == 'marketTraderTradeCount' && change.object.marketTraderTradeCount != tradeCount) {
                         tradeCount = change.object.marketTraderTradeCount;
-                        console.log("Trade has fired, trade #" + tradeCount);
+                        console.log("Trade has fired, trade # " + tradeCount);
                         //put in info for the trade feed here
                         io.emit('trade', SIM.marketMakerBot.marketTraderTradeReport); 
                     };

@@ -105,15 +105,19 @@ console.log('marketMakerConstructor loaded...')
 			};
 
 			pair = [buyer, seller];
-			// sends of the traders to settle trade
-			console.log("We got ourselves a trade!");
-			//settle the trade between the pair
-			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t], self.stockOfInterestName[t]);
-			console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
-			//set price of stock after the trade
-			self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
-			//finished 1 single trade
-			self.marketTraderTradeCount++;
+			//check if bots are trading the same stock
+			if (buyer.stockinterest == seller.stockinterest) {
+
+				// sends of the traders to settle trade
+				console.log("We got ourselves a trade!");
+				//settle the trade between the pair
+				var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t], self.stockOfInterestName[t]);
+				console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
+				//set price of stock after the trade
+				self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
+				//finished 1 single trade
+				self.marketTraderTradeCount++;
+			};
 		};
 
 	};
@@ -130,6 +134,8 @@ console.log('marketMakerConstructor loaded...')
 
 		//determent spread on the trade 
 		var marketPrice = parseFloat(stockPriceInput);
+		console.log(pairedUpTraders[0].name + " " + pairedUpTraders[0].stockinterest + " offer price is " + pairedUpTraders[0].offerPrice);
+		console.log(pairedUpTraders[1].name + " " + pairedUpTraders[1].stockinterest + " offer price is " + pairedUpTraders[1].offerPrice);
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
 		console.log("Current spread on trade :$" + spread);
 
@@ -160,7 +166,7 @@ console.log('marketMakerConstructor loaded...')
 		pairedUpTraders[0].chill();
 		pairedUpTraders[1].chill();
 		
-		// new stock price
+		// new stock trade and price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		pairedUpTraders[0].reprice();
 		pairedUpTraders[1].reprice();
