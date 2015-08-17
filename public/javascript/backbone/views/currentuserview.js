@@ -1,9 +1,9 @@
 App.Views.CurrentUserView = Backbone.View.extend({
-	el: '#input_ui',
+	el: '#edit_area',
 
 	initialize: function () {
 		console.log('single login view created');
-		this.template = Handlebars.compile($('#currentusertemplate').html());
+		this.template = Handlebars.compile($('#newbottemplate').html());
 		this.render();
 	},
 
