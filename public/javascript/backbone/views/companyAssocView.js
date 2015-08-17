@@ -1,6 +1,6 @@
 App.Views.CompanyAssocView = Backbone.View.extend({
 
-	el: '#companies-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('associative company view created');

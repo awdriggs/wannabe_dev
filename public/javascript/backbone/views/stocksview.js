@@ -1,6 +1,6 @@
 App.Views.StocksView = Backbone.View.extend({
 
-	el: '#stocks-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('Stocks view created');
@@ -24,13 +24,14 @@ App.Views.StocksView = Backbone.View.extend({
 		// remove the click event from the el so other views cannot click and get these results
 		this.$el.off('click', 'a');
 		e.preventDefault();
+		self = this;
 
 		// Show all bots related to this stock through db associations.
 		// We grab the model from the urlRoot of the model, instead of from the collection url. This
 		// will give us its associations as delivered by the route '/stocks/:id'. Associations
 		// are made in Sequelize and gathered within the route.
 
-		// Takes the id from the target's data-id to find the individual stock model:
+		// Takes the id from the target's data-id to find the individual stock model that has been clicked:
 		var id = $(e.currentTarget).data("id");
 
 		// Makes a new stock model with the id and fetches it from the db through urlRoot:
@@ -57,8 +58,9 @@ App.Views.StocksView = Backbone.View.extend({
 				botCollection.push({id: id, botname: botname, balance: balance, stockinterest: stock, quantity: quantity, character: character, risktolerance: risk, stepsize: step, attitude: attitude})
 			}
 
+			self.$el.empty();
 			// View the single stock originally clicked
-			// var view = new App.Views.StockView({model: stockmodel});
+			var view = new App.Views.StockAssocView({model: stockmodel});
 
 			// Make the collection with the array of associated objects
 			var botgrab = new Backbone.Collection(botCollection);

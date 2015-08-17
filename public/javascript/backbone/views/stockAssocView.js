@@ -1,6 +1,6 @@
 App.Views.StockAssocView = Backbone.View.extend({
 
-	el: '#stocks-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('associative stock view created');
