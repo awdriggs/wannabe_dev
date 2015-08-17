@@ -1,4 +1,4 @@
-
+<!-- 
 zhentings-MacBook-Pro:wannabe_dev origins$ \psql
 psql (9.4.3)
 Type "help" for help.
@@ -61,3 +61,4 @@ INSERT 0 1
 INSERT 0 1
 INSERT 0 1
 zhentings-MacBook-Pro:wannabe_dev origins$ 
+ -->

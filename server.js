@@ -186,6 +186,8 @@ var updateStock = function (stockparams) {
 
 //
 var tradeCount = null;
+var reportCount = null;
+
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
@@ -205,20 +207,29 @@ client.stream('statuses/filter', {
             //triggers sim to run
             twitterTrend.API = info.changes;
             
-            //print stock prices on NODE level               
+            Object.observe(SIM.marketMakerBot, function(changes) {
+                changes.forEach(function(change) {
+                    if (change.name == 'marketTraderTradeCount' && change.oldValue != tradeCount) {
+                        tradeCount = change.oldValue;
+                        //put in info for the trade feed here
+                        io.emit('trade', SIM.marketMakerBot.marketTraderTradeReport); 
+                    }
+                });
+            });
+
+            //print stock prices on NODE, emit to view             
             Object.observe(SIM.marketMakerBot, function(changes) {
                 // This asynchronous callback runs
                 changes.forEach(function(change) {
                     // Letting us know what changed
                     //console.log("This is what changed..." + change.name);
-                    if (change.name == 'marketTraderWrap' && change.oldValue != tradeCount) {
+                    if (change.name == 'marketTraderWrap' && change.oldValue != reportCount) {
                         //triggers the stock reporting.
-                        tradeCount = change.oldValue;
-                        console.log("And We finished trading...and tradeCount is " + tradeCount);
+                        reportCount = change.oldValue;
+                        console.log("And We finished trading...and reportCount is " + reportCount);
                         SIM.packageStock();
                         console.log(SIM.stocksOutInfo);
                         
-                        io.emit('trade', 'trade done') //put in info for the trade feed here
                         io.emit('price_update', SIM.stocksOutInfo)
                         //SIM.reportStock();
                     };

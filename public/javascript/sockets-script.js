@@ -23,7 +23,7 @@ socket.on('tweet', function(tweet) {
 });
 
 socket.on('trade', function(msg) {
-    console.log('message from node' + msg)
+    console.log('trade from node' + msg)
 });
 
 socket.on('price_update', function(price) {
