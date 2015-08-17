@@ -1,6 +1,6 @@
 App.Views.UserAssocView = Backbone.View.extend({
 
-	el: '#users-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('associative user view created');

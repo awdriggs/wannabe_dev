@@ -6,6 +6,7 @@ App = {
 
 $(function() {
     $('#showstocks').click(function() {
+        $('#container').empty();
         $('#stocks-container').empty();
         $('#bots-container').empty();
         $('#companies-container').empty();
@@ -21,6 +22,7 @@ $(function() {
 
 
     $('#showusers').click(function() {
+        $('#container').empty();
         $('#bots-container').empty();
         $('#stocks-container').empty();
         $('#companies-container').empty();
@@ -35,6 +37,7 @@ $(function() {
     })
 
     $('#showcompanies').click(function() {
+        $('#container').empty();
         $('#companies-container').empty();
         $('#stocks-container').empty();
         $('#bots-container').empty();
@@ -49,6 +52,7 @@ $(function() {
     })
 
     $('#showbots').click(function() {
+        $('#container').empty();
         $('#bots-container').empty();
         $('#stocks-container').empty();
         $('#companies-container').empty();

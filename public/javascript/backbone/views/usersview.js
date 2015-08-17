@@ -1,6 +1,6 @@
 App.Views.UsersView = Backbone.View.extend({
 
-	el: '#users-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('Users view created');
@@ -25,6 +25,7 @@ App.Views.UsersView = Backbone.View.extend({
 		// remove the click event from the el so other views cannot click and get these results
 		this.$el.off('click', 'a');
 		e.preventDefault();
+		self = this;
 
 		var id = $(e.currentTarget).data("id");
 
@@ -52,6 +53,10 @@ App.Views.UsersView = Backbone.View.extend({
 			}
 
 			console.log(botCollection);
+
+			self.$el.empty();
+			// View the single model originally clicked
+			var view = new App.Views.UserAssocView({model: usermodel});
 
 			var botgrab = new Backbone.Collection(botCollection);
 

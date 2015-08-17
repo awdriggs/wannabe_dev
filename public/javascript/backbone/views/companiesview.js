@@ -1,6 +1,6 @@
 App.Views.CompaniesView = Backbone.View.extend({
 
-	el: '#companies-container',
+	el: '#container',
 
 	initialize: function () {
 		console.log('Companies view created');

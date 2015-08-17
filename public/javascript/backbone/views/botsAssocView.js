@@ -1,6 +1,7 @@
 App.Views.BotsAssocView = Backbone.View.extend({
 
-	el: '#bots-container',
+	// el: '#bots-container',
+	el: '#container',
 	
 	initialize: function () {
 		reset: true,
