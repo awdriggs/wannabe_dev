@@ -22,7 +22,7 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
 	this.orderType = null;
 	this.offerPrice = null;
 	//trader obj attr
-	this.buyPrice = null;
+	this.buyPrice = 0;
     //pass bot info to outside func to set trade style/characteristics
 	this.track = function (currentMarketPrice, newTrendVal) {
     	//run trade logic to set bot ready for trading

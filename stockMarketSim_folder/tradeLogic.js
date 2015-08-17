@@ -1,14 +1,14 @@
 var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
     console.log('tradeLogic loaded...');
-
-    this.marketPrice = parseFloat(marketPriceInput);
-	//setup behavior based on characteristics 
+    //this.marketPrice = parseFloat(marketPriceInput);
+	
+    //setup behavior based on characteristics 
 	switch (botChar) {
 		
         // basic marketBuyer bot will always buy but at lowest urgency
         case 'marketBuyer':
             //console.log (marketPrice + ' is the current price ' + self.name + ' can see.')
-            self.offerPrice = marketPrice;
+            self.offerPrice = parseFloat(marketPriceInput);
             self.orderType = 'BUY';
             self.lookingForTrade = true;
             self.urgency = 0;
@@ -17,7 +17,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
 
 	    // basic marketBuyer bot will always buy but at lowest urgency
 	    case 'marketSeller':
-            self.offerPrice = marketPrice;
+            self.offerPrice = parseFloat(marketPriceInput);
             self.orderType = 'SELL';
             self.lookingForTrade = true;
             self.urgency = 0;
@@ -36,33 +36,33 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
             //interested to do something
             if (absVal >= 0 && absVal < 3) {
                 if (self.orderType == 'BUY') {
-                    self.offerPrice = marketPrice + 0.25;
+                    self.offerPrice = parseFloat(marketPriceInput) + 0.25;
                 }else{
-                    self.offerPrice = marketPrice - 0.25;
+                    self.offerPrice = parseFloat(marketPriceInput) - 0.25;
                 };
                 self.urgency = 1;
-                console.log("current market price is from market trader:" + marketPrice);
+                console.log("current market price is from market trader:" + parseFloat(marketPriceInput));
                 console.log(self.name + " kind of want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desired to do something
             }else if (absVal >= 3 && absVal < 6) {
                 if (self.orderType == 'BUY') {
-                    self.offerPrice = marketPrice + 1.50;
+                    self.offerPrice = parseFloat(marketPriceInput) + 1.50;
                 }else{
-                    self.offerPrice = marketPrice - 1.50;
+                    self.offerPrice = parseFloat(marketPriceInput) - 1.50;
                 };
                 self.urgency = 5;
-                console.log("current market price is from market trader:" + marketPrice);
+                console.log("current market price is from market trader:" + parseFloat(marketPriceInput));
                 console.log(self.name + " really want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desperate to do something
             }else if (absVal > 6) {
                 if (self.orderType == 'BUY') {
-                    self.offerPrice = marketPrice + 3;
+                    self.offerPrice = parseFloat(marketPriceInput) + 3;
                 }else{
-                    self.offerPrice = marketPrice - 3;
+                    self.offerPrice = parseFloat(marketPriceInput) - 3;
                 };
                 self.urgency = 10;
 
-                console.log("current market price is from market trader:" + marketPrice);
+                console.log("current market price is from market trader:" + parseFloat(marketPriceInput));
                 console.log(self.name + " desperatelly want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             };
             self.lookingForTrade = true;
@@ -71,9 +71,9 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
         // basic price trader bot will trade following price movements
         case 'priceTrader':
             //testing user inputed bots                        
-            self.offerPrice = marketPrice + 2;
+            self.offerPrice = parseFloat(marketPriceInput) + 2;
             self.orderType = 'BUY';
-            self.urgency = 11;
+            self.urgency = 10;
             self.lookingForTrade = true;
             console.log("current market price is a price trader");
         break;

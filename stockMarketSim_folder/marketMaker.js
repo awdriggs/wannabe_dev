@@ -7,6 +7,8 @@ console.log('marketMakerConstructor loaded...')
 	this.marketStockListing = initStocksArray;
 	this.marketTraderBots = initBotsArray;
 	this.marketTraderWrap = 9000;
+	this.marketTraderTradeCount = 0;
+	this.marketTraderTradeReport = {};
 	//current twitter update session, reset after a trade cycle
 	this.stockOfInterestName = [];
 	this.stockOfInterestPrice = [];
@@ -42,7 +44,6 @@ console.log('marketMakerConstructor loaded...')
 	};
 	// pass info to bots so bot can decide what they want to do
 	this.pass = function () {
-				
 		for (var s = 0; s < self.stockOfInterestName.length; s++) {
 			//console.log(self.stockOfInterestName[s] + " is on the table...");
 			var currentStock = self.stockOfInterestName[s];
@@ -103,22 +104,26 @@ console.log('marketMakerConstructor loaded...')
 				};
 			};
 
-			// sends of the traders to settle trade
 			pair = [buyer, seller];
+			// sends of the traders to settle trade
 			console.log("We got ourselves a trade!");
 			//settle the trade between the pair
-			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t]);
-			//set price of stock after the trade
+			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t], self.stockOfInterestName[t]);
 			console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
+			//set price of stock after the trade
 			self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
+			//finished 1 single trade
+			self.marketTraderTradeCount++;
 		};
+
 	};
 	//settle trades between initBotsArray
-	this.settle = function (pairInput, stockPriceInput) {
+	this.settle = function (pairInput, stockPriceInput, stockName) {
+		//reset single trade report
+		self.marketTraderTradeReport = {};
 		
 		var d = new Date();
 		console.log("Time of trade: " + d);
-
 		//annouce who is buy and selling stock for each stock
 		var pairedUpTraders = pairInput;
 		console.log(pairedUpTraders[0].name + " is buying and " + pairedUpTraders[1].name + " is selling");
@@ -127,9 +132,9 @@ console.log('marketMakerConstructor loaded...')
 		var marketPrice = parseFloat(stockPriceInput);
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
 		console.log("Current spread on trade :$" + spread);
+
 		//determent who the trade favors
 		var settleUptonPrice = null;
-
 		// buyer wants it more, seller advantage
 		if (pairedUpTraders[0].urgency > pairedUpTraders[1].urgency) {
 			settleUptonPrice = marketPrice + spread;
@@ -159,6 +164,13 @@ console.log('marketMakerConstructor loaded...')
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		pairedUpTraders[0].reprice();
 		pairedUpTraders[1].reprice();
+
+		self.marketTraderTradeReport['time'] = d;
+		self.marketTraderTradeReport['trade_string'] = pairedUpTraders[0].name + " is buying and " + pairedUpTraders[1].name + " is selling";
+		self.marketTraderTradeReport['spread'] =  spread;
+		self.marketTraderTradeReport['stock_name'] = stockName;
+		self.marketTraderTradeReport['stock_price'] = newPrice;
+		
 		return newPrice;	
 	};
 	this.sweep = function () {
@@ -194,8 +206,6 @@ console.log('marketMakerConstructor loaded...')
 			//set the stage for bots wanting to trade
 			self.stage();
 			
-			//self.yell('finish');
-
 			//clean up after all trade
 			self.sweep();
 		});
