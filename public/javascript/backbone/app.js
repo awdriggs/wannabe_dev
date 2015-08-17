@@ -58,7 +58,7 @@ $(function() {
             min: 0,
             max: 10,
             slide: function(event, ui) {
-                $( "#risk" ).text(ui.value);
+                $("#risk").text(ui.value);
             }
         });
     });
@@ -83,53 +83,72 @@ $(function() {
         });
     });
 
-     $('#setbot').click(function() {
-       var bot_params = {
-       		botname: $("input[name='botname']").val(),
-       		balance: parseInt($("input[name='balance']").val()),
-       		character: $("select[name='character']").val(),
-       		interest: $("select[name='interest']").val(),
-       		risk: parseInt($("#risk").text()),
-       		stepsize: parseInt($("#trend").text()),
-       		attitude: parseInt($("#attitude").text())
-       }
-       console.log(bot_params)
+    $('#setbot').click(function() {
+        var bot_params = {
+            botname: $("input[name='botname']").val(),
+            balance: parseInt($("input[name='balance']").val()),
+            character: $("select[name='character']").val(),
+            interest: $("select[name='interest']").val(),
+            risk: parseInt($("#risk").text()),
+            stepsize: parseInt($("#trend").text()),
+            attitude: parseInt($("#attitude").text())
+        }
+        console.log(bot_params)
 
         // Instantiate new bot model
         App.bot = new App.Models.Bot;
         // Set all default attributes for simulator
-        App.bot.set({quantity: 0, active: 'True', userId: 1, stockId: 1, company: 0});
+        App.bot.set({
+            quantity: 0,
+            active: 'True',
+            userId: 1,
+            stockId: 1,
+            company: 0
+        });
         // Set all user-defined attributes
-        App.bot.set({botname: bot_params.botname, balance: bot_params.balance, character: bot_params.character, stockinterest: bot_params.interest, risktolerance: bot_params.risk, stepsize: bot_params.stepsize, attitude: bot_params.attitude});
+        App.bot.set({
+            botname: bot_params.botname,
+            balance: bot_params.balance,
+            character: bot_params.character,
+            stockinterest: bot_params.interest,
+            risktolerance: bot_params.risk,
+            stepsize: bot_params.stepsize,
+            attitude: bot_params.attitude
+        });
 
         App.bot.save();
         console.log('bot SHOULD have saved');
 
     });
+    
+    //emitter for the set/update of the bot
+    $('#setbot').click(function() {
+        console.log('spitter');
+        socket.emit('change_bot', "working?" ); //need to write script to handle is server
+         
+    });
 
+    // // Make a new bot from user submit
+    // $('#createbot').click(function () {
+    // 	console.log('clicked - createbot');
 
+    // 	// Get user-defined DOM elements
+    // 	var botname = $('#new-botname').val(),
+    // 	    character = $('#new-botcharacter').val(),
+    // 	    stock = $('#new-botstock').val(),
+    // 	    risk = parseInt($('#new-botrisk').val());
+    // 	    step = parseInt($('#new-botstep').val());
+    // 	    attitude = parseInt($('#new-botattitude').val());
 
-	// // Make a new bot from user submit
-	// $('#createbot').click(function () {
-	// 	console.log('clicked - createbot');
+    // 	// Instantiate new bot model
+    // 	App.bot = new App.Models.Bot;
+    // 	// Set all default attributes for simulator
+    // 	App.bot.set({balance: 0, quantity: 0, active: 'True', userId: 1, stockId: 1, company: 0});
+    // 	// Set all user-defined attributes
+    // 	App.bot.set({botname: botname, character: character, stockinterest: stock, risktolerance: risk, stepsize: step, attitude: attitude});
 
-	// 	// Get user-defined DOM elements
-	// 	var botname = $('#new-botname').val(),
-	// 	    character = $('#new-botcharacter').val(),
-	// 	    stock = $('#new-botstock').val(),
-	// 	    risk = parseInt($('#new-botrisk').val());
-	// 	    step = parseInt($('#new-botstep').val());
-	// 	    attitude = parseInt($('#new-botattitude').val());
+    // 	App.bot.save();
 
-	// 	// Instantiate new bot model
-	// 	App.bot = new App.Models.Bot;
-	// 	// Set all default attributes for simulator
-	// 	App.bot.set({balance: 0, quantity: 0, active: 'True', userId: 1, stockId: 1, company: 0});
-	// 	// Set all user-defined attributes
-	// 	App.bot.set({botname: botname, character: character, stockinterest: stock, risktolerance: risk, stepsize: step, attitude: attitude});
-
-	// 	App.bot.save();
-
-	// })
+    // })
 
 })
