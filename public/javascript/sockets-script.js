@@ -47,7 +47,7 @@ var updateMarquee = function(priceobj){
 
 socket.on('trade', function(tradeObj) {
     var tradeDiv = $('<div>').addClass('content')
-    
+    //console.log('trade hit ' + tradeObj.trade_string )
     tradeDiv.append('<h2> @' + tradeObj.time + '</h2>')
     tradeDiv.append('<p>' + tradeObj.trade_string + '</p>')
     tradeDiv.append('<p> Stock:'+ tradeObj.stock_name + ' Spread: ' + tradeObj.spread +  ' New Price: ' + tradeObj.stock_price + '</p>')
