@@ -14,11 +14,20 @@ body {
   background-color: #102542;
   color: #d95141;
   float: left;
-  height: 225%; }
+  height: 250%; }
   #left_side h1 {
-    padding-top: 1rem;
+    padding-top: 2rem;
     text-align: center;
     font-size: 5rem; }
+  #left_side h2 {
+    margin-left: 1rem;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Fredoka One", sans-serif;
+    color: #d95141;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px; }
   #left_side .form {
     max-width: 100%;
     color: #d95141;
@@ -26,6 +35,8 @@ body {
     margin: 0px;
     font-family: "Ruda", sans-serif;
     padding: 20px; }
+  #left_side #input_ui .form h2 {
+    margin: 1rem 0; }
   #left_side .content {
     margin: 0px; }
   #left_side .form label {
@@ -40,14 +51,6 @@ body {
     border-radius: 0px;
     padding: 3px;
     width: 100%; }
-  #left_side .form h2 {
-    text-align: center;
-    font-family: "Fredoka One", sans-serif;
-    font-size: 40px;
-    color: #d95141;
-    padding: 0px;
-    margin: 0px;
-    margin-bottom: 10px; }
   #left_side .form button {
     display: block;
     margin: 0 auto;
@@ -75,8 +78,23 @@ body {
   #left_side .ui-slider {
     margin: 1rem 0; }
   #left_side #logout {
-    margin: 0 1rem;
+    margin: 2rem 1rem 0 1rem;
     border-top: #d95141 solid 1px; }
+  #left_side .twobuttons {
+    text-align: center; }
+    #left_side .twobuttons button {
+      width: 40%;
+      display: inline-block;
+      margin-left: 2px; }
+  #left_side #input_ui p {
+    color: #d95141;
+    font-size: 1.5rem;
+    margin: 0px;
+    font-family: "Ruda", sans-serif;
+    padding-left: 20px; }
+  #left_side #input_ui h2 {
+    text-align: left;
+    margin: 1rem; }
 
 #content_wrapper {
   background-color: #ebe1c8;

@@ -153,7 +153,7 @@
 		</div> 
 	</template>
 	
-	<template id="currentusertemplate">
+	<template id="newbottemplate">
 		<div id="bot_form">
 			<div class="form">
 					<h2>Create Bot</h2>
@@ -202,14 +202,47 @@
 					<div class='attitude-slider'>
 					</div>
 
-					<div class="field">
+					<div class="field twobuttons">
 						<button type="submit" id="setbot" name="setbot">Set Bot</button>
+						<button type="submit" id="cancel" name="cancel">Cancel</button>
 					</div>
 				</div>
+
+				
  		</div>
 
- 		<div id="logout" class="form">
- 			<button type="submit" id="logout_button">logout</button>
+ 		
+	</template>
+
+	<template id="current_user">
+		<div id="current_user_info">
+			<h2>Company</h2>
+			<p>smell corporation</p>
+			<h2>Balance</h2>
+			<p>$1,000,000</p>
+			<h2>Profit</h2>
+			<p>+200</p>
+			
+			<div id="edit_area">
+				<div class="form">
+					<button type="submit" id="new_bot" name="new_bot">New Bot</button>
+				</div>
+
+				<!-- sweet new bot form goes here -->
+
+			</div>
+			
+
+			
+			<div id="my_bots">
+				<!-- bots? hb -->
+				<h2>My Bots</h2>
+
+			</div>
+
+			<div id="logout" class="form">
+ 				<button type="submit" id="logout_button">logout</button>
+			</div>
 		</div>
 	</template>
 
@@ -323,6 +356,7 @@
 	<!-- session/login -->
 		<script src="/javascript/backbone/views/loginView.js"></script>
 		<script src="/javascript/backbone/views/currentuserview.js"></script>
+		<script src="/javascript/backbone/views/currentuserinfo.js"></script>
 	<!-- SOCKETS DEPENDENCIES -->
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/javascript/sockets-script.js"></script>
