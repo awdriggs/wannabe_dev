@@ -145,7 +145,9 @@ var newBot = function() {
             interest: $("select[name='interest']").val(),
             risk: parseInt($("#risk").text()),
             stepsize: parseInt($("#trend").text()),
-            attitude: parseInt($("#attitude").text())
+            attitude: parseInt($("#attitude").text()),
+            companyId: 0,
+            stockId: $("option:selected").attr('data-id')
         }
         console.log(bot_params)
 
@@ -167,7 +169,9 @@ var newBot = function() {
             stockinterest: bot_params.interest,
             risktolerance: bot_params.risk,
             stepsize: bot_params.stepsize,
-            attitude: bot_params.attitude
+            attitude: bot_params.attitude,
+            companyId: 0,
+            stockId: $("option:selected").attr('data-id')
         });
 
         App.bot.save();
