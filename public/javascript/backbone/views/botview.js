@@ -1,7 +1,5 @@
 App.Views.BotView = Backbone.View.extend({
 
-	// el: '#container',
-
 	initialize: function () {
 		console.log('single bot view created');
 		this.template = Handlebars.compile($('#bottemplate').html());
