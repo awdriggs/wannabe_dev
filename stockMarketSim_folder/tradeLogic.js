@@ -70,12 +70,28 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
               
         // basic price trader bot will trade following price movements
         case 'priceTrader':
-            //testing user inputed bots                        
+            //testing user inputed bots
+            if ( self.buyPrice < parseFloat(marketPriceInput) ) {
+                self.offerPrice = parseFloat(marketPriceInput) + 1;
+                self.orderType = 'BUY';
+                self.urgency = 10;
+                self.lookingForTrade = true;
+                console.log("current bot is a price trader, is buying.");
+            };
+            if (self.quantity > 0 && (parseFloat(marketPriceInput) > self.buyPrice)) {
+                self.offerPrice = parseFloat(marketPriceInput) - 1;
+                self.orderType = 'SELL';
+                self.urgency = 10;
+                self.lookingForTrade = true;
+                console.log("current bot is a price trader, is Selling.");
+            };           
+            /*            
             self.offerPrice = parseFloat(marketPriceInput) + 2;
             self.orderType = 'BUY';
             self.urgency = 10;
             self.lookingForTrade = true;
-            console.log("current market price is a price trader");
+            console.log("current market price is a price trader"); 
+            */            
         break;
         
         //find empty bots
