@@ -23,52 +23,6 @@
 		
 		</div>
 
-	<!--
-		<div id="user_auth">
-			<div id="logon">
-				<form id="form" class="form" action='/setuser' method="post">
-					<div class="field">
-						<label for="username">username</label>
-						<input type="text" id="username" name="name">
-					</div>
-					<div class="field">
-						<label for="password">password</label>
-						<input type="password" id="password" name="password">
-					</div>
-					<div class="field">
-						<button type="submit" id="login" name="login">Login</button>
-					</div>
-				</form>
-			</div>
-
-			<div id="signup">
-				<form id="form" class="form" action='/setuser' method="post">
-					<h2>SignUp</h2>
-					<div class="field">
-						<label for="username">username</label>
-						<input type="text" id="username" name="name">
-					</div>
-					<div class="field">
-						<label for="email">email</label>
-						<input type="email" id="email_input" name="email">
-					</div>
-					<div class="field">
-						<label for="password">password</label>
-						<input type="password" id="password" name="password">
-					</div>
-					<div class="field">
-						<label for="confirmpassword">confirm password</label>
-						<input type="password" id="confirmpassword" name="confirmpassword">
-					</div>
-					<div class="field">
-						<button type="submit" id="signup" name="signup">SignUp</button>
-					</div>
-				</form>
-			</div>
-		</div> 
-	-->
-
-
 		<!-- <div id="logout">
 			<form action="/removeuser" method="POST">
 				<input type="hidden" name="_method" value="DELETE">
@@ -144,12 +98,12 @@
 	
 	
 
-	<!-- TEST CLICKS FOR BACKBONE GRABS -->
+	
 	
 
 	<!-- MAIN CONTENT -->
 	<div id="content_wrapper">
-
+		
 		<div id="marquee">
 				<li class='aapl'>
 					AAPL : $500
@@ -171,7 +125,7 @@
 				</li>
 		</div>
 
-		
+		<!-- CLICKS FOR BACKBONE GRABS -->
 		<div id="nav">
 			<div id="showstocks" class="nav_item">show stocks</div>
 			<div id="showbots" class="nav_item">show bots</div>
@@ -209,6 +163,50 @@
 
 
 	<!-- TEMPLATES FOR BACKBONE -->
+	<template id="logintemplate">
+		<div id="user_auth">
+			<div id="logon">
+				<form id="form" class="form" action='/setuser' method="post">
+					<div class="field">
+						<label for="username">username</label>
+						<input type="text" id="username" name="name">
+					</div>
+					<div class="field">
+						<label for="password">password</label>
+						<input type="password" id="password" name="password">
+					</div>
+					<div class="field">
+						<button type="submit" id="login" name="login">Login</button>
+					</div>
+				</form>
+			</div>
+
+			<div id="signup">
+				<form id="form" class="form" action='/setuser' method="post">
+					<h2>SignUp</h2>
+					<div class="field">
+						<label for="username">username</label>
+						<input type="text" id="username" name="name">
+					</div>
+					<div class="field">
+						<label for="email">email</label>
+						<input type="email" id="email_input" name="email">
+					</div>
+					<div class="field">
+						<label for="password">password</label>
+						<input type="password" id="password" name="password">
+					</div>
+					<div class="field">
+						<label for="confirmpassword">confirm password</label>
+						<input type="password" id="confirmpassword" name="confirmpassword">
+					</div>
+					<div class="field">
+						<button type="submit" id="signup" name="signup">SignUp</button>
+					</div>
+				</form>
+			</div>
+		</div> 
+	</template>
 
 	<!-- users -->
 	<template id="usertemplate">
@@ -217,24 +215,6 @@
 		<p>STARTING BALANCE: {{startingbalance}} </p>
 		<p>CURRENT BALANCE: {{currentbalance}} </p>
 		<p>PROFIT: {{profit}}</p>
-	</template>
-
-	<template id="logontemplate">
-		<div id="logon">
-			<form id="form" class="form" action='/setuser' method="post">
-				<div class="field">
-					<label for="username">username</label>
-					<input type="text" id="username" name="name">
-				</div>
-				<div class="field">
-					<label for="password">password</label>
-					<input type="password" id="password" name="password">
-				</div>
-				<div class="field">
-					<button type="submit" id="login" name="login">Login</button>
-				</div>
-			</form>
-		</div>
 	</template>
 
 	<template id="stocktemplate">
@@ -293,7 +273,8 @@
 	<script src="/javascript/backbone/views/companyView.js"></script>
 	<script src="/javascript/backbone/models/companyModel.js"></script>
 	<script src="/javascript/backbone/collections/companiesCollection.js"></script>
-
+	<!-- session/login -->
+		<script src="/javascript/backbone/views/loginView.js"></script>
 	<!-- SOCKETS DEPENDENCIES -->
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/javascript/sockets-script.js"></script>
