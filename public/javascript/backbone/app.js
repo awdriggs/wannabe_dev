@@ -149,28 +149,4 @@ $(function() {
         socket.emit('change_bot', "working?" ); //need to write script to handle is server
          
     });
-
-    // // Make a new bot from user submit
-    // $('#createbot').click(function () {
-    // 	console.log('clicked - createbot');
-
-    // 	// Get user-defined DOM elements
-    // 	var botname = $('#new-botname').val(),
-    // 	    character = $('#new-botcharacter').val(),
-    // 	    stock = $('#new-botstock').val(),
-    // 	    risk = parseInt($('#new-botrisk').val());
-    // 	    step = parseInt($('#new-botstep').val());
-    // 	    attitude = parseInt($('#new-botattitude').val());
-
-    // 	// Instantiate new bot model
-    // 	App.bot = new App.Models.Bot;
-    // 	// Set all default attributes for simulator
-    // 	App.bot.set({balance: 0, quantity: 0, active: 'True', userId: 1, stockId: 1, company: 0});
-    // 	// Set all user-defined attributes
-    // 	App.bot.set({botname: botname, character: character, stockinterest: stock, risktolerance: risk, stepsize: step, attitude: attitude});
-
-    // 	App.bot.save();
-
-    // })
-
 })
