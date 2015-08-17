@@ -5,6 +5,14 @@ App = {
 }
 
 $(function() {
+    //set viz_wrapper to hide
+    $('#viz_wrapper').hide();
+    
+    $('#nav').click(function() {
+        $('#viz_wrapper').show();
+    })
+
+
     $('#showstocks').click(function() {
         $('#container').empty();
         $('#stocks-container').empty();

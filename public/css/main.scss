@@ -188,7 +188,7 @@ body{
 
 #viz_wrapper{
 	height: 300px;
-	margin: 0 3% 3% 3%;
+	margin: 0 3%;
 	display: f;
 	width: 94%;
 	background-color: $blue;
@@ -239,6 +239,7 @@ body{
 .data_wrapper {
 	float: right;
 	margin-right: 3%;
+	margin-top: 3%;
 
 	min-height: 500px;
 	padding: 10px;
