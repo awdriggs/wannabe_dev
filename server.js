@@ -217,7 +217,9 @@ client.stream('statuses/filter', {
                         console.log("And We finished trading...and tradeCount is " + tradeCount);
                         SIM.packageStock();
                         console.log(SIM.stocksOutInfo);
-                        io.emit('price_update', SIM.stocksOutInfo)
+                        
+                        io.emit('trade', 'trade done')
+                        //io.emit('price_update', SIM.stocksOutInfo)
                         //SIM.reportStock();
                     };
                 });
