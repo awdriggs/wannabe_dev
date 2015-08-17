@@ -146,6 +146,12 @@ body {
         color: #102542; }
       #viz_wrapper #container .item a:hover {
         color: #d95141; }
+    #viz_wrapper #container .form {
+      width: 30px;
+      background-color: green;
+      position: absolute;
+      left: 0;
+      bottom: 0; }
 
 .data_wrapper {
   float: right;
