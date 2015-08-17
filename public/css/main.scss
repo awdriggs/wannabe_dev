@@ -116,6 +116,12 @@ body{
 	.ui-slider{
 		    margin: 1rem 0;
 	}
+
+	#logout{
+		margin: 0 1rem;
+		border-top: $red solid 1px;
+		
+	}
 }
 
 // MAIN CONTENT ////////////////////////////////////////////////////////////////////////

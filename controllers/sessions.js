@@ -14,10 +14,12 @@ module.exports.controller = function (app) {
 		//how can we watch to see if this has been changed and set the view accordingly?
 
 		//remove the redirection.
-		res.redirect('/');
+		//res.redirect('/');
+
+		res.json(req.session)
 	});
 
-	app.delete('/removeuser', function (req, res) {
+	app.post('/removeuser', function (req, res) {
 		req.session.name = null
 		
 		res.json(req.session)
