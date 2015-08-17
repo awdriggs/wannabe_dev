@@ -1,11 +1,7 @@
 module.exports.controller = function (app) {
 
 	app.get('/session', function (req, res) {
-		if (req.session.name) {
-			res.send(req.session);
-		} else {
-			res.send('no session');
-		}
+		res.json(req.session)
 	});
 
 	app.post('/setuser', function (req, res) {
@@ -14,12 +10,18 @@ module.exports.controller = function (app) {
 		// models.users.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
 		// 	res.json(result);
 		// })
+
+		//how can we watch to see if this has been changed and set the view accordingly?
+
+		//remove the redirection.
 		res.redirect('/');
 	});
 
 	app.delete('/removeuser', function (req, res) {
 		req.session.name = null
-		res.redirect('/session');
+		
+		res.json(req.session)
+		
 	});
 
 }
