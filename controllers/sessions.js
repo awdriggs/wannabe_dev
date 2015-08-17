@@ -21,6 +21,13 @@ module.exports.controller = function (app) {
 	});
 
 	app.post('/login', function (req, res) {
+		
+		//go into the db, look for the 
+		// models.users.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
+		// 	res.json(result);
+		// })
+
+
 		req.session.name = req.body.name;
 		console.log(req.session);
 		res.json(req.session);
