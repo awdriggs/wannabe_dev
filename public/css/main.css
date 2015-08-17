@@ -10,7 +10,7 @@ body {
   font-family: "Fredoka One", sans-serif;
   margin-top: -10px;
   padding-bottom: 10px;
-  width: 30%;
+  min-width: 30%;
   background-color: #102542;
   color: #d95141;
   float: left; }
@@ -117,6 +117,13 @@ body {
       float: left; }
       #viz_wrapper #container .item h3, #viz_wrapper #container .item p {
         margin: 0.7rem; }
+      #viz_wrapper #container .item h3 {
+        text-align: center; }
+      #viz_wrapper #container .item a {
+        text-decoration: none;
+        color: #102542; }
+      #viz_wrapper #container .item a:hover {
+        color: #d95141; }
 
 .data_wrapper {
   float: right;
