@@ -5,6 +5,18 @@ App = {
 }
 
 $(function() {
+    //set viz_wrapper to hide
+    $('#viz_wrapper').hide();
+    
+    $('#nav').click(function() {
+        $('#viz_wrapper').show();
+    })
+
+    $('#close').click(function() {
+        $('#viz_wrapper').hide();
+    })
+
+
     $('#showstocks').click(function() {
         $('#container').empty();
         // $('#stocks-container').empty();

@@ -9,6 +9,9 @@ console.log('marketMakerConstructor loaded...')
 	this.marketTraderWrap = 9000;
 	this.marketTraderTradeCount = 0;
 	this.marketTraderTradeReport = {};
+	//current trade attr
+	this.currentTradeStockName = null;
+	this.currentTradeStockPrice = null;
 	//current twitter update session, reset after a trade cycle
 	this.stockOfInterestName = [];
 	this.stockOfInterestPrice = [];
@@ -79,15 +82,20 @@ console.log('marketMakerConstructor loaded...')
 		for (var t = 0; t < self.stockOfInterestName.length; t++) {
 
 			//run though each trader to see if they want to trade
+			var currentStock = self.stockOfInterestName[t];
 			var buyer = null;
 			var buyerUrgency = -1;
 			var seller = null;
 			var sellerUrgency = -1;
 			var pair = [];
+			// reset for each new trade
+			self.currentTradeStockName = null;
+			self.currentTradeStockPrice = null;
 
+			//check if bots are trading the same stock
 			for (var o = 0; o < self.botsInterestedInTrading.length; o++) {
 				//find buyer
-				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "BUY") {
+				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "BUY" && self.botsInterestedInTrading[o].stockinterest == currentStock) {
 					//check who has most urgency
 					if (self.botsInterestedInTrading[o].urgency > buyerUrgency) {
 						buyerUrgency = self.botsInterestedInTrading[o].urgency;
@@ -95,7 +103,7 @@ console.log('marketMakerConstructor loaded...')
 					};
 				};
 				//find seller
-				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "SELL") {
+				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "SELL" && self.botsInterestedInTrading[o].stockinterest == currentStock) {
 					//check who has most urgency
 					if (self.botsInterestedInTrading[o].urgency > sellerUrgency) {
 						sellerUrgency = self.botsInterestedInTrading[o].urgency;
@@ -110,8 +118,13 @@ console.log('marketMakerConstructor loaded...')
 			//settle the trade between the pair
 			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t], self.stockOfInterestName[t]);
 			console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
+			
 			//set price of stock after the trade
 			self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
+			//update marketMaker bot attr 
+			self.currentTradeStockName = self.stockOfInterestName[t];
+			self.currentTradeStockPrice = newStockPrice;
+
 			//finished 1 single trade
 			self.marketTraderTradeCount++;
 		};
@@ -130,6 +143,8 @@ console.log('marketMakerConstructor loaded...')
 
 		//determent spread on the trade 
 		var marketPrice = parseFloat(stockPriceInput);
+		console.log(pairedUpTraders[0].name + " " + pairedUpTraders[0].stockinterest + " offer price is " + pairedUpTraders[0].offerPrice);
+		console.log(pairedUpTraders[1].name + " " + pairedUpTraders[1].stockinterest + " offer price is " + pairedUpTraders[1].offerPrice);
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
 		console.log("Current spread on trade :$" + spread);
 
@@ -160,7 +175,7 @@ console.log('marketMakerConstructor loaded...')
 		pairedUpTraders[0].chill();
 		pairedUpTraders[1].chill();
 		
-		// new stock price
+		// new stock trade and price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
 		pairedUpTraders[0].reprice();
 		pairedUpTraders[1].reprice();
