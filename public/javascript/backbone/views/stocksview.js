@@ -21,6 +21,7 @@ App.Views.StocksView = Backbone.View.extend({
 	},
 
 	show: function (e) {
+		console.log('linked clicked');
 		e.preventDefault();
 		self = this;
 
@@ -40,12 +41,18 @@ App.Views.StocksView = Backbone.View.extend({
 			for (i=0; i < stockmodel.attributes.bots.length; i++) {
 				var botname = stockmodel.attributes.bots[i].botname,
 					balance = stockmodel.attributes.bots[i].balance,
-					id = stockmodel.attributes.bots[i].id;
+					id = stockmodel.attributes.bots[i].id,
+					stock = stockmodel.attributes.bots[i].stockinterest,
+					quantity = stockmodel.attributes.bots[i].quantity,
+					character = stockmodel.attributes.bots[i].character,
+					risk = stockmodel.attributes.bots[i].risktolerance,
+					step = stockmodel.attributes.bots[i].stepsize,
+					attitude = stockmodel.attributes.bots[i].attitude;
 				// Push a single object into a the collection array
-				botCollection.push({id: id, botname: botname, balance: balance})
+				botCollection.push({id: id, botname: botname, balance: balance, stockinterest: stock, quantity: quantity, character: character, risktolerance: risk, stepsize: step, attitude: attitude})
 			}
 
-			self.$el.empty();
+			// self.$el.empty();
 
 			// View the single stock originally clicked
 			view = new App.Views.StockView({model: stockmodel});
