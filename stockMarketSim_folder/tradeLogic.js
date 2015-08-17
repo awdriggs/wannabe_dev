@@ -1,6 +1,7 @@
-var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTrendVal) {
-    this.marketPrice = parseFloat(marketPriceInput);
+var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
     console.log('tradeLogic loaded...');
+
+    this.marketPrice = parseFloat(marketPriceInput);
 	//setup behavior based on characteristics 
 	switch (botChar) {
 		
@@ -10,7 +11,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTren
             self.offerPrice = marketPrice;
             self.orderType = 'BUY';
             self.lookingForTrade = true;
-            self.urgency = -1;
+            self.urgency = 0;
 	        console.log(self.name + ' is a constant buyer, looking for trade: for $' + self.offerPrice + ',' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
@@ -19,8 +20,8 @@ var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTren
             self.offerPrice = marketPrice;
             self.orderType = 'SELL';
             self.lookingForTrade = true;
-            self.urgency = -1;
-            console.log(self.name + ' is a constant buyer, looking for trade: for $' +  self.offerPrice + ',' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
+            self.urgency = 0;
+            console.log(self.name + ' is a constant seller, looking for trade: for $' +  self.offerPrice + ',' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
         break;
 
         // basic marketTrader bot will buy or sell using basic logic
@@ -41,7 +42,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTren
                 };
                 self.urgency = 1;
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " kind of want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " kind of want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desired to do something
             }else if (absVal >= 3 && absVal < 6) {
                 if (self.orderType == 'BUY') {
@@ -51,7 +52,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTren
                 };
                 self.urgency = 5;
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " really want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " really want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desperate to do something
             }else if (absVal > 6) {
                 if (self.orderType == 'BUY') {
@@ -62,25 +63,19 @@ var tradeLogic = function (botChar, self, marketPriceInput, oldTrendVal, newTren
                 self.urgency = 10;
 
                 console.log("current market price is from market trader:" + marketPrice);
-                console.log(self.name + " desperatelly want to " + self.orderType + ' $' + self.interests + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
+                console.log(self.name + " desperatelly want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             };
             self.lookingForTrade = true;
         break;
-        
+        /*      
         // basic price trader bot will trade following price movements
         case 'priceTrader':
-            /*            
-            if (marketPrice) {};
-            self.orderType = 'BUY';
-            self.lookingForTrade = true;
-            console.log(self.name + ' is a constant buyer, looking for trade:' + self.lookingForTrade + ', urgency: [' + self.urgency + ']');
-            */
             console.log(self.name + " is a priceTrader bot.")
             self.offerPrice = marketPrice;
             self.lookingForTrade = false;
             self.urgency = -1;
         break;
-	    
+        */
         //find empty bots
 	    default:
 			console.log("Woah dis bot has no characteristics contact someone right away!");
