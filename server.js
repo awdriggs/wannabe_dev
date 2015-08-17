@@ -141,8 +141,11 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('change_bot', function(msg){
-    console.log('message: ' + msg);
+  socket.on('change_bot', function(botObj){
+    console.log(botObj);
+
+    //botObj is the same object that is being passed into sequalize
+    //do what you wan with it here!
   });
 });
 
