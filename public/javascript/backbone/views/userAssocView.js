@@ -4,7 +4,7 @@ App.Views.UserAssocView = Backbone.View.extend({
 
 	initialize: function () {
 		console.log('associative user view created');
-		this.template = Handlebars.compile($('#usertemplate').html());
+		this.template = Handlebars.compile($('#singleusertemplate').html());
 		this.listenTo(this.model, 'change', this.render);
 		this.render();
 	},

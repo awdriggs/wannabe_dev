@@ -4,7 +4,7 @@ App.Views.StockAssocView = Backbone.View.extend({
 
 	initialize: function () {
 		console.log('associative stock view created');
-		this.template = Handlebars.compile($('#stocktemplate').html());
+		this.template = Handlebars.compile($('#singlestocktemplate').html());
 		this.listenTo(this.model, 'change', this.render);
 		this.render();
 	},

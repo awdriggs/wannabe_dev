@@ -4,7 +4,7 @@ App.Views.CompanyAssocView = Backbone.View.extend({
 
 	initialize: function () {
 		console.log('associative company view created');
-		this.template = Handlebars.compile($('#companytemplate').html());
+		this.template = Handlebars.compile($('#singlecompanytemplate').html());
 		this.listenTo(this.model, 'change', this.render);
 		this.render();
 	},

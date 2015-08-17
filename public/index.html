@@ -246,8 +246,44 @@
 		<p>STEPSIZE: {{stepsize}}</p>	
 	</template>
 
+	<template id="singleusertemplate">
+		<div class="item singleuser">
+			<h3><a href="#" data-id="{{id}}">{{companyname}}</a></h3>
+			<p>OWNED BY: {{username}}</p>
+			<p>STARTING BALANCE: {{startingbalance}} </p>
+			<p>CURRENT BALANCE: {{currentbalance}} </p>
+			<p>PROFIT: {{profit}}</p>
+		</div>
+	</template>
 
+	<template id="singlestocktemplate">
+		<div class="item singlestock">
+			<h3><a href="#" data-id="{{id}}">{{name}}</a></h3>
+			<p>PRICE: {{price}}</p>
+		</div>
+	</template>
 
+	<template id="singlecompanytemplate">
+		<div class="item singlecompany">
+			<h3><a href="#" data-id="{{id}}">{{name}}</a></h3>
+			<p>STARTINGBALANCE: {{startingbalance}}</p>
+			<p>CURRENTBALANCE: {{currentbalance}}</p>
+			<p>PROFIT: {{profit}}</p>
+		</div>
+	</template>
+
+	<template id="singlebottemplate">
+		<div class="item singlebot">
+			<h3><a href="#" data-id="{{id}}">{{botname}}</a></h3>
+			<p>STOCK TRADING: <strong>{{stockinterest}}</strong></p>
+			<p>QUANTITY OF STOCK: {{quantity}}</p>
+			<p>BALANCE: {{balance}}</p>
+			<p>CHARACTER: {{character}}</p>			
+			<p>RISK TOLERANCE: {{risktolerance}}</p>
+			<p>ATTITUDE: {{attitude}}</p>
+			<p>STEPSIZE: {{stepsize}}</p>
+		</div>
+	</template>	
 
 
 	<!-- BACKBONE DEPENDENCIES -->
