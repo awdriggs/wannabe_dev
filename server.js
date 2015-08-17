@@ -60,6 +60,22 @@ var SIM = {
             var keyStr = String(stocks[c].name);
             this.stocksOutInfo[keyStr] = stocks[c].price;
         };
+    },
+    stockId: 777,
+    stockIdFinder: function (stockNameInput) {
+        if (stockNameInput == '$GOOG') { 
+            this.stockId = 1;
+        }else if (stockNameInput == '$AAPL') { 
+            this.stockId = 2;
+        }else if (stockNameInput == '$FB') { 
+            this.stockId = 3;
+        }else if (stockNameInput == '$AMZN') { 
+            this.stockId = 4;
+        }else if (stockNameInput == '$TWTR') { 
+            this.stockId = 5;
+        }else if (stockNameInput == '$MSFT') { 
+            this.stockId = 6; 
+        };
     }
 };
 // set to change, change drive the sim
@@ -212,9 +228,20 @@ client.stream('statuses/filter', {
 
                     if (change.name == 'marketTraderTradeCount' && change.object.marketTraderTradeCount != tradeCount) {
                         tradeCount = change.object.marketTraderTradeCount;
-                        console.log("Trade has fired, trade #" + tradeCount);
+                        console.log("Trade has fired, trade # " + tradeCount);
                         //put in info for the trade feed here
                         io.emit('trade', SIM.marketMakerBot.marketTraderTradeReport); 
+
+                        //grab stock info from marketMaker
+                        var currentStockName = SIM.marketMakerBot.currentTradeStockName;
+                        var currentStockPrice = SIM.marketMakerBot.currentTradeStockPrice;
+                        console.log(currentStockName + " will update to price of " + currentStockPrice + " in database.");
+
+                        SIM.stockIdFinder(currentStockName);
+                        console.log("current stock id is..." + SIM.stockId);
+                        
+                        //update stock prices
+                        updateStock({ id: SIM.stockId, price: currentStockPrice });
                     };
                     
                 });
@@ -238,9 +265,6 @@ client.stream('statuses/filter', {
                     };
                 });
             });
-            
-            //save this mofo
-            //updateStock({ id: 1, price: nodePrice });
             
             //the id will need to be dynamic in the future...
 
