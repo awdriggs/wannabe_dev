@@ -1,6 +1,6 @@
 App.Views.StocksView = Backbone.View.extend({
 
-	el: '#container',
+	el: '#stocks-container',
 
 	initialize: function () {
 		console.log('Stocks view created');

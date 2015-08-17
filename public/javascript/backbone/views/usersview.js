@@ -1,6 +1,6 @@
 App.Views.UsersView = Backbone.View.extend({
 
-	el: '#container',
+	el: '#users-container',
 
 	initialize: function () {
 		console.log('Users view created');

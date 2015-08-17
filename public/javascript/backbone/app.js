@@ -29,7 +29,9 @@ $(function() {
 
 
     $('#showstocks').click(function() {
-        console.log('stocks')
+        $('#bots-container').empty();
+        $('#companies-container').empty();
+        $('#users-container').empty();
         App.stocks = new App.Collections.Stocks;
         App.stocksView = new App.Views.StocksView({
             collection: App.stocks
@@ -41,7 +43,9 @@ $(function() {
 
 
     $('#showusers').click(function() {
-        console.log('users')
+        $('#stocks-container').empty();
+        $('#companies-container').empty();
+        $('#users-container').empty();
         App.users = new App.Collections.Users;
         App.usersView = new App.Views.UsersView({
             collection: App.users
@@ -52,7 +56,9 @@ $(function() {
     })
 
     $('#showcompanies').click(function() {
-        console.log('companies')
+        $('#stocks-container').empty();
+        $('#bots-container').empty();
+        $('#users-container').empty();
         App.companies = new App.Collections.Companies;
         App.companiesView = new App.Views.CompaniesView({
             collection: App.companies
@@ -63,7 +69,9 @@ $(function() {
     })
 
     $('#showbots').click(function() {
-        console.log('bots')
+        $('#stocks-container').empty();
+        $('#companies-container').empty();
+        $('#users-container').empty();
         App.bots = new App.Collections.Bots;
         App.botsView = new App.Views.BotsView({
             collection: App.bots

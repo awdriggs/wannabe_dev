@@ -1,8 +1,9 @@
 App.Views.BotsAssocView = Backbone.View.extend({
 
-	el: '#container',
+	el: '#bots-container',
 	
 	initialize: function () {
+		reset: true,
 		console.log('Bots associative view created');
 		this.listenTo(this.collection, 'reset', this.renderAll)
 		this.renderAll();
