@@ -3,61 +3,129 @@ var MarketMaker = function (initBotsArray, initStocksArray) {
 console.log('marketMakerConstructor loaded...')
 
 	var self = this;
-	this.marketMakersPrice = parseFloat(initStocksArray[0].price);
-	this.testStock = initStocksArray[0].name;
+	//hold input stock info name and price of each stock
+	this.marketStockListing = initStocksArray;
+	this.marketTraderBots = initBotsArray;
+	//current twitter update session, reset after a trade cycle
+	this.stockOfInterestName = [];
+	this.stockOfInterestPrice = [];
+	this.trendValue = null;
+	this.botsInterestedInTrading = [];
 
-	//using data from this.listen to pass each bot let them set trade
-	this.discover = function (oldp, newp, marketPrice) {
-		//load in all the initBotsArray on the dance floor
-		this.traderList = initBotsArray;
-
-		//market maker sets up all the initBotsArray to get ready for trading
-		for (var i = 0; i < this.traderList.length; i++) {
-			//run though each trader have them track the trend
-			console.log(this.traderList[i].name + " now discovering trend.")
-			//pass the price data down the line
-			this.traderList[i].track(oldp, newp, marketPrice);
+	this.yell = function (state) {
+		var currentState = null;
+		if (state == 'start') {
+			currentState = ' current price: ';
+		}else if (state == 'finish') {
+			currentState = ' new price: ';
+		};
+		for (var y = 0; y < self.marketStockListing.length; y++) {
+			console.log('>> >> >> >> ' + self.marketStockListing[y].name + currentState + self.marketStockListing[y].price + ' << << << <<');
 		};
 	};
-	//stages trade between initBotsArray
-	this.stage = function () {
-		//run though each trader to see if they want to trade
-		var buyer = "";
-		var seller = "";
-		var pair = [];
-		//loop through each bot to find out who want to BUY
-		for (var b = 0; b < this.traderList.length; b++) {
-			if (this.traderList[b].lookingForTrade == true && this.traderList[b].orderType == "BUY") {
-				//check who has most urgency
-				buyer = this.traderList[b]
-			};
-		};
-		//loop through each bot to find out who want to SELL
-		for (var s = 0; s < this.traderList.length; s++) {
-			if (this.traderList[s].lookingForTrade == true && this.traderList[s].orderType == "SELL") {
-				//check who has most urgency
-				seller = this.traderList[s]
-			};
-		};
+	// discover the twitter stream and hold the data
+	this.discover = function (twitterUpdatesInput) {
+		//console.log(twitterUpdatesInput);
+		for (var t = 0; t < twitterUpdatesInput.length; t++) {
+			var currentTwitStock = twitterUpdatesInput[t].symbol.toUpperCase();
+			self.stockOfInterestName.push(currentTwitStock);
 
-		console.log(buyer.name + " is buying and " + seller.name + " is selling");
-		// sends of the traders to settle trade
-		pair = [buyer, seller];
-		//var possibleTrades = [];
-		return pair;
+			//find price of stocks
+			for (var p = 0; p < self.marketStockListing.length; p++) {
+				if (currentTwitStock == self.marketStockListing[p].name) {
+					self.stockOfInterestPrice.push(self.marketStockListing[p].price);
+				};
+			};
+		};
+		self.trendValue = twitterUpdatesInput[0].pchange;
+	};
+	// pass info to bots so bot can decide what they want to do
+	this.pass = function () {
+				
+		for (var s = 0; s < self.stockOfInterestName.length; s++) {
+			//console.log(self.stockOfInterestName[s] + " is on the table...");
+			var currentStock = self.stockOfInterestName[s];
+
+			for (var b = 0; b < self.marketTraderBots.length; b++) {
+				// find which bot is interested
+				if (currentStock == self.marketTraderBots[b].stockinterest) {
+					console.log(self.marketTraderBots[b].name + " now learning about " + self.marketTraderBots[b].stockinterest +  " trend.");
+					
+					//pass the price data down the line
+					self.botsInterestedInTrading.push(self.marketTraderBots[b]);
+					self.marketTraderBots[b].track(self.stockOfInterestPrice[s], self.trendValue);
+				};
+			};
+		};
+		
+	};
+	// input a stock name to set the stock price of that symbol
+	this.setStockPrice = function (oneStockName, oneStockPrice) {
+		//sets marketMaker's obj stocks price to new price
+		for (var p = 0; p < self.marketStockListing.length; p++) {
+			if (self.marketStockListing[p].name == oneStockName) {
+				self.marketStockListing[p].price = oneStockPrice;
+				console.log(self.marketStockListing[p].price + " is new price of " + oneStockName);
+			};
+		};
+	};
+	//stages trade between bots
+	this.stage = function () {
+		//console.log(self.botsInterestedInTrading);
+		
+		//loop though each stock and each bot to see who want to trade what
+		for (var t = 0; t < self.stockOfInterestName.length; t++) {
+
+			//run though each trader to see if they want to trade
+			var buyer = null;
+			var buyerUrgency = -1;
+			var seller = null;
+			var sellerUrgency = -1;
+			var pair = [];
+
+			for (var o = 0; o < self.botsInterestedInTrading.length; o++) {
+				//find buyer
+				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "BUY") {
+					//check who has most urgency
+					if (self.botsInterestedInTrading[o].urgency > buyerUrgency) {
+						buyerUrgency = self.botsInterestedInTrading[o].urgency;
+						buyer = self.botsInterestedInTrading[o];
+					};
+				};
+				//find seller
+				if (self.botsInterestedInTrading[o].lookingForTrade == true && self.botsInterestedInTrading[o].orderType == "SELL") {
+					//check who has most urgency
+					if (self.botsInterestedInTrading[o].urgency > sellerUrgency) {
+						sellerUrgency = self.botsInterestedInTrading[o].urgency;
+						seller = self.botsInterestedInTrading[o];
+					};
+				};
+			};
+
+			// sends of the traders to settle trade
+			pair = [buyer, seller];
+			console.log("We got ourselves a trade!");
+			//settle the trade between the pair
+			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t]);
+			//set price of stock after the trade
+			console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
+			self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
+		};
 	};
 	//settle trades between initBotsArray
-	this.settle = function (pairedUpTraders, marketPrice) {
-
+	this.settle = function (pairInput, stockPriceInput) {
+		
 		var d = new Date();
-		console.log("We got ourselves a trade!");
 		console.log("Time of trade: " + d);
 
+		//annouce who is buy and selling stock for each stock
+		var pairedUpTraders = pairInput;
+		console.log(pairedUpTraders[0].name + " is buying and " + pairedUpTraders[1].name + " is selling");
+
 		//determent spread on the trade 
-		var currentPrice = marketPrice;
+		var marketPrice = parseFloat(stockPriceInput);
 		var spread = (pairedUpTraders[0].offerPrice - pairedUpTraders[1].offerPrice);
 		console.log("Current spread on trade :$" + spread);
-		
 		//determent who the trade favors
 		var settleUptonPrice = null;
 
@@ -82,47 +150,60 @@ console.log('marketMakerConstructor loaded...')
 		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
 		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
 
+		// sit bots after trading
+		pairedUpTraders[0].chill();
+		pairedUpTraders[1].chill();
+		
 		// new stock price
 		var newPrice = (pairedUpTraders[0].offerPrice + pairedUpTraders[1].offerPrice) / 2;
-		return newPrice;
+		pairedUpTraders[0].reprice();
+		pairedUpTraders[1].reprice();
+		return newPrice;	
 	};
+	this.sweep = function () {
+		// clear the trade floor for future trades
+		console.log("Okay, deals done, clear the floor, come back later...");
+		self.stockOfInterestName = [];
+		self.stockOfInterestPrice = [];
+		self.trendValue = null;
+		self.botsInterestedInTrading = [];
+	};
+	// starts the listensers on market maker
 	this.service = function (watchedObj) {
 
 		// listen to see any change happenes to twitterTrend
 		Object.observe(watchedObj, function(changes) {
+			//[ { symbol: '$goog', count: 1, attitude: 3, change: 3, pchange: 3 } ]
+			console.log("The following marketMaker saw a change in twitter stream.")
+			var twitterUpdates = changes[0].object.API;
 
-			var newval = (changes[0].object.twitterAPI);
-			var oldval = (changes[0].oldValue);
+			// reports current market state at start of twitter update
+			console.log("There are " + (self.marketStockListing.length)  + " stocks in db.");
 
-			console.log("tracking stock. (" + oldval + ") :pastTrend, (" + newval + ") :lastestTrend");
-			console.log("marketMaker announce " + self.marketMakersPrice + " is the current price.")
+			// main simulation logic starts
+			self.discover(twitterUpdates); 
 
-			self.discover(oldval, newval, self.marketMakersPrice);
+			//report stock names and prices 
+			self.yell('start');
 
-			// stage trades, loop though all possible trades for initBotsArray wanting to trade
-			var pairedTraders = self.stage();
-			//console.log(pairedTraders);
+			//pass data to bots
+			self.pass();
+
+			//set the stage for bots wanting to trade
+			self.stage();
 			
-			//settle a trade btw 2 traders
-			var newMarketPrice = self.settle(pairedTraders, self.marketMakersPrice);
-			console.log("This is new market price after a trade..." + newMarketPrice)
-			console.log('>> >> >> >> ' + self.testStock + ' current price: $' + newMarketPrice + ' << << << <<');
-			
-			self.marketMakersPrice = newMarketPrice;
-			//return newMarketPrice;
+			self.yell('finish');
+
+			//clean up after all trade
+			self.sweep();
 		});
-		
-		// watch to see any change happenes to stock market price
-		Object.observe(self, function(changes) {
-			console.log("Stock market price has changed...to" + changes.object.marketMakersPrice);
-		});
-		
-		// obj.watch works only on one obj at a time.
-		// watchedObj.watch("twitterAPI", function (id, oldval, newval) {});	
 	};
-	this.returnPrice = function () {
-		return self.marketMakersPrice;
-	};
+	/*
+	// watch to see any change happenes to stock market price
+	Object.observe(self, function(changes) {
+		console.log("Stock market price has changed...to" + changes.object.marketMakersPrice);
+	});	
+	*/
 };
 
 module.exports = MarketMaker;
