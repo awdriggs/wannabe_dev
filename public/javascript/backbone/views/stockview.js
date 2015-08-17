@@ -1,5 +1,7 @@
 App.Views.StockView = Backbone.View.extend({
 
+	// el: '#container',
+
 	initialize: function () {
 		console.log('single stock view created');
 		this.template = Handlebars.compile($('#stocktemplate').html());

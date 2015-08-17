@@ -1,6 +1,6 @@
 App.Views.BotsView = Backbone.View.extend({
 
-	el: '#container',
+	el: '#bots-container',
 
 	initialize: function () {
 		console.log('Bots view created');

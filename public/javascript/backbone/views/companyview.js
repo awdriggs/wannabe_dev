@@ -9,6 +9,7 @@ App.Views.CompanyView = Backbone.View.extend({
 
 	render: function () {
 		this.$el.append(this.template(this.model.toJSON()));
+		this.$el.attr('class', 'item');
 	}
 
 })
