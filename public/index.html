@@ -11,74 +11,146 @@
 
 	<script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.3.1/jquery.marquee.min.js'></script>
 
+	
+	<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
 </head>
 <body>
 	<div id="left_side">
 		<h1>StockBot</h1>
+		<div id="input_ui">
 		
-		<div id="signup">
-			<form id="form" class="form" action='/setuser' method="post">
-				<div class="field">
-					<label for="username">username</label>
-					<input type="text" id="username" name="username">
-				</div>
-				<div class="field">
-					<label for="password">password</label>
-					<input type="password" id="password" name="password">
-				</div>
-				<div class="field">
-					<button type="submit" id="login" name="login">Login</button>
-				</div>
-			</form>
 		</div>
 
-		<div id="signup">
-			<form id="form" class="form" action='/setuser' method="post">
-				<h2>SignUp</h2>
-				<div class="field">
-					<label for="username">username</label>
-					<input type="text" id="username" name="username">
-				</div>
-				<div class="field">
-					<label for="email">email</label>
-					<input type="email" id="email_input" name="email">
-				</div>
-				<div class="field">
-					<label for="password">password</label>
-					<input type="password" id="password" name="password">
-				</div>
-				<div class="field">
-					<label for="confirmpassword">confirm password</label>
-					<input type="password" id="confirmpassword" name="confirmpassword">
-				</div>
-				<div class="field">
-					<button type="submit" id="signup" name="signup">SignUp</button>
-				</div>
-			</form>
-		</div>
+	<!--
+		<div id="user_auth">
+			<div id="logon">
+				<form id="form" class="form" action='/setuser' method="post">
+					<div class="field">
+						<label for="username">username</label>
+						<input type="text" id="username" name="name">
+					</div>
+					<div class="field">
+						<label for="password">password</label>
+						<input type="password" id="password" name="password">
+					</div>
+					<div class="field">
+						<button type="submit" id="login" name="login">Login</button>
+					</div>
+				</form>
+			</div>
 
-		<div id="logout">
+			<div id="signup">
+				<form id="form" class="form" action='/setuser' method="post">
+					<h2>SignUp</h2>
+					<div class="field">
+						<label for="username">username</label>
+						<input type="text" id="username" name="name">
+					</div>
+					<div class="field">
+						<label for="email">email</label>
+						<input type="email" id="email_input" name="email">
+					</div>
+					<div class="field">
+						<label for="password">password</label>
+						<input type="password" id="password" name="password">
+					</div>
+					<div class="field">
+						<label for="confirmpassword">confirm password</label>
+						<input type="password" id="confirmpassword" name="confirmpassword">
+					</div>
+					<div class="field">
+						<button type="submit" id="signup" name="signup">SignUp</button>
+					</div>
+				</form>
+			</div>
+		</div> 
+	-->
+
+
+		<!-- <div id="logout">
 			<form action="/removeuser" method="POST">
 				<input type="hidden" name="_method" value="DELETE">
 				<button>logout</button>
 			</form>
 		</div>
+ -->
 
+<!-- this needs to be turned into a template son -->
+ 		<div id="bot_form">
+			<div class="form">
+					<h2>Create Bot</h2>
+					<div class="field">
+						<label for="botname">bot name</label>
+						<input type="text" id="botname" name="botname">
+					</div>
+
+					<!-- balance needs to be grabbed from db -->
+					<div class="field">
+						<label for="balance">balance</label>
+						<input type="number" name="balance" min="1" max="1000" value="0">
+					</div>
+					
+					
+					<!-- this list needs to be generated in hb -->
+					<div class="field">
+						<label for="character">Character</label>
+						<select name="character">
+							<option value="Timmy">Timmy</option>
+							<option value="Steve">Steve</option>
+							<option value="Robert">Robert</option>
+						</select>
+					</div>
+					<!-- this list needs to be generated in hb -->
+					<div class="field">
+						<label for="interest">Interest</label>
+						<select name="interest">
+							<option value="$aapl">$aapl</option>
+							<option value="$amzn">$amzn</option>
+							<option value="$goog">$goog</option>
+							<option value="$msft">$msft</option>
+							<option value="$twtr">$twtr</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="risk">Risk Tolerance</label>
+						<div id="risk">0</div>
+					</div>
+					<div class='risk-slider'>
+					</div>
+
+					<div class="field">
+						<label for="trend">Trend Tolerance</label>
+						<div id="trend">0</div>
+					</div>
+					<div class='trend-slider'>
+					</div>
+
+					<div class="field">
+						<label for="attitude">Attitude</label>
+						<div id="attitude">0</div>
+					</div>
+					<div class='attitude-slider'>
+					</div>
+
+					<div class="field">
+						<button type="submit" id="setbot" name="setbot">Set Bot</button>
+					</div>
+				</div>
+ 		</div>
 	</div> <!-- end of left_side div -->
 	
 	
 
 	<!-- TEST CLICKS FOR BACKBONE GRABS -->
-	<span id="showstocks">show stocks</span> --
-	<span id="showbots">show bots</span> --
-	<span id="showcompanies">show companies</span> --
-	<span id="showusers">show users</span>
+	
 
 	<!-- MAIN CONTENT -->
 	<div id="content_wrapper">
-		<div id="viz_wrapper">
-			
-			<div id="marquee">
+
+		<div id="marquee">
 				<li class='aapl'>
 					AAPL : $500
 				</li>
@@ -97,8 +169,18 @@
 				<li class='twtr'>
 					TWTR : $500
 				</li>
-			</div>
+		</div>
 
+		
+		<div id="nav">
+			<div id="showstocks" class="nav_item">show stocks</div>
+			<div id="showbots" class="nav_item">show bots</div>
+			<div id="showcompanies" class="nav_item">show bot companies</div>
+			<div id="showusers" class="nav_item">show user companies</div>
+		</div>
+
+
+		<div id="viz_wrapper">
 			<!-- TEST ELEMENT FOR BACKBONE VIEWS -->
 			<div id="container">
 			</div>
@@ -107,7 +189,7 @@
 
 
 		</div>
-
+		
 		<div class="data_wrapper trades">
 			<div class="column_title_div">
 				<h2>Trade Feed</h2>
@@ -130,33 +212,49 @@
 
 	<!-- users -->
 	<template id="usertemplate">
-		<p>ID: {{id}} </p>
-		<p>USERNAME: {{username}}</p>
+		<h3><a href="#" data-id="{{id}}">{{companyname}}</a></h3>
+		<p>OWNED BY: {{username}}</p>
 		<p>STARTING BALANCE: {{startingbalance}} </p>
 		<p>CURRENT BALANCE: {{currentbalance}} </p>
 		<p>PROFIT: {{profit}}</p>
 	</template>
 
+	<template id="logontemplate">
+		<div id="logon">
+			<form id="form" class="form" action='/setuser' method="post">
+				<div class="field">
+					<label for="username">username</label>
+					<input type="text" id="username" name="name">
+				</div>
+				<div class="field">
+					<label for="password">password</label>
+					<input type="password" id="password" name="password">
+				</div>
+				<div class="field">
+					<button type="submit" id="login" name="login">Login</button>
+				</div>
+			</form>
+		</div>
+	</template>
+
 	<template id="stocktemplate">
-		<p>ID: {{id}}</p>
-		<p>NAME: {{name}}</p>
+		<h3><a href="#" data-id="{{id}}">{{name}}</a></h3>
 		<p>PRICE: {{price}}</p>
 	</template>
 
 	<template id="companytemplate">
-		<p>ID: {{id}} </p>
-		<p>NAME: {{name}} </p>
+		<h3><a href="#" data-id="{{id}}">{{name}}</a></h3>
 		<p>STARTINGBALANCE: {{startingbalance}}</p>
 		<p>CURRENTBALANCE: {{currentbalance}}</p>
 		<p>PROFIT: {{profit}}</p>
 	</template>
 
 	<template id="bottemplate">
-		<p>BOTNAME: {{botname}}</p>
-		<p>BALANCE: {{balance}}</p>
-		<p>CHARACTER: {{character}}</p>
-		<p>STOCK OF INTEREST: {{stockinterest}}</p>
+		<h3><a href="#" data-id="{{id}}">{{botname}}</a></h3>
+		<p>STOCK TRADING: <strong>{{stockinterest}}</strong></p>
 		<p>QUANTITY OF STOCK: {{quantity}}</p>
+		<p>BALANCE: {{balance}}</p>
+		<p>CHARACTER: {{character}}</p>			
 		<p>RISK TOLERANCE: {{risktolerance}}</p>
 		<p>ATTITUDE: {{attitude}}</p>
 		<p>STEPSIZE: {{stepsize}}</p>	
@@ -175,25 +273,26 @@
 
 	<!-- BACKBONE FILES -->
 	<!-- Stocks -->
-	<script src="/javascript/backbone/views/stocksview.js"></script>
-	<script src="/javascript/backbone/views/stockview.js"></script>
-	<script src="/javascript/backbone/models/stockmodel.js"></script>
-	<script src="/javascript/backbone/collections/stockscollection.js"></script>
+	<script src="/javascript/backbone/views/stocksView.js"></script>
+	<script src="/javascript/backbone/views/stockView.js"></script>
+	<script src="/javascript/backbone/models/stockModel.js"></script>
+	<script src="/javascript/backbone/collections/stocksCollection.js"></script>
 	<!-- Bots -->
-	<script src="/javascript/backbone/views/botsview.js"></script>
-	<script src="/javascript/backbone/views/botview.js"></script>
-	<script src="/javascript/backbone/models/botmodel.js"></script>
-	<script src="/javascript/backbone/collections/botscollection.js"></script>
+	<script src="/javascript/backbone/views/botsView.js"></script>
+	<script src="/javascript/backbone/views/botsAssocView.js"></script>
+	<script src="/javascript/backbone/views/botView.js"></script>
+	<script src="/javascript/backbone/models/botModel.js"></script>
+	<script src="/javascript/backbone/collections/botsCollection.js"></script>
 	<!-- Users -->
-	<script src="/javascript/backbone/views/usersview.js"></script>
-	<script src="/javascript/backbone/views/userview.js"></script>
-	<script src="/javascript/backbone/models/usermodel.js"></script>
-	<script src="/javascript/backbone/collections/userscollection.js"></script>	
+	<script src="/javascript/backbone/views/usersView.js"></script>
+	<script src="/javascript/backbone/views/userView.js"></script>
+	<script src="/javascript/backbone/models/userModel.js"></script>
+	<script src="/javascript/backbone/collections/usersCollection.js"></script>	
 	<!-- Companies -->
-	<script src="/javascript/backbone/views/companiesview.js"></script>
-	<script src="/javascript/backbone/views/companyview.js"></script>
-	<script src="/javascript/backbone/models/companymodel.js"></script>
-	<script src="/javascript/backbone/collections/companiescollection.js"></script>
+	<script src="/javascript/backbone/views/companiesView.js"></script>
+	<script src="/javascript/backbone/views/companyView.js"></script>
+	<script src="/javascript/backbone/models/companyModel.js"></script>
+	<script src="/javascript/backbone/collections/companiesCollection.js"></script>
 
 	<!-- SOCKETS DEPENDENCIES -->
 	<script src="/socket.io/socket.io.js"></script>

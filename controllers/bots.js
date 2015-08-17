@@ -3,14 +3,16 @@ var models = require('../models');
 module.exports.controller = function (app) {
 
 	// BOTS INDEX
-	app.get('/api/bots/', function (req, res) {
+	app.get('/api/bots', function (req, res) {
 		models.bots.findAll().then(function (result) {
 			res.json(result);
 		});
 	});
 
 	// BOT CREATE
-	app.post('/api/bots/create', function (req, res) {
+	app.post('/api/bots', function (req, res) {
+		console.log('form body', req.body);
+
 		models.bots.create( req.body ).then(function (result) {
 			res.json(result);
 		});

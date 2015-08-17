@@ -10,7 +10,7 @@ body {
   font-family: "Fredoka One", sans-serif;
   margin-top: -10px;
   padding-bottom: 10px;
-  width: 30%;
+  min-width: 30%;
   background-color: #102542;
   color: #d95141;
   float: left; }
@@ -69,6 +69,10 @@ body {
   #left_side input:focus {
     outline: none;
     outline: #d95141 solid 2px; }
+  #left_side button:focus {
+    outline: none; }
+  #left_side .ui-slider {
+    margin: 1rem 0; }
 
 #content_wrapper {
   background-color: #ebe1c8;
@@ -76,12 +80,50 @@ body {
   float: left;
   height: 100%; }
 
+#nav {
+  display: flex;
+  width: 94%;
+  margin: 0 3%;
+  background-color: #cdd7d6; }
+  #nav .nav_item {
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+    border-bottom: #102542 solid 1px;
+    width: 20%;
+    text-align: center; }
+  #nav .nav_item:hover {
+    background-color: #102542;
+    color: #cdd7d6;
+    border-bottom: #102542 solid 1px; }
+
 #viz_wrapper {
   height: 300px;
-  margin: 3%;
-  display: block;
+  margin: 0 3% 3% 3%;
+  display: f;
   width: 94%;
-  background-color: #cdd7d6; }
+  background-color: #cdd7d6;
+  overflow-x: scroll;
+  overflow-x: scroll;
+  white-space: nowrap; }
+  #viz_wrapper #container {
+    width: 90%;
+    white-space: nowrap;
+    display: flex; }
+    #viz_wrapper #container .item {
+      flex-shrink: 0;
+      color: #102542;
+      width: 25%;
+      margin: 1%;
+      float: left; }
+      #viz_wrapper #container .item h3, #viz_wrapper #container .item p {
+        margin: 0.7rem; }
+      #viz_wrapper #container .item h3 {
+        text-align: center; }
+      #viz_wrapper #container .item a {
+        text-decoration: none;
+        color: #102542; }
+      #viz_wrapper #container .item a:hover {
+        color: #d95141; }
 
 .data_wrapper {
   float: right;

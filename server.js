@@ -92,6 +92,9 @@ http.listen(3000, function(){
 // USES
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extname: true}));
+// this thing right here:
+app.use(bodyParser.json());
+
 app.use(logger('dev'));
 
 app.use(methodOverride(function(req, res) {

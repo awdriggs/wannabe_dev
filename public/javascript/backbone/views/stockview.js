@@ -9,11 +9,13 @@ App.Views.StockView = Backbone.View.extend({
 
 	render: function () {
 		this.$el.append(this.template(this.model.toJSON()));
+		this.$el.attr('class', 'item');
 	},
 
 	renderUpdate: function () {
 		console.log('render updated stock model')
 		this.$el.html(this.template(this.model.toJSON()));
+
 	}
 
 })
