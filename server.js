@@ -36,10 +36,23 @@ var SIM = {
                 this.botArray.push(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
-        // loop though all stock report price at start
     },
     openMarket: function (trend) {
         this.marketMakerBot.service(trend);
+    },
+    reportStock: function () {
+        var stocks = this.marketMakerBot.marketStockListing;
+        for (var p = 0; p < stocks.length; p++) {
+            console.log("==>> NODE announce price of " + stocks[p].name + " is at: $" + stocks[p].price + " <<<==");
+        };
+    },
+    stocksOutInfo: {},
+    packageStock: function () {
+        var stocks = this.marketMakerBot.marketStockListing;
+        for (var c = 0; c < stocks.length; c++) {
+            var keyStr = String(stocks[c].name);
+            this.stocksOutInfo[keyStr] = stocks[c].price;
+        };
     }
 };
 // set to change, change drive the sim
@@ -147,7 +160,7 @@ var updateStock = function (stockparams) {
 
 
 //
-
+var tradeCount = null;
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
@@ -165,9 +178,25 @@ client.stream('statuses/filter', {
 
             //info.changes is an array with the changes from one tweet. 
             //triggers sim to run
-
             twitterTrend.API = info.changes;
-            //var nodePrice = SIM.marketMakerBot.marketMakersPrice;
+            
+            //print stock prices on NODE level               
+            Object.observe(SIM.marketMakerBot, function(changes) {
+                // This asynchronous callback runs
+                changes.forEach(function(change) {
+                    // Letting us know what changed
+                    //console.log("This is what changed..." + change.name);
+                    if (change.name == 'marketTraderWrap' && change.oldValue != tradeCount) {
+                        //triggers the stock reporting.
+                        tradeCount = change.oldValue;
+                        console.log("And We finished trading...and tradeCount is " + tradeCount);
+                        SIM.packageStock();
+                        console.log(SIM.stocksOutInfo);
+                        io.emit('price_update', SIM.stocksOutInfo)
+                        //SIM.reportStock();
+                    };
+                });
+            });
             
             //save this mofo
             //updateStock({ id: 1, price: nodePrice });

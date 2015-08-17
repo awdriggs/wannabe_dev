@@ -6,6 +6,7 @@ console.log('marketMakerConstructor loaded...')
 	//hold input stock info name and price of each stock
 	this.marketStockListing = initStocksArray;
 	this.marketTraderBots = initBotsArray;
+	this.marketTraderWrap = 9000;
 	//current twitter update session, reset after a trade cycle
 	this.stockOfInterestName = [];
 	this.stockOfInterestPrice = [];
@@ -20,7 +21,7 @@ console.log('marketMakerConstructor loaded...')
 			currentState = ' new price: ';
 		};
 		for (var y = 0; y < self.marketStockListing.length; y++) {
-			console.log('>> >> >> >> ' + self.marketStockListing[y].name + currentState + self.marketStockListing[y].price + ' << << << <<');
+			console.log('>> >> ' + self.marketStockListing[y].name + currentState + self.marketStockListing[y].price + ' << <<');
 		};
 	};
 	// discover the twitter stream and hold the data
@@ -167,6 +168,7 @@ console.log('marketMakerConstructor loaded...')
 		self.stockOfInterestPrice = [];
 		self.trendValue = null;
 		self.botsInterestedInTrading = [];
+		self.marketTraderWrap++;
 	};
 	// starts the listensers on market maker
 	this.service = function (watchedObj) {
@@ -192,7 +194,7 @@ console.log('marketMakerConstructor loaded...')
 			//set the stage for bots wanting to trade
 			self.stage();
 			
-			self.yell('finish');
+			//self.yell('finish');
 
 			//clean up after all trade
 			self.sweep();
