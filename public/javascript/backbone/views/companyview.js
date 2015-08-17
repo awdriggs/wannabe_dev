@@ -1,5 +1,7 @@
 App.Views.CompanyView = Backbone.View.extend({
 
+	// el: '#container',
+	
 	initialize: function () {
 		console.log('single company view created');
 		this.template = Handlebars.compile($('#companytemplate').html());

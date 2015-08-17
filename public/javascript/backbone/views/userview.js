@@ -1,5 +1,7 @@
 App.Views.UserView = Backbone.View.extend({
 
+	// el: '#container',
+	
 	initialize: function () {
 		console.log('single user view created');
 		this.template = Handlebars.compile($('#usertemplate').html());

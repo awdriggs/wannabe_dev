@@ -21,14 +21,19 @@ App.Views.StocksView = Backbone.View.extend({
 	},
 
 	show: function (e) {
-		console.log('linked clicked');
+		// remove the click event from the el so other views cannot click and get these results
+		this.$el.off('click', 'a');
 		e.preventDefault();
-		self = this;
 
-		// Takes the id from the target's data-id to find the individual stock model
+		// Show all bots related to this stock through db associations.
+		// We grab the model from the urlRoot of the model, instead of from the collection url. This
+		// will give us its associations as delivered by the route '/stocks/:id'. Associations
+		// are made in Sequelize and gathered within the route.
+
+		// Takes the id from the target's data-id to find the individual stock model:
 		var id = $(e.currentTarget).data("id");
 
-		// Makes a new stock model with the id and fetches it from the db
+		// Makes a new stock model with the id and fetches it from the db through urlRoot:
 		stockmodel = new App.Models.Stock;
 		stockmodel.set('id', id);
 		stockmodel.fetch().done(function (result) {
@@ -52,14 +57,14 @@ App.Views.StocksView = Backbone.View.extend({
 				botCollection.push({id: id, botname: botname, balance: balance, stockinterest: stock, quantity: quantity, character: character, risktolerance: risk, stepsize: step, attitude: attitude})
 			}
 
-			// self.$el.empty();
-
 			// View the single stock originally clicked
-			view = new App.Views.StockView({model: stockmodel});
+			// var view = new App.Views.StockView({model: stockmodel});
+
 			// Make the collection with the array of associated objects
-			botgrab = new Backbone.Collection(botCollection);
-			// Pass the free collection to an view (different from BotsView to avoid doubled information)
-			botview = new App.Views.BotsAssocView({collection: botgrab});
+			var botgrab = new Backbone.Collection(botCollection);
+			// Pass the free collection to a view (different from BotsView to avoid doubled information)
+			// This is appended to the el, will the original stock info instact.
+			var botview = new App.Views.BotsAssocView({collection: botgrab});
 			
 		});	
 	} // end show function
