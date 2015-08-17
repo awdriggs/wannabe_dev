@@ -25,14 +25,13 @@ INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktole
 INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('BlahCorp', 1000, 1000, 0);
 INSERT INTO companies (name, startingbalance, currentbalance, profit) VALUES ('SmellCorp', 1000, 1000, 0);
 
-INSERT INTO stocks (name, price) VALUES('GOOG', 500);
--- INSERT INTO stocks (name, price) VALUES('$AAPL', 55);
+INSERT INTO stocks (name, price) VALUES('$GOOG', 611.412);
+INSERT INTO stocks (name, price) VALUES('$AAPL', 135.125);
+INSERT INTO stocks (name, price) VALUES('$FB', 75.435);
+INSERT INTO stocks (name, price) VALUES('$AMZN', 245.159);
+INSERT INTO stocks (name, price) VALUES('$TWTR', 41.216);
+INSERT INTO stocks (name, price) VALUES('$MSFT', 65.239);
 
 INSERT INTO users (username, email, passworddigest, companyname, currentbalance, startingbalance, profit) VALUES ('Thom', 'thom@thom.burp', 'brooklyndonuts', 'TinyMountain', 1000, 1000, 0);
 INSERT INTO users (username, email, passworddigest, companyname, currentbalance, startingbalance, profit) VALUES ('Adam', 'adam@adam.squeeze', 'brooklyndonuts', 'NascentBreathers', 1000, 1000, 0);
 INSERT INTO users (username, email, passworddigest, companyname, currentbalance, startingbalance, profit) VALUES ('Zhen', 'zhen@zhen.whack', 'queensdonuts', 'SlidingVines', 1000, 1000, 0);
-
-
--- INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('R2D2', 500000, 'marketBuyer', '$GOOG', 110, 5, 5, 5, 'True', 0, 1, 1);
--- INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('C3PO', 100000, 'marketSeller', '$GOOG', 9000, 5, 5, 5, 'True', 0, 1, 1);
--- INSERT INTO bots (botname, balance, character, stockinterest, quantity, risktolerance, stepsize, attitude, active, "userId", "stockId", "companyId") VALUES ('ED209', 100000, 'marketTrader', '$GOOG', 555, 5, 5, 5, 'True', 2, 1, 0);

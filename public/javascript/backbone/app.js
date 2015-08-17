@@ -7,10 +7,10 @@ App = {
 $(function() {
     $('#showstocks').click(function() {
         $('#container').empty();
-        $('#stocks-container').empty();
-        $('#bots-container').empty();
-        $('#companies-container').empty();
-        $('#users-container').empty();
+        // $('#stocks-container').empty();
+        // $('#bots-container').empty();
+        // $('#companies-container').empty();
+        // $('#users-container').empty();
         App.stocks = new App.Collections.Stocks;
         App.stocksView = new App.Views.StocksView({
             collection: App.stocks
@@ -23,10 +23,10 @@ $(function() {
 
     $('#showusers').click(function() {
         $('#container').empty();
-        $('#bots-container').empty();
-        $('#stocks-container').empty();
-        $('#companies-container').empty();
-        $('#users-container').empty();
+        // $('#bots-container').empty();
+        // $('#stocks-container').empty();
+        // $('#companies-container').empty();
+        // $('#users-container').empty();
         App.users = new App.Collections.Users;
         App.usersView = new App.Views.UsersView({
             collection: App.users
@@ -38,10 +38,10 @@ $(function() {
 
     $('#showcompanies').click(function() {
         $('#container').empty();
-        $('#companies-container').empty();
-        $('#stocks-container').empty();
-        $('#bots-container').empty();
-        $('#users-container').empty();
+        // $('#companies-container').empty();
+        // $('#stocks-container').empty();
+        // $('#bots-container').empty();
+        // $('#users-container').empty();
         App.companies = new App.Collections.Companies;
         App.companiesView = new App.Views.CompaniesView({
             collection: App.companies
@@ -53,10 +53,10 @@ $(function() {
 
     $('#showbots').click(function() {
         $('#container').empty();
-        $('#bots-container').empty();
-        $('#stocks-container').empty();
-        $('#companies-container').empty();
-        $('#users-container').empty();
+        // $('#bots-container').empty();
+        // $('#stocks-container').empty();
+        // $('#companies-container').empty();
+        // $('#users-container').empty();
         App.bots = new App.Collections.Bots;
         App.botsView = new App.Views.BotsView({
             collection: App.bots
