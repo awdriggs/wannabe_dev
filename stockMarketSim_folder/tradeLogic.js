@@ -67,15 +67,12 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
             };
             self.lookingForTrade = true;
         break;
-        /*      
+              
         // basic price trader bot will trade following price movements
         case 'priceTrader':
-            console.log(self.name + " is a priceTrader bot.")
-            self.offerPrice = marketPrice;
-            self.lookingForTrade = false;
-            self.urgency = -1;
+            console.log("current market price is a price trader");
         break;
-        */
+        
         //find empty bots
 	    default:
 			console.log("Woah dis bot has no characteristics contact someone right away!");
