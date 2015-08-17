@@ -218,8 +218,8 @@ client.stream('statuses/filter', {
                         SIM.packageStock();
                         console.log(SIM.stocksOutInfo);
                         
-                        io.emit('trade', 'trade done')
-                        //io.emit('price_update', SIM.stocksOutInfo)
+                        io.emit('trade', 'trade done') //put in info for the trade feed here
+                        io.emit('price_update', SIM.stocksOutInfo)
                         //SIM.reportStock();
                     };
                 });
