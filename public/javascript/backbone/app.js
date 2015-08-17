@@ -12,6 +12,10 @@ $(function() {
         $('#viz_wrapper').show();
     })
 
+    $('#close').click(function() {
+        $('#viz_wrapper').hide();
+    })
+
 
     $('#showstocks').click(function() {
         $('#container').empty();

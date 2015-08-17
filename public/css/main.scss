@@ -187,7 +187,7 @@ body{
 }
 
 #viz_wrapper{
-	height: 300px;
+	height: 345px;
 	margin: 0 3%;
 	display: f;
 	width: 94%;
@@ -201,7 +201,7 @@ body{
 	
 	#container{
 		width: 90%;
-		
+		height: 300px;
 		//height:200px; 
 		// background-color:blue; 
 		white-space: nowrap; 
@@ -233,13 +233,33 @@ body{
 			}
 		}
 
-		.form{
-			width: 30px;
-			background-color: green;
-			position: absolute;
-			left: 0;
-			bottom: 0;
+		
+	}
 
+	.form{	
+		height: 20px;
+		position: relative;
+		
+
+		button{ 
+			display: block;
+			margin: 0.5rem auto;
+			width: 20%;
+			background-color: $blue; 
+			color: $navy; 
+			font-family: $body-font;
+			font-size: 1rem;
+			border: none;
+			border-bottom: $navy solid 1px;
+		} 
+
+		button:hover{
+			background-color: $navy;
+			color: $blue;
+		}
+
+		button:focus{
+			outline:none;
 		}
 	}
 }
