@@ -36,10 +36,15 @@ var SIM = {
                 this.botArray.push(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
-        // loop though all stock report price at start
     },
     openMarket: function (trend) {
         this.marketMakerBot.service(trend);
+    },
+    reportStock: function () {
+        var stockPrices = this.marketMakerBot.marketStockListing;
+        for (var p = 0; p < stockPrices.length; p++) {
+            console.log("==>> NODE announce price of " + stockPrices[p].name + " is at: $" + stockPrices[p].price + " <<<==");
+        };
     }
 };
 // set to change, change drive the sim
@@ -147,7 +152,7 @@ var updateStock = function (stockparams) {
 
 
 //
-
+var lastVal = null;
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
     track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
@@ -165,10 +170,24 @@ client.stream('statuses/filter', {
 
             //info.changes is an array with the changes from one tweet. 
             //triggers sim to run
-
             twitterTrend.API = info.changes;
-            //var nodePrice = SIM.marketMakerBot.marketMakersPrice;
             
+            //print stock prices on NODE level               
+            Object.observe(SIM.marketMakerBot, function(changes) {
+                // This asynchronous callback runs
+                changes.forEach(function(change) {
+                    // Letting us know what changed
+                    //console.log("This is what changed..." + change.name);
+                    if (change.name == 'marketTraderWrap' && change.oldValue != lastVal) {
+                        //triggers the stock reporting.
+                        lastVal = change.oldValue;
+                        console.log("And We finished trading...and lastVal is " + lastVal);
+                        SIM.reportStock();
+                    };
+                });
+            });
+            
+
             //save this mofo
             //updateStock({ id: 1, price: nodePrice });
             
