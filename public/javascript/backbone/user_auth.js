@@ -60,7 +60,7 @@ var getSession = function() {
                     var bot_params = {
                         botname: $("input[name='botname']").val(),
                         balance: parseInt($("input[name='balance']").val()),
-                        character: $("select[name='character']").val(),
+                        character: 'priceTrader',
                         interest: $("select[name='interest']").val(),
                         risk: parseInt($("#risk").text()),
                         stepsize: parseInt($("#trend").text()),
