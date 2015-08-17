@@ -133,6 +133,20 @@ fs.readdirSync('./controllers').forEach(function (file) {
  };
 });
 
+// SOCKET //////
+
+// client side socket.emit('change_bot', "working?" ); 
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  socket.on('change_bot', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+
+
 // TWITTER ////////////////////////////////////////////////////////////////////////////////////
 
 //twitter keys
