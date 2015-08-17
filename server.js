@@ -142,8 +142,8 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
   socket.on('change_bot', function(botObj){
-    console.log(botObj);
-
+    //console.log(botObj);
+    SIM.botArray.push(botObj);
     //botObj is the same object that is being passed into sequalize
     //do what you wan with it here!
   });
