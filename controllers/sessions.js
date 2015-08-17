@@ -6,6 +6,7 @@ module.exports.controller = function (app) {
 
 	app.post('/setuser', function (req, res) {
 		req.session.name = req.body.name;
+		console.log(req.session)
 		//res.json(req.session.name);
 		// models.users.findOne({ where: {id: req.params.id}, include: [models.bots]}).then(function (result) {
 		// 	res.json(result);
@@ -16,7 +17,13 @@ module.exports.controller = function (app) {
 		//remove the redirection.
 		//res.redirect('/');
 
-		res.json(req.session)
+		res.json(req.session);
+	});
+
+	app.post('/login', function (req, res) {
+		req.session.name = req.body.name;
+		console.log(req.session);
+		res.json(req.session);
 	});
 
 	app.post('/removeuser', function (req, res) {

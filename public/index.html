@@ -28,33 +28,29 @@
 <!-- this needs to be turned into a template son -->
  		
 	</div> <!-- end of left_side div -->
-	
-	
 
-	
-	
 
 	<!-- MAIN CONTENT -->
 	<div id="content_wrapper">
 		
 		<div id="marquee">
 				<li class='AAPL'>
-					$AAPL : $500
+					$AAPL : $ -
 				</li>
 				<li class='AMZN'>
-					$AMZN : $500
+					$AMZN : $ -
 				</li>
 				<li class='FB'>
-					$FB : $500
+					$FB : $ -
 				</li>
 				<li class='GOOG'>
-					$GOOG : $500
+					$GOOG : $ -
 				</li>
 				<li class='MSFT'>
-					$MSFT : $500
+					$MSFT : $ -
 				</li>
 				<li class='TWTR'>
-					$TWTR : $500
+					$TWTR : $ -
 				</li>
 		</div>
 
@@ -112,7 +108,7 @@
 	<template id="logintemplate">
 		<div id="user_auth">
 			<div id="logon">
-				<form id="form" class="form" action='/setuser' method="post">
+				<div class="form">
 					<div class="field">
 						<label for="username">username</label>
 						<input type="text" id="username" name="name">
@@ -122,17 +118,17 @@
 						<input type="password" id="password" name="password">
 					</div>
 					<div class="field">
-						<button type="submit" id="login" name="login">Login</button>
+						<button id="login_button" name="login_button">Login</button>
 					</div>
-				</form>
+				</div>
 			</div>
 
 			<div id="signup">
-				<form id="form" class="form" action='/setuser' method="post">
+				<div class="form" action='/setuser' method="post">
 					<h2>SignUp</h2>
 					<div class="field">
 						<label for="username">username</label>
-						<input type="text" id="username" name="name">
+						<input type="text" id="username" name="signup_name">
 					</div>
 					<div class="field">
 						<label for="email">email</label>
@@ -140,14 +136,14 @@
 					</div>
 					<div class="field">
 						<label for="password">password</label>
-						<input type="password" id="password" name="password">
+						<input type="password" id="password" name="signup_password">
 					</div>
 					<div class="field">
 						<label for="confirmpassword">confirm password</label>
 						<input type="password" id="confirmpassword" name="confirmpassword">
 					</div>
 					<div class="field">
-						<button type="submit" id="signup" name="signup">SignUp</button>
+						<button id="signup_button" name="signup_button">SignUp</button>
 					</div>
 				</form>
 			</div>

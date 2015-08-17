@@ -6,8 +6,8 @@ $(function() {
     //delegate buttons for logout, append to the bottom of 
 
     $('#input_ui').on('click', '#logout_button', endSession);
-
-
+    $('#input_ui').on('click', '#login_button', login);
+    $('#input_ui').on('click', '#signup_button', signup);
 })
 
 var getSession = function() {
@@ -41,20 +41,20 @@ var getSession = function() {
 
 
                 $(".trend-slider").slider({
-                        min: 0,
-                        max: 10,
-                        slide: function(event, ui) {
-                            $("#trend").text(ui.value);
-                        }
-                    });
+                    min: 0,
+                    max: 10,
+                    slide: function(event, ui) {
+                        $("#trend").text(ui.value);
+                    }
+                });
 
-                    $(".attitude-slider").slider({
-                        min: 0,
-                        max: 10,
-                        slide: function(event, ui) {
-                            $("#attitude").text(ui.value);
-                        }
-                    });
+                $(".attitude-slider").slider({
+                    min: 0,
+                    max: 10,
+                    slide: function(event, ui) {
+                        $("#attitude").text(ui.value);
+                    }
+                });
 
                 $('#setbot').click(function() {
                     var bot_params = {
@@ -94,9 +94,6 @@ var getSession = function() {
                     socket.emit('change_bot', bot_params); //need to write script to handle is server
                 });
 
-            
-
-
                 //add a button to the button of the sidebar for logout, kills the session
                 //no user
                 return true;
@@ -119,6 +116,53 @@ var endSession = function() {
             $('#input_ui').empty();
             //show the user input template
             App.loginView = new App.Views.LoginView();
+        },
+        error: function() {
+            console.log(result)
+        }
+    });
+}
+
+var login = function() {
+    console.log('login clicked')
+
+    var loginInfo = {
+        name: $("input[name='name']").val(),
+        password: $("input[name='password']").val()
+    };
+
+    console.log(loginInfo);
+
+    //grab form data
+    $.ajax("/login", {
+        type: "POST",
+        data: loginInfo,
+        dataType: "json",
+        success: function(result) {
+            getSession();
+        },
+        error: function() {
+            console.log(result)
+        }
+    });
+}
+
+var signup = function() {
+    console.log('signup clicked')
+    var signupInfo = {
+        name: $("input[name='signup_name']").val(),
+        password: $("input[name='signup_password']").val(),
+        email: $("input[name='email']").val()
+    };
+
+    console.log(signupInfo);
+
+    $.ajax("/setuser", {
+        type: "POST",
+        data: signupInfo,
+        dataType: "json",
+        success: function(result) {
+            getSession();
         },
         error: function() {
             console.log(result)
