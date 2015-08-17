@@ -37,6 +37,13 @@ var SIM = {
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
     },
+    newBot: null,
+    makeSingleBot: function (userInput) {
+        //create a new bot from user input and add it to the sim
+        newBot = null;
+        var newUserBot = new traderMaker(userInput.botname, userInput.balance, userInput.character, 0, userInput.interest, userInput.risk, userInput.stepsize, userInput.attitude, true);
+            this.marketMakerBot.marketTraderBots.push(newUserBot);
+    },
     openMarket: function (trend) {
         this.marketMakerBot.service(trend);
     },
@@ -142,8 +149,9 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
   socket.on('change_bot', function(botObj){
-    //console.log(botObj);
-    SIM.botArray.push(botObj);
+    console.log(botObj);
+    SIM.makeSingleBot(botObj);
+
     //botObj is the same object that is being passed into sequalize
     //do what you wan with it here!
   });
