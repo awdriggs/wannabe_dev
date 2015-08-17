@@ -37,7 +37,6 @@ var SIM = {
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
         // loop though all stock report price at start
-        //console.log("This is market starting price " + this.marketMakerBot.marketMakersPrice)
     },
     openMarket: function (trend) {
         this.marketMakerBot.service(trend);
@@ -157,7 +156,7 @@ client.stream('statuses/filter', {
             console.log('stream')
             
             var info = twitterModule.process(tweet) //this function returns the original tweet with an array of changes attached.
-            //console.log(info.changes) 
+            console.log(info.changes) 
             //this is an array of all the changes that happpened with a tweet
             //write some logic to show the last ten tweets
 

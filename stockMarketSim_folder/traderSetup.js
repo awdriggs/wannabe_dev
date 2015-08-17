@@ -28,12 +28,14 @@ var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuanti
     	tradeLogic(this.character, self, currentMarketPrice, newTrendVal);
 	};
 	//resets trader to starting state
-	this.chill = function (){
+	this.chill = function () {
 		this.lookingForTrade = false;
 		this.urgency = null;
 		this.orderType = null;
+	};
+	this.reprice = function () {
 		this.offerPrice = null;
-	}
+	};
 };
 
 module.exports = Trader;
