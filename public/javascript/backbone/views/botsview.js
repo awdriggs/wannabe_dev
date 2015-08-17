@@ -27,6 +27,7 @@ App.Views.BotsView = Backbone.View.extend({
 
 		this.$el.off('click', 'a');
 		e.preventDefault();
+		self = this;
 
 		var id = $(e.currentTarget).data("id");
 
@@ -37,6 +38,11 @@ App.Views.BotsView = Backbone.View.extend({
 		botmodel.fetch().done(function (result) {
 
 			console.log(botmodel);
+
+			self.$el.empty();
+
+			// show the bot that was clicked after having cleared the page
+			var botview = new App.Views.BotAssocView({ model: botmodel });
 
 			if (botmodel.attributes.companyId != 0) {
 				var companyname = botmodel.attributes.company.name,

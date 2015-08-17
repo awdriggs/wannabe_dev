@@ -26,6 +26,7 @@ App.Views.CompaniesView = Backbone.View.extend({
 		// remove the click event from the el so other views cannot click and get these results
 		this.$el.off('click', 'a');
 		e.preventDefault();
+		self = this;
 
 		var id = $(e.currentTarget).data("id");
 
@@ -53,6 +54,10 @@ App.Views.CompaniesView = Backbone.View.extend({
 			}
 
 			console.log(botCollection);
+
+			self.$el.empty();
+
+			var companyview = new App.Views.CompanyAssocView({model: companymodel});
 
 			var botgrab = new Backbone.Collection(botCollection);
 
