@@ -73,8 +73,8 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
             //testing user inputed bots                        
             self.offerPrice = marketPrice + 2;
             self.orderType = 'BUY';
-            self.lookingForTrade = true;
             self.urgency = 11;
+            self.lookingForTrade = true;
             console.log("current market price is a price trader");
         break;
         
