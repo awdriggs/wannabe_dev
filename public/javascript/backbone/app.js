@@ -5,29 +5,6 @@ App = {
 }
 
 $(function() {
-    //onload use an ajax call to see if the a user session is present
-     $.ajax("/session", {
-       type: "GET",
-       dataType: "json",
-       success: function(result) {
-         console.log(result)
-
-         if(result.name == null || result.name == undefined){
-            console.log('no user')
-            //show the user input template
-            App.loginView = new App.Views.LoginView();
-         }else {
-            console.log('we have a user')
-            //show the user info template
-            //add a button to the button of the sidebar for logout, kills the session
-         }
-       },
-       error: function() {
-        console.log(result)
-       }
-     });
-
-
     $('#showstocks').click(function() {
         console.log('stocks')
         App.stocks = new App.Collections.Stocks;
