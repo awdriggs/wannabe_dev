@@ -22,6 +22,10 @@ socket.on('tweet', function(tweet) {
     }
 });
 
+socket.on('trade', function(msg) {
+    console.log('message from node' + msg)
+});
+
 socket.on('price_update', function(price) {
     console.log('price update ' + price)
     updateMarquee(price);
