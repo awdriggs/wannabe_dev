@@ -50,7 +50,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 }else{
                     self.offerPrice = parseFloat(marketPriceInput) - 1.50;
                 };
-                self.urgency = 5;
+                self.urgency = 3;
                 console.log("current market price is from market trader:" + parseFloat(marketPriceInput));
                 console.log(self.name + " really want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
             //desperate to do something
@@ -60,7 +60,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 }else{
                     self.offerPrice = parseFloat(marketPriceInput) - 3;
                 };
-                self.urgency = 10;
+                self.urgency = 6;
 
                 console.log("current market price is from market trader:" + parseFloat(marketPriceInput));
                 console.log(self.name + " desperatelly want to " + self.orderType + self.stockinterest + " for $" + self.offerPrice + ', urgency: [' + self.urgency + ']');
@@ -71,27 +71,20 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
         // basic price trader bot will trade following price movements
         case 'priceTrader':
             //testing user inputed bots
-            if ( self.buyPrice < parseFloat(marketPriceInput) ) {
+            if ( newTrendVal >= 4 ) {
                 self.offerPrice = parseFloat(marketPriceInput) + 1;
                 self.orderType = 'BUY';
-                self.urgency = 10;
+                self.urgency = self.riskTolerance;
                 self.lookingForTrade = true;
-                console.log("current bot is a price trader, is buying.");
+                console.log("********** priceTrader is buying. **********");
             };
-            if (self.quantity > 0 && (parseFloat(marketPriceInput) > self.buyPrice)) {
+            if ( newTrendVal <= 5 ) {
                 self.offerPrice = parseFloat(marketPriceInput) - 1;
                 self.orderType = 'SELL';
-                self.urgency = 10;
+                self.urgency = this.riskTolerance;
                 self.lookingForTrade = true;
-                console.log("current bot is a price trader, is Selling.");
-            };           
-            /*            
-            self.offerPrice = parseFloat(marketPriceInput) + 2;
-            self.orderType = 'BUY';
-            self.urgency = 10;
-            self.lookingForTrade = true;
-            console.log("current market price is a price trader"); 
-            */            
+                console.log("********** priceTrader is Selling.**********");
+            };            
         break;
         
         //find empty bots

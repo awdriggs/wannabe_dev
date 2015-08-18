@@ -181,7 +181,7 @@
 					</div>
 
 					<div class="field">
-						<label for="trend">Trend Tolerance</label>
+						<label for="trend">Step Size Tolerance</label>
 						<div id="trend">0</div>
 					</div>
 					<div class='trend-slider'>
@@ -208,12 +208,14 @@
 
 	<template id="current_user">
 		<div id="current_user_info">
-			<h2>Company</h2>
-			<p>smell corporation</p>
-			<h2>Balance</h2>
-			<p>$1,000,000</p>
-			<h2>Profit</h2>
-			<p>+200</p>
+			<div id="info">
+				<h2>Company</h2>
+				<p>smell corporation</p>
+				<h2>Balance</h2>
+				<p>$1,000,000</p>
+				<h2>Profit</h2>
+				<p>+200</p>
+			</div>
 			
 			<div id="edit_area">
 				<div class="form">
@@ -229,7 +231,11 @@
 			<div id="my_bots">
 				<!-- bots? hb -->
 				<h2>My Bots</h2>
-
+				<ul>
+					<li class='my_bot'>bot 1</li>
+					<li class='my_bot'>bot 2</li>
+					<li class='my_bot'>bot 3</li>
+				</ul>
 			</div>
 
 			<div id="logout" class="form">
