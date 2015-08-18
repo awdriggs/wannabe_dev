@@ -153,7 +153,27 @@ body{
 		h2{
 			text-align: left;
 			margin: 1rem;
+			border-bottom: $red solid 1px;
+			line-height: 4rem;
 		}
+		
+		ul{
+			list-style: none;
+		}
+
+		li{
+			font-family: $body-font;
+			font-size: 2rem;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		#info p{
+			text-align: right;
+			margin-right: 2rem;
+		}
+
+
 	}
 }
 
