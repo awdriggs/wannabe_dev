@@ -9,6 +9,7 @@ $(function() {
     $('#input_ui').on('click', '#login_button', login);
     $('#input_ui').on('click', '#signup_button', signup);
     $('#input_ui').on('click', '#new_bot', newBot);
+    $('#input_ui').on('click', '.my_bot', lookAtBot);
     
 })
 
@@ -193,4 +194,8 @@ var clearNewBot = function(){
     console.log('cancel clicked')
     $('#input_ui').empty();
         App.currentUserInfo = new App.Views.CurrentUserInfoView();
+}
+
+var lookAtBot = function(){
+    console.log('look at this bot');
 }
