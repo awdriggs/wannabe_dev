@@ -34,6 +34,14 @@ module.exports.controller = function (app) {
 	    });
 	});
 
+	//    models.bots.findOne( {where: { botname: 'string'}} ).then(function (result) {
+	//     	result.update({ balance: integer, quantity: integer }).then(function (updatedResult) {
+	//             res.json(updatedResult);
+	//         });
+	//    });
+
+	// {balance: , quantity: }
+
 	// BOT DELETE
 	app.delete ('/api/bots/:id', function (req, res) {
 		models.bots.findById( req.params.id ).then(function (result) {
