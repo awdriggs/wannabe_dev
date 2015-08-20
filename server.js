@@ -31,6 +31,7 @@ var SIM = {
     botArray: [],
     marketMakerBot: null,
     makeBots: function (initBotinfo, initStockinfo) {
+        //loop though info from database to create bots inside of sim
         for (var b = 0; b < initBotinfo.length; b++) {
             var currentBot = new traderMaker(initBotinfo[b].id, initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude, initBotinfo[b].active);
                 this.botArray.push(currentBot);
@@ -56,26 +57,28 @@ var SIM = {
     },
     stocksOutInfo: {},
     packageStock: function () {
+        //loop though all stock update stock prices from market maker's attr
         var stocks = this.marketMakerBot.marketStockListing;
         for (var c = 0; c < stocks.length; c++) {
             var keyStr = String(stocks[c].name);
             this.stocksOutInfo[keyStr] = stocks[c].price;
         };
     },
-    stockId: 777,
+    //set stock id because on stock name
     stockIdFinder: function (stockNameInput) {
-        if (stockNameInput == '$GOOG') { 
-            this.stockId = 1;
-        }else if (stockNameInput == '$AAPL') { 
-            this.stockId = 2;
-        }else if (stockNameInput == '$FB') { 
-            this.stockId = 3;
-        }else if (stockNameInput == '$AMZN') { 
-            this.stockId = 4;
-        }else if (stockNameInput == '$TWTR') { 
-            this.stockId = 5;
-        }else if (stockNameInput == '$MSFT') { 
-            this.stockId = 6; 
+        var stockStr = String(stockNameInput);
+        if (stockStr == '$GOOG') { 
+            return 1;
+        }else if (stockStr == '$AAPL') { 
+            return 2;
+        }else if (stockStr == '$FB') { 
+            return 3;
+        }else if (stockStr == '$AMZN') { 
+            return 4;
+        }else if (stockStr == '$TWTR') { 
+            return 5;
+        }else if (stockStr == '$MSFT') { 
+            return 6; 
         };
     }
 };
@@ -192,10 +195,10 @@ var twitterModule = require('./twitter_module');
 var tweetArray = [];
 
 //save to db end updateStock
-var updateStock = function (stockparams) {
-    models.stocks.findOne({ where: { id: stockparams.id }}).then(function (result) {
-            result.update ( stockparams );
-            console.log('stock price updated');
+var updateStock = function (stockId, stockPrice) {
+    models.stocks.findOne({ where: { id: stockId }}).then(function (result) {
+            result.update ({ price: stockPrice });
+            console.log('stock price updated in db.');
     });
 };
 
@@ -242,15 +245,15 @@ client.stream('statuses/filter', {
                         //grab stock info from marketMaker
                         var currentStockName = SIM.marketMakerBot.currentTradeStockName;
                         var currentStockPrice = SIM.marketMakerBot.currentTradeStockPrice;
-                        console.log(currentStockName + " will update to price of " + currentStockPrice + " in database.");
-
-                        SIM.stockIdFinder(currentStockName);
-                        console.log("current stock id is..." + SIM.stockId);
+                        var currentStockId = SIM.stockIdFinder(currentStockName);
+                        //update stock prices in databse
+                        //console.log("current stock id " + currentStockId);
+                        updateStock(currentStockId, currentStockPrice);
                         
-                        //debugger;
-                        //updateBot( parseInt(SIM.botArray[u].id), newbal, parseInt(SIM.botArray[u].quantity));
-                        //update buyer bot
-                        //update seller bot
+                        //update bot in database who just traded in database
+                        updateBot(SIM.marketMakerBot.currentTraderPairId[0].id, SIM.marketMakerBot.currentTraderPairId[0].balance, SIM.marketMakerBot.currentTraderPairId[0].quantity);
+                        updateBot(SIM.marketMakerBot.currentTraderPairId[1].id, SIM.marketMakerBot.currentTraderPairId[1].balance, SIM.marketMakerBot.currentTraderPairId[1].quantity);
+
                     };
                     
                 });
