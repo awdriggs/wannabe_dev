@@ -9,7 +9,7 @@ console.log('marketMakerConstructor loaded...')
 	this.marketTraderWrap = 9000;
 	this.marketTraderTradeCount = 0;
 	this.marketTraderTradeReport = {};
-	//current trade attr
+	//current trade attr so outsider can grab that info
 	this.currentTradeStockName = null;
 	this.currentTradeStockPrice = null;
 	//current twitter update session, reset after a trade cycle
@@ -170,7 +170,8 @@ console.log('marketMakerConstructor loaded...')
 		// stock change hands
 		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
 		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
-
+		console.log(pairedUpTraders[0].quantity + " <<<<<<<<<<");
+		console.log(pairedUpTraders[1].quantity + " <<<<<<<<<<");
 		// sit bots after trading
 		pairedUpTraders[0].chill();
 		pairedUpTraders[1].chill();
@@ -209,7 +210,7 @@ console.log('marketMakerConstructor loaded...')
 			// reports current market state at start of twitter update
 			console.log("There are " + (self.marketStockListing.length)  + " stocks in db.");
 
-			// main simulation logic starts
+			// let market maker bot know watsup
 			self.discover(twitterUpdates); 
 
 			//report stock names and prices 
@@ -226,7 +227,7 @@ console.log('marketMakerConstructor loaded...')
 		});
 	};
 	/*
-	// watch to see any change happenes to stock market price
+	// watch to see any change happenes to stock market price, set off more trade based on that
 	Object.observe(self, function(changes) {
 		console.log("Stock market price has changed...to" + changes.object.marketMakersPrice);
 	});	

@@ -7,8 +7,8 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
 		
         // basic marketBuyer bot will always buy but at lowest urgency
         case 'marketBuyer':
-            //console.log (marketPrice + ' is the current price ' + self.name + ' can see.')
-            self.offerPrice = parseFloat(marketPriceInput);
+            //always will buy but, buy at a lower price
+            self.offerPrice = parseFloat(marketPriceInput) - 1;
             self.orderType = 'BUY';
             self.lookingForTrade = true;
             self.urgency = 0;
@@ -17,7 +17,8 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
 
 	    // basic marketBuyer bot will always buy but at lowest urgency
 	    case 'marketSeller':
-            self.offerPrice = parseFloat(marketPriceInput);
+            //always will sell but, sell at a higher price
+            self.offerPrice = parseFloat(marketPriceInput) + 1;
             self.orderType = 'SELL';
             self.lookingForTrade = true;
             self.urgency = 0;
@@ -70,7 +71,7 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
               
         // basic price trader bot will trade following price movements
         case 'priceTrader':
-            //testing user inputed bots
+            // testing user inputed bots risk tol: 10, attiude: 10, setpsize: 0
             if ( newTrendVal >= 4 ) {
                 self.offerPrice = parseFloat(marketPriceInput) + 1;
                 self.orderType = 'BUY';
@@ -86,7 +87,6 @@ var tradeLogic = function (botChar, self, marketPriceInput, newTrendVal) {
                 console.log("********** priceTrader is Selling.**********");
             };            
         break;
-        
         //find empty bots
 	    default:
 			console.log("Woah dis bot has no characteristics contact someone right away!");
