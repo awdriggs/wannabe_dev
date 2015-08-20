@@ -32,8 +32,9 @@ var SIM = {
     marketMakerBot: null,
     makeBots: function (initBotinfo, initStockinfo) {
         for (var b = 0; b < initBotinfo.length; b++) {
-            var currentBot = new traderMaker(initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude, initBotinfo[b].active)
+            var currentBot = new traderMaker(initBotinfo[b].id, initBotinfo[b].botname, initBotinfo[b].balance, initBotinfo[b].character, initBotinfo[b].quantity, initBotinfo[b].stockinterest, initBotinfo[b].riskTolerance, initBotinfo[b].stepSize, initBotinfo[b].attitude, initBotinfo[b].active);
                 this.botArray.push(currentBot);
+                //console.log(currentBot);
         };
         this.marketMakerBot = new marketMaker(this.botArray, initStockinfo); 
     },
@@ -96,6 +97,7 @@ var getStocksAndBots = function () {
             console.log(SIM.botArray.length + ' is current array size.')
 
             //stockPricesAry.push(result.price)
+            console.log(botsresult);
             SIM.makeBots(botsresult, stocksresult);
             SIM.openMarket(twitterTrend);
 
@@ -198,8 +200,8 @@ var updateStock = function (stockparams) {
 };
 
 //update bot in db after each trade
-var updateBot = function (botNameInput, balanceInput, quantityInput ) {
-    models.bots.findOne( {where: { botname: botNameInput }} ).then(function (result) {
+var updateBot = function (botId, balanceInput, quantityInput ) {
+    models.bots.findOne( {where: { id: botId }} ).then(function (result) {
         result.update({ balance: balanceInput, quantity: quantityInput 
         });
    }); 
@@ -245,8 +247,8 @@ client.stream('statuses/filter', {
                         SIM.stockIdFinder(currentStockName);
                         console.log("current stock id is..." + SIM.stockId);
                         
-                        debugger;
-                        //updateBot( SIM.botArray[0].name, 1234, 666);
+                        //debugger;
+                        //updateBot( parseInt(SIM.botArray[u].id), newbal, parseInt(SIM.botArray[u].quantity));
                         //update buyer bot
                         //update seller bot
                     };

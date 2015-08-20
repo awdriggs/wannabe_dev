@@ -1,11 +1,12 @@
 var tradeLogic = require('./tradeLogic.js');
 
 // |Trader| Constructor
-var Trader = function (assignName, assignStartBal, assignTradeChar, assignQuantity, assignStockInterest, assignMode, assignTolerance, assignStepSize, assignAttitude) {
+var Trader = function (assignId, assignName, assignStartBal, assignTradeChar, assignQuantity, assignStockInterest, assignMode, assignTolerance, assignStepSize, assignAttitude) {
 
 	console.log('traderConstructor loaded...')
 	//trader init state
 	var self = this;
+	this.id = assignId;
 	this.name = assignName;
 	this.balance = assignStartBal;
 	this.character = assignTradeChar;
