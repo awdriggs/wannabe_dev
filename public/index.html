@@ -19,6 +19,9 @@
 <body>
 	<div id="left_side">
 		<h1>StockBot</h1>
+		
+		<div id="update"></div>
+
 		<div id="input_ui">
 		
 		</div>
@@ -323,8 +326,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>	
 	<script src="/javascript/backbone/app.js"></script>
-	<script src="/javascript/backbone/user_auth.js"></script>
 
+	<!-- this takes off the script for user sessions -->
+	<!-- <script src="/javascript/backbone/user_auth.js"></script>-->
+	<script src="javascript/backbone/tempUserUI.js"></script>
+	
 	<!-- BACKBONE FILES -->
 	<!-- Stocks -->
 	<script src="/javascript/backbone/views/stocksView.js"></script>

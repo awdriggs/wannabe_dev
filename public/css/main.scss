@@ -28,7 +28,7 @@ body{
 	font-family: $title-font;
 	margin-top: -10px;
 	padding-bottom: 10px;
-	min-width: 30%;
+	width: 30%;
 	background-color: $navy;
 	color: $red;
 	float: left;
@@ -175,6 +175,13 @@ body{
 
 
 	}
+	
+	#update{
+		font-size: 2rem;
+    	padding: 1rem;
+    	font-family: $body-font;
+	}
+	    
 }
 
 // MAIN CONTENT ////////////////////////////////////////////////////////////////////////
@@ -290,7 +297,9 @@ body{
 	margin-right: 3%;
 	margin-top: 3%;
 
-	min-height: 500px;
+	height: 525px;
+	overflow-y: scroll;
+
 	padding: 10px;
 	width: 44%;
 	background-color: $light-green;

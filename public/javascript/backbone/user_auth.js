@@ -1,3 +1,8 @@
+//this file is being unlinked from index.html temporarily so that a user will see the new bot form immediately.
+//we are making this change because we haven't flushed out the user sessions and user views.
+//to activate sessions sign-on again, go to index to remove the commented out reference.
+//also change the el in CurrentUserView
+
 console.log('test loaded')
 
 $(function() {
