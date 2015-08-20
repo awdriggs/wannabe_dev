@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var bots = sequelize.define('bots', {
     botname: DataTypes.STRING,
-    balance: DataTypes.INTEGER,
+    balance: DataTypes.NUMERIC,
     character: DataTypes.STRING,
     stockinterest: DataTypes.STRING,
     quantity: DataTypes.INTEGER,

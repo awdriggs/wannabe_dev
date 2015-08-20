@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       balance: {
-        type: Sequelize.INTEGER
+        type: Sequelize.NUMERIC
       },
       character: {
         type: Sequelize.STRING
