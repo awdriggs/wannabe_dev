@@ -4,7 +4,7 @@ module.exports.controller = function (app) {
 
 	// BOTS INDEX
 	app.get('/api/bots', function (req, res) {
-		models.bots.findAll().then(function (result) {
+		models.bots.findAll({ order: [[ "id", 'DESC']] }).then(function (result) {
 			res.json(result);
 		});
 	});
