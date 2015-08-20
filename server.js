@@ -206,7 +206,7 @@ var reportCount = null;
 
 //this connects the server to the twitter api
 client.stream('statuses/filter', {
-    track: '$goog, $aapl, $fb, $amzm, $twtr, $msft'
+    track: '$goog, $aapl, $fb, $amzn, $twtr, $msft'
 }, function(stream) {
 
         stream.on('data', function(tweet) {
