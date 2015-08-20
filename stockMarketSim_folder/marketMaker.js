@@ -10,6 +10,7 @@ console.log('marketMakerConstructor loaded...')
 	this.marketTraderTradeCount = 0;
 	this.marketTraderTradeReport = {};
 	//current trade attr so outsider can grab that info
+	this.currentTraderPairId = [];
 	this.currentTradeStockName = null;
 	this.currentTradeStockPrice = null;
 	//current twitter update session, reset after a trade cycle
@@ -89,6 +90,7 @@ console.log('marketMakerConstructor loaded...')
 			var sellerUrgency = -1;
 			var pair = [];
 			// reset for each new trade
+			self.currentTraderPairId = [];
 			self.currentTradeStockName = null;
 			self.currentTradeStockPrice = null;
 
@@ -112,9 +114,9 @@ console.log('marketMakerConstructor loaded...')
 				};
 			};
 
-			pair = [buyer, seller];
-			// sends of the traders to settle trade
 			console.log("We got ourselves a trade!");
+			// sends of the traders to settle trade
+			pair = [buyer, seller];
 			//settle the trade between the pair
 			var newStockPrice = self.settle(pair, self.stockOfInterestPrice[t], self.stockOfInterestName[t]);
 			console.log(self.stockOfInterestName[t] + " after trade price is ---------->" + newStockPrice);
@@ -122,6 +124,7 @@ console.log('marketMakerConstructor loaded...')
 			//set price of stock after the trade
 			self.setStockPrice(self.stockOfInterestName[t], newStockPrice);
 			//update marketMaker bot attr 
+			self.currentTraderPairId = [buyer, seller];
 			self.currentTradeStockName = self.stockOfInterestName[t];
 			self.currentTradeStockPrice = newStockPrice;
 
@@ -165,13 +168,20 @@ console.log('marketMakerConstructor loaded...')
 		};
 
 		// money change hands
-		pairedUpTraders[0].balance = pairedUpTraders[0].balance - settleUptonPrice;
-		pairedUpTraders[1].balance = pairedUpTraders[1].balance + settleUptonPrice;
+		pairedUpTraders[0].balance = parseFloat(pairedUpTraders[0].balance) - parseFloat(settleUptonPrice);
+		pairedUpTraders[1].balance = parseFloat(pairedUpTraders[1].balance) + parseFloat(settleUptonPrice);
+		if (pairedUpTraders[0].balance == NaN || pairedUpTraders[0].balance < 1) {
+			pairedUpTraders[0].balance = 0;
+		};
+		if (pairedUpTraders[1].balance == NaN || pairedUpTraders[1].balance < 1) {
+			pairedUpTraders[1].balance = 0;
+		};
 		// stock change hands
 		pairedUpTraders[0].quantity = pairedUpTraders[0].quantity + 1;
 		pairedUpTraders[1].quantity = pairedUpTraders[1].quantity - 1;
-		console.log(pairedUpTraders[0].quantity + " <<<<<<<<<<");
-		console.log(pairedUpTraders[1].quantity + " <<<<<<<<<<");
+		//console.log(pairedUpTraders[0].quantity + " <<<<<<<<<<");
+		//console.log(pairedUpTraders[1].quantity + " <<<<<<<<<<");
+		
 		// sit bots after trading
 		pairedUpTraders[0].chill();
 		pairedUpTraders[1].chill();
