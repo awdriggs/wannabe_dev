@@ -10,7 +10,7 @@ body {
   font-family: "Fredoka One", sans-serif;
   margin-top: -10px;
   padding-bottom: 10px;
-  min-width: 30%;
+  width: 30%;
   background-color: #102542;
   color: #d95141;
   float: left;
@@ -107,6 +107,10 @@ body {
   #left_side #input_ui #info p {
     text-align: right;
     margin-right: 2rem; }
+  #left_side #update {
+    font-size: 2rem;
+    padding: 1rem;
+    font-family: "Ruda", sans-serif; }
 
 #content_wrapper {
   background-color: #ebe1c8;
@@ -182,7 +186,8 @@ body {
   float: right;
   margin-right: 3%;
   margin-top: 3%;
-  min-height: 500px;
+  height: 525px;
+  overflow-y: scroll;
   padding: 10px;
   width: 44%;
   background-color: #99cc66;
