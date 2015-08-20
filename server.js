@@ -189,16 +189,21 @@ var twitterModule = require('./twitter_module');
 
 var tweetArray = [];
 
-//save to db
+//save to db end updateStock
 var updateStock = function (stockparams) {
     models.stocks.findOne({ where: { id: stockparams.id }}).then(function (result) {
             result.update ( stockparams );
             console.log('stock price updated');
     });
-    
-    console.log("THIS is NODE price..." +  SIM.marketMakerBot.marketMakersPrice);
-}; // end updateStock
+};
 
+//update bot in db after each trade
+var updateBot = function (botNameInput, balanceInput, quantityInput ) {
+    models.bots.findOne( {where: { botname: botNameInput }} ).then(function (result) {
+        result.update({ balance: balanceInput, quantity: quantityInput 
+        });
+   }); 
+};
 
 //
 var tradeCount = null;
@@ -240,8 +245,10 @@ client.stream('statuses/filter', {
                         SIM.stockIdFinder(currentStockName);
                         console.log("current stock id is..." + SIM.stockId);
                         
-                        //update stock prices
-                        updateStock({ id: SIM.stockId, price: currentStockPrice });
+                        debugger;
+                        //updateBot( SIM.botArray[0].name, 1234, 666);
+                        //update buyer bot
+                        //update seller bot
                     };
                     
                 });
