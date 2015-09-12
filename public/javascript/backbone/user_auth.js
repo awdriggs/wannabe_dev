@@ -19,30 +19,30 @@ $(function() {
 })
 
 var getSession = function() {
-    $.ajax("/session", {
+    $.ajax("/login", {
         type: "GET",
         dataType: "json",
-        success: function(result) {
-            console.log(result)
+        // success: function(result) {
+        //     console.log(result)
 
-            if (result.name == null || result.name == undefined) {
-                $('#input_ui').empty();
-                //show the user input template
-                App.loginView = new App.Views.LoginView();
+        //     if (result.name == null || result.name == undefined) {
+        //         $('#input_ui').empty();
+        //         //show the user input template
+        //         App.loginView = new App.Views.LoginView();
 
-                return false;
-            } else {
-                App.Session = result; //this makes the session info live globally!
-                console.log('we have a user')
-                $('#input_ui').empty();
-                App.currentUserInfo = new App.Views.CurrentUserInfoView();
+        //         return false;
+        //     } else {
+        //         App.Session = result; //this makes the session info live globally!
+        //         console.log('we have a user')
+        //         $('#input_ui').empty();
+        //         App.currentUserInfo = new App.Views.CurrentUserInfoView();
 
-                return true;
-            }
-        },
-        error: function() {
-            console.log(result)
-        }
+        //         return true;
+        //     }
+        // },
+        // error: function() {
+        //     console.log(result)
+        // }
     });
 }
 
