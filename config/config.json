@@ -14,10 +14,12 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": null,
-    "password": null,
-    "database": "stockbot_app_production",
-    "host": "127.0.0.1",
+    "use_env_variable": "USERNAME",
+    "use_env_variable": "PASSWORD",
+    "use_env_variable": "DATABASE",
+    "use_env_variable": "HOST",
+    "use_env_variable": "PORT",
+    "protocol":"postgres",
     "dialect": "postgres"
   }
 }
