@@ -15,12 +15,12 @@
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
-    "use_env_variable": "USERNAME",
-    "use_env_variable": "PASSWORD",
-    "use_env_variable": "DATABASE",
-    "use_env_variable": "HOST",
-    "use_env_variable": "PORT",
-    "protocol":"postgres",
-    "dialect": "postgres"
+    // "use_env_variable": "USERNAME",
+    // "use_env_variable": "PASSWORD",
+    // "use_env_variable": "DATABASE",
+    // "use_env_variable": "HOST",
+    // "use_env_variable": "PORT",
+    // "protocol":"postgres",
+    // "dialect": "postgres"
   }
 }
