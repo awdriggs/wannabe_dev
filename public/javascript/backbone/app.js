@@ -33,35 +33,35 @@ $(function() {
     });
 
 
-    $('#showusers').click(function() {
-        $('#container').empty();
-        // $('#bots-container').empty();
-        // $('#stocks-container').empty();
-        // $('#companies-container').empty();
-        // $('#users-container').empty();
-        App.users = new App.Collections.Users;
-        App.usersView = new App.Views.UsersView({
-            collection: App.users
-        })
-        App.users.fetch({
-            reset: true
-        });
-    })
+    // $('#showusers').click(function() {
+    //     $('#container').empty();
+    //     // $('#bots-container').empty();
+    //     // $('#stocks-container').empty();
+    //     // $('#companies-container').empty();
+    //     // $('#users-container').empty();
+    //     App.users = new App.Collections.Users;
+    //     App.usersView = new App.Views.UsersView({
+    //         collection: App.users
+    //     })
+    //     App.users.fetch({
+    //         reset: true
+    //     });
+    // })
 
-    $('#showcompanies').click(function() {
-        $('#container').empty();
-        // $('#companies-container').empty();
-        // $('#stocks-container').empty();
-        // $('#bots-container').empty();
-        // $('#users-container').empty();
-        App.companies = new App.Collections.Companies;
-        App.companiesView = new App.Views.CompaniesView({
-            collection: App.companies
-        })
-        App.companies.fetch({
-            reset: true
-        });
-    })
+    // $('#showcompanies').click(function() {
+    //     $('#container').empty();
+    //     // $('#companies-container').empty();
+    //     // $('#stocks-container').empty();
+    //     // $('#bots-container').empty();
+    //     // $('#users-container').empty();
+    //     App.companies = new App.Collections.Companies;
+    //     App.companiesView = new App.Views.CompaniesView({
+    //         collection: App.companies
+    //     })
+    //     App.companies.fetch({
+    //         reset: true
+    //     });
+    // })
 
     $('#showbots').click(function() {
         $('#container').empty();
