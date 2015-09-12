@@ -1,26 +1,39 @@
+// {
+//   "development": {
+//     "username": null,
+//     "password": null,
+//     "database": "stockbot_app_development",
+//     "host": "127.0.0.1",
+//     "dialect": "postgres"
+//   },
+//   "test": {
+//     "username": null,
+//     "password": null,
+//     "database": "stockbot_app_test",
+//     "host": "127.0.0.1",
+//     "dialect": "postgres"
+//   },
+//   "production": {
+//     "use_env_variable": "DATABASE_URL",
+//     "use_env_variable": "USERNAME",
+//     "use_env_variable": "PASSWORD",
+//     "use_env_variable": "DATABASE",
+//     "use_env_variable": "HOST",
+//     "use_env_variable": "PORT",
+//     "protocol":"postgres",
+//     "dialect": "postgres"
+//   }
+// }
+
 {
   "development": {
     "username": null,
     "password": null,
-    "database": "stockbot_app_development",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": null,
-    "password": null,
-    "database": "stockbot_app_test",
+    "database": "my_suite_app_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "use_env_variable": "USERNAME",
-    "use_env_variable": "PASSWORD",
-    "use_env_variable": "DATABASE",
-    "use_env_variable": "HOST",
-    "use_env_variable": "PORT",
-    "protocol":"postgres",
-    "dialect": "postgres"
+    "use_env_variable": "DATABASE_URL"
   }
 }
