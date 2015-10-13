@@ -64,6 +64,7 @@ var SIM = {
             this.stocksOutInfo[keyStr] = stocks[c].price;
         };
     },
+    //test test
     //set stock id because on stock name
     stockIdFinder: function (stockNameInput) {
         var stockStr = String(stockNameInput);
